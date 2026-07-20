@@ -31,25 +31,82 @@ const ACCEPTED_TYPES = ["image/jpeg", "image/jpg", "image/png"];
 let model = null;
 let currentObjectUrl = null;
 
-// ---- Landing gate ----
+// ---- Access gate ----
+//
+// NOTE: this is a soft, client-side gate. The access code below is visible to
+// anyone who reads the page source, so it is suitable for gating a demo and
+// routing paying customers — not for real security. To make it secure, verify
+// the code on a serverless function instead of in the browser.
+const ACCESS_CODE = "soothenote123";
+const UNLOCK_KEY = "cathra_unlocked";
+
 const landing = document.getElementById("landing");
+const paywall = document.getElementById("paywall");
 const tool = document.getElementById("tool");
 const btnOpen = document.getElementById("btn-open");
 const homeLink = document.getElementById("home-link");
+const paywallBack = document.getElementById("paywall-back");
+const btnPay = document.getElementById("btn-pay");
+const payContact = document.getElementById("pay-contact");
+const accessInput = document.getElementById("access-code");
+const btnUnlock = document.getElementById("btn-unlock");
+const unlockError = document.getElementById("unlock-error");
+
+function isUnlocked() {
+  try { return localStorage.getItem(UNLOCK_KEY) === "1"; } catch (e) { return false; }
+}
+function rememberUnlocked() {
+  try { localStorage.setItem(UNLOCK_KEY, "1"); } catch (e) { /* ignore */ }
+}
+
+function showScreen(el) {
+  [landing, paywall, tool].forEach((s) => { s.hidden = s !== el; });
+  window.scrollTo({ top: 0, behavior: "auto" });
+}
 
 function openTool() {
-  landing.hidden = true;
-  tool.hidden = false;
+  showScreen(tool);
   resetToUpload();
-  window.scrollTo({ top: 0, behavior: "auto" });
 }
 function goHome() {
-  tool.hidden = true;
-  landing.hidden = false;
-  window.scrollTo({ top: 0, behavior: "auto" });
+  showScreen(landing);
 }
-btnOpen.addEventListener("click", openTool);
+
+// "Open the tool": paid/unlocked users skip straight in, otherwise show paywall.
+btnOpen.addEventListener("click", () => {
+  if (isUnlocked()) {
+    openTool();
+  } else {
+    unlockError.hidden = true;
+    accessInput.value = "";
+    payContact.hidden = true;
+    showScreen(paywall);
+  }
+});
+
 homeLink.addEventListener("click", (e) => { e.preventDefault(); goHome(); });
+paywallBack.addEventListener("click", goHome);
+
+// Reveal the contact-to-pay details.
+btnPay.addEventListener("click", () => {
+  payContact.hidden = false;
+  payContact.scrollIntoView({ block: "nearest", behavior: "smooth" });
+});
+
+// Unlock with the access code.
+function tryUnlock() {
+  if (accessInput.value.trim() === ACCESS_CODE) {
+    rememberUnlocked();
+    unlockError.hidden = true;
+    openTool();
+  } else {
+    unlockError.hidden = false;
+    accessInput.focus();
+    accessInput.select();
+  }
+}
+btnUnlock.addEventListener("click", tryUnlock);
+accessInput.addEventListener("keydown", (e) => { if (e.key === "Enter") tryUnlock(); });
 
 // ---- Element refs ----
 const views = {

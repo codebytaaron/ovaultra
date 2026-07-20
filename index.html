@@ -60,6 +60,61 @@
       </div>
     </section>
 
+    <!-- ============ PAYWALL / ACCESS ============ -->
+    <section id="paywall" class="screen" hidden>
+      <button class="back-link" id="paywall-back" type="button">← Back</button>
+      <p class="eyebrow">Licensed access</p>
+      <h1 class="pw-title">Cathra is a licensed research prototype.</h1>
+      <p class="landing-lead">
+        Access is licensed to organizations — schools, university researchers, startups, and
+        clinics — as a custom, research-only AI prototype. It is not sold to patients and is not
+        a cancer test. If your organization is licensed, enter your access code below.
+      </p>
+
+      <div class="price-card">
+        <div class="price-head">
+          <div>
+            <span class="price-big">$750</span>
+            <span class="price-unit">one-time setup</span>
+          </div>
+          <span class="price-plus">+</span>
+          <div>
+            <span class="price-big">$99</span>
+            <span class="price-unit">per month</span>
+          </div>
+        </div>
+
+        <ul class="price-list">
+          <li>Branded website</li>
+          <li>Your organization’s logo</li>
+          <li>Image upload and results screen</li>
+          <li>Browser-based processing</li>
+          <li>Hosting</li>
+          <li>Basic updates and support</li>
+          <li>Research-only labeling</li>
+        </ul>
+
+        <button id="btn-pay" class="btn btn-dark btn-lg btn-block" type="button">Request access</button>
+        <div id="pay-contact" class="pay-contact" hidden>
+          <p>To license Cathra for your organization, email
+            <a href="mailto:paultaaron@icloud.com?subject=Cathra%20licensing%20inquiry">paultaaron@icloud.com</a>.
+            Include your organization name and how you plan to use it. You’ll receive an access code.</p>
+        </div>
+      </div>
+
+      <div class="unlock">
+        <label class="unlock-label" for="access-code">Already licensed? Enter your access code</label>
+        <div class="unlock-row">
+          <input id="access-code" class="unlock-input" type="password" autocomplete="off"
+                 placeholder="Access code" aria-label="Access code" />
+          <button id="btn-unlock" class="btn btn-dark" type="button">Unlock</button>
+        </div>
+        <p id="unlock-error" class="unlock-error" role="alert" hidden>That code isn’t valid. Please check and try again.</p>
+      </div>
+
+      <p class="pw-note">Research and educational use only. Not a diagnostic tool.</p>
+    </section>
+
     <!-- ============ TOOL ============ -->
     <section id="tool" class="screen" hidden>
 
