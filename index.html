@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Cathra AI — a research and educational demonstration that compares an uploaded ovarian ultrasound image against learned normal and abnormal appearance patterns. Not a diagnostic tool." />
+  <title>Cathra AI — Ovarian Ultrasound Pattern Research Demo</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%94%AC%3C/text%3E%3C/svg%3E" />
+</head>
+<body>
+  <!-- Top research banner -->
+  <div class="research-banner" role="note">
+    <span class="pill">RESEARCH PROTOTYPE</span>
+    <span>Educational demonstration only — not a medical device and not for diagnosis.</span>
+  </div>
+
+  <header class="site-header">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">🔬</span>
+      <div>
+        <span class="brand-name">Cathra AI</span>
+        <span class="brand-sub">Ovarian Ultrasound Pattern Research</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero / intro -->
+    <section class="hero card">
+      <h1>Comparing ultrasound patterns, for research.</h1>
+      <p class="lead">
+        Cathra AI is a research and educational demonstration. It takes an
+        <strong>ovarian ultrasound image that already exists</strong> — one captured with medical
+        ultrasound equipment — and compares its visual pattern against two categories the model
+        learned during training: a <em>normal ovarian appearance</em> and an
+        <em>abnormal ovarian appearance</em>.
+      </p>
+      <p>
+        The result is a <strong>similarity score</strong> for each category, not a medical finding.
+        An "abnormal-pattern" result can reflect entirely non-cancerous conditions such as a
+        polycystic ovarian appearance, simple cysts, or complex cysts. A complex cyst or an
+        abnormal result <strong>does not mean cancer</strong>.
+      </p>
+
+      <div class="how-row" aria-label="How it works">
+        <div class="how-step">
+          <span class="how-num">1</span>
+          <p>Upload an existing ovarian ultrasound image (JPG or PNG).</p>
+        </div>
+        <div class="how-step">
+          <span class="how-num">2</span>
+          <p>The model resizes and analyzes it entirely inside your browser.</p>
+        </div>
+        <div class="how-step">
+          <span class="how-num">3</span>
+          <p>You see two similarity scores and the higher-scoring category.</p>
+        </div>
+      </div>
+
+      <p class="privacy-note">
+        🔒 <strong>Your image never leaves your device.</strong> Analysis runs locally in your
+        browser. The image is not uploaded, saved, transmitted, logged, or stored.
+      </p>
+    </section>
+
+    <!-- Workspace -->
+    <section class="card workspace" aria-live="polite">
+
+      <!-- Upload -->
+      <div id="view-upload" class="view">
+        <h2>Analyze an ultrasound image</h2>
+        <label id="dropzone" class="dropzone" for="file-input">
+          <input id="file-input" type="file" accept="image/jpeg,image/jpg,image/png" hidden />
+          <span class="dz-icon" aria-hidden="true">⬆️</span>
+          <span class="dz-title">Tap to choose an image, or drag it here</span>
+          <span class="dz-sub">Accepts JPG, JPEG, and PNG</span>
+        </label>
+        <p id="file-error" class="file-error" role="alert" hidden></p>
+      </div>
+
+      <!-- Preview + analyze -->
+      <div id="view-preview" class="view" hidden>
+        <h2>Confirm your image</h2>
+        <div class="preview-wrap">
+          <img id="preview-img" alt="Preview of the ultrasound image you selected" />
+        </div>
+        <div class="btn-row">
+          <button id="btn-analyze" class="btn btn-primary" type="button">Analyze Research Image</button>
+          <button id="btn-change" class="btn btn-ghost" type="button">Choose a different image</button>
+        </div>
+      </div>
+
+      <!-- Loading -->
+      <div id="view-loading" class="view view-center" hidden>
+        <div class="spinner" aria-hidden="true"></div>
+        <p id="loading-text" class="loading-text">Loading model…</p>
+        <p class="loading-sub">Everything is running privately in your browser.</p>
+      </div>
+
+      <!-- Results -->
+      <div id="view-results" class="view" hidden>
+        <h2>Research result</h2>
+
+        <div id="verdict" class="verdict">
+          <span id="verdict-label" class="verdict-label"></span>
+          <span class="verdict-tag">Higher similarity score</span>
+        </div>
+
+        <div class="scores">
+          <div class="score">
+            <div class="score-top">
+              <span class="score-name">Normal-pattern similarity</span>
+              <span id="score-normal-val" class="score-val">0%</span>
+            </div>
+            <div class="meter"><div id="bar-normal" class="bar bar-normal"></div></div>
+          </div>
+          <div class="score">
+            <div class="score-top">
+              <span class="score-name">Abnormal-pattern similarity</span>
+              <span id="score-abnormal-val" class="score-val">0%</span>
+            </div>
+            <div class="meter"><div id="bar-abnormal" class="bar bar-abnormal"></div></div>
+          </div>
+        </div>
+
+        <p class="score-explainer">
+          These percentages are the model's <strong>visual similarity scores</strong> — how closely
+          the uploaded image resembles each learned pattern. They are <strong>not</strong> the
+          probability that a person has any medical condition.
+        </p>
+
+        <div class="btn-row">
+          <button id="btn-again" class="btn btn-primary" type="button">Try Another Image</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Permanent disclaimer -->
+    <section class="disclaimer card" role="note" aria-label="Medical disclaimer">
+      <h3>⚠️ Medical disclaimer</h3>
+      <p>
+        Research and educational demonstration only. This tool does not diagnose, detect, confirm,
+        or rule out ovarian cancer or any other medical condition. Results must not be used for
+        medical decisions. Ultrasound images must be reviewed by a qualified medical professional.
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p><strong>Cathra AI</strong> · Research prototype · Runs entirely in your browser</p>
+    <p class="footer-fine">No images are uploaded, saved, transmitted, logged, or stored.</p>
+  </footer>
+
+  <!-- TensorFlow.js + Teachable Machine image library (pinned, known-compatible) -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.21.0/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8.5/dist/teachablemachine-image.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
