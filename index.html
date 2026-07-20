@@ -12,7 +12,6 @@
 <body>
   <header class="topbar">
     <a class="wordmark" href="#" id="home-link">Cathra</a>
-    <span class="topbar-note">Research demo</span>
   </header>
 
   <main>
@@ -20,21 +19,42 @@
     <!-- ============ LANDING ============ -->
     <section id="landing" class="screen">
       <div class="landing-inner">
-        <p class="eyebrow">Ovarian ultrasound pattern research</p>
-        <h1>Compare an ultrasound image against learned patterns.</h1>
+        <p class="eyebrow">Ovarian ultrasound pattern tool</p>
+        <h1>Check how closely an ovarian ultrasound matches normal or abnormal patterns.</h1>
         <p class="landing-lead">
-          Upload an ovarian ultrasound image that already exists. Cathra compares its
-          appearance against two patterns it learned during training — normal and abnormal —
-          and shows a similarity score for each. Everything runs in your browser; the image
-          never leaves your device.
+          You upload an ovarian ultrasound image that was already taken with medical equipment.
+          Cathra compares how it looks to two patterns it learned during training — a normal
+          ovary and an abnormal ovary — and gives each a similarity score out of 100%. It does
+          not diagnose anything, and the image never leaves your device.
         </p>
 
         <button id="btn-open" class="btn btn-dark btn-lg" type="button">Open the tool</button>
 
+        <div class="steps" aria-label="How it works">
+          <h2 class="steps-title">How it works</h2>
+          <ol class="steps-list">
+            <li>
+              <span class="step-n">1</span>
+              <span><strong>Upload an image.</strong> Choose an existing ovarian ultrasound
+              picture (JPG or PNG) from your device.</span>
+            </li>
+            <li>
+              <span class="step-n">2</span>
+              <span><strong>Cathra analyzes it.</strong> The image is resized and compared to the
+              two learned patterns, entirely inside your browser.</span>
+            </li>
+            <li>
+              <span class="step-n">3</span>
+              <span><strong>You see two scores.</strong> A similarity score for the normal pattern
+              and one for the abnormal pattern, plus whichever is higher.</span>
+            </li>
+          </ol>
+        </div>
+
         <ul class="landing-facts">
-          <li>Runs locally — nothing is uploaded or stored</li>
-          <li>Accepts JPG and PNG images</li>
-          <li>Shows similarity scores, not a diagnosis</li>
+          <li>Runs on your device — nothing is uploaded, saved, or stored</li>
+          <li>Accepts JPG and PNG ultrasound images</li>
+          <li>Shows similarity scores only — it is not a diagnosis</li>
         </ul>
       </div>
     </section>
@@ -45,6 +65,7 @@
       <!-- Upload -->
       <div id="view-upload" class="view">
         <h2 class="view-title">Upload an ultrasound image</h2>
+        <p class="view-sub">Choose an existing ovarian ultrasound picture. It stays on your device and is compared to the normal and abnormal patterns.</p>
         <label id="dropzone" class="dropzone" for="file-input">
           <input id="file-input" type="file" accept="image/jpeg,image/jpg,image/png" hidden />
           <span class="dz-title">Choose an image</span>
