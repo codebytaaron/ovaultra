@@ -33,11 +33,10 @@ let currentObjectUrl = null;
 
 // ---- Access gate ----
 //
-// NOTE: this is a soft, client-side gate. The access code below is visible to
-// anyone who reads the page source, so it is suitable for gating a demo and
-// routing paying customers — not for real security. To make it secure, verify
-// the code on a serverless function instead of in the browser.
-const ACCESS_CODE = "soothenote123";
+// The access code is verified server-side by /api/unlock (see api/unlock.js),
+// so the code itself is never shipped to the browser. This localStorage flag
+// only remembers that this browser already unlocked, to skip the paywall on
+// return visits.
 const UNLOCK_KEY = "cathra_unlocked";
 
 const landing = document.getElementById("landing");
@@ -93,16 +92,42 @@ btnPay.addEventListener("click", () => {
   payContact.scrollIntoView({ block: "nearest", behavior: "smooth" });
 });
 
-// Unlock with the access code.
-function tryUnlock() {
-  if (accessInput.value.trim() === ACCESS_CODE) {
-    rememberUnlocked();
-    unlockError.hidden = true;
-    openTool();
-  } else {
-    unlockError.hidden = false;
-    accessInput.focus();
-    accessInput.select();
+// Unlock with the access code — verified server-side.
+function showUnlockError(msg) {
+  unlockError.textContent = msg || "That code isn’t valid. Please check and try again.";
+  unlockError.hidden = false;
+  accessInput.focus();
+  accessInput.select();
+}
+
+async function tryUnlock() {
+  const code = accessInput.value.trim();
+  if (!code) { showUnlockError(); return; }
+
+  const original = btnUnlock.textContent;
+  btnUnlock.disabled = true;
+  btnUnlock.textContent = "Checking…";
+  unlockError.hidden = true;
+
+  try {
+    const res = await fetch("/api/unlock", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ code }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (res.ok && data.ok) {
+      rememberUnlocked();
+      unlockError.hidden = true;
+      openTool();
+    } else {
+      showUnlockError();
+    }
+  } catch (e) {
+    showUnlockError("Couldn’t reach the server. Please try again.");
+  } finally {
+    btnUnlock.disabled = false;
+    btnUnlock.textContent = original;
   }
 }
 btnUnlock.addEventListener("click", tryUnlock);
