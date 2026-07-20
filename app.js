@@ -31,6 +31,26 @@ const ACCEPTED_TYPES = ["image/jpeg", "image/jpg", "image/png"];
 let model = null;
 let currentObjectUrl = null;
 
+// ---- Landing gate ----
+const landing = document.getElementById("landing");
+const tool = document.getElementById("tool");
+const btnOpen = document.getElementById("btn-open");
+const homeLink = document.getElementById("home-link");
+
+function openTool() {
+  landing.hidden = true;
+  tool.hidden = false;
+  resetToUpload();
+  window.scrollTo({ top: 0, behavior: "auto" });
+}
+function goHome() {
+  tool.hidden = true;
+  landing.hidden = false;
+  window.scrollTo({ top: 0, behavior: "auto" });
+}
+btnOpen.addEventListener("click", openTool);
+homeLink.addEventListener("click", (e) => { e.preventDefault(); goHome(); });
+
 // ---- Element refs ----
 const views = {
   upload: document.getElementById("view-upload"),
