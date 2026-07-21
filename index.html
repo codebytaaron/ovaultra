@@ -20,43 +20,24 @@
     <section id="landing" class="screen">
       <div class="landing-inner">
         <p class="eyebrow">Ovarian ultrasound pattern tool</p>
-        <p class="trained-badge">Trained on 600 ovarian ultrasound images · 300 normal · 300 abnormal</p>
-        <h1>Check how closely an ovarian ultrasound matches normal or abnormal patterns.</h1>
+        <h1>Compare an ovarian ultrasound to normal and abnormal patterns.</h1>
         <p class="landing-lead">
-          You upload an ovarian ultrasound image that was already taken with medical equipment.
-          Cathra compares how it looks to two patterns it learned during training — a normal
-          ovary and an abnormal ovary — and gives each a similarity score out of 100%. It does
-          not diagnose anything, and the image never leaves your device.
+          Upload an existing ultrasound image and Cathra shows how closely it matches each
+          learned pattern — privately, in your browser.
         </p>
 
         <button id="btn-open" class="btn btn-dark btn-lg" type="button">Open the tool</button>
 
         <div class="steps" aria-label="How it works">
-          <h2 class="steps-title">How it works</h2>
-          <ul class="steps-list">
-            <li>
-              <span class="step-n">1</span>
-              <span><strong>Upload an image.</strong> Choose an existing ovarian ultrasound
-              picture (JPG or PNG) from your device.</span>
-            </li>
-            <li>
-              <span class="step-n">2</span>
-              <span><strong>Cathra analyzes it.</strong> The image is resized and compared to the
-              two learned patterns, entirely inside your browser.</span>
-            </li>
-            <li>
-              <span class="step-n">3</span>
-              <span><strong>You see two scores.</strong> A similarity score for the normal pattern
-              and one for the abnormal pattern, plus whichever is higher.</span>
-            </li>
-          </ul>
+          <div class="step"><span class="step-n">1</span> Upload an image</div>
+          <div class="step"><span class="step-n">2</span> Cathra analyzes it</div>
+          <div class="step"><span class="step-n">3</span> See two similarity scores</div>
         </div>
 
-        <ul class="landing-facts">
-          <li>Runs on your device — nothing is uploaded, saved, or stored</li>
-          <li>Accepts JPG and PNG ultrasound images</li>
-          <li>Shows similarity scores only — it is not a diagnosis</li>
-        </ul>
+        <p class="landing-meta">
+          Trained on 600 ovarian ultrasound images · Runs on your device · Shows similarity
+          scores, not a diagnosis
+        </p>
       </div>
     </section>
 
@@ -64,11 +45,10 @@
     <section id="paywall" class="screen" hidden>
       <button class="back-link" id="paywall-back" type="button">← Back</button>
       <p class="eyebrow">Licensed access</p>
-      <h1 class="pw-title">Cathra is a licensed research prototype.</h1>
+      <h1 class="pw-title">Licensed research prototype.</h1>
       <p class="landing-lead">
-        Access is licensed to organizations — schools, university researchers, startups, and
-        clinics — as a custom, research-only AI prototype. It is not sold to patients and is not
-        a cancer test. If your organization is licensed, enter your access code below.
+        Cathra is licensed to organizations — schools, researchers, startups, and clinics — as a
+        research-only tool. It is not sold to patients and is not a cancer test.
       </p>
 
       <div class="price-card">
