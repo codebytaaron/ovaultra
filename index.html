@@ -18,54 +18,89 @@
 
     <!-- ============ LANDING ============ -->
     <section id="landing" class="screen">
-      <div class="landing-inner">
-        <p class="eyebrow">Ovarian ultrasound pattern tool</p>
-        <h1>Compare an ovarian ultrasound to normal and abnormal patterns.</h1>
-        <p class="landing-lead">
-          Upload an existing ultrasound image and Cathra shows how closely it matches each
-          learned pattern — privately, in your browser.
-        </p>
+      <div class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Ovarian ultrasound pattern tool</p>
+          <h1>Compare an ovarian ultrasound to normal and abnormal patterns.</h1>
+          <p class="landing-lead">
+            Upload an existing ultrasound image and Cathra shows how closely it matches each
+            learned pattern — privately, in your browser.
+          </p>
 
-        <button id="btn-open" class="btn btn-dark btn-lg" type="button">Open the tool</button>
-        <p class="cta-note">Licensed access · Organizations only</p>
+          <div class="cta">
+            <button id="btn-open" class="btn btn-dark btn-lg" type="button">Open the tool</button>
+            <span class="cta-note">Licensed access · Organizations only</span>
+          </div>
 
-        <!-- What you get: image in, two scores out -->
-        <div class="demo" aria-label="Example of what Cathra shows">
-          <p class="demo-label">Example result</p>
-          <div class="demo-body">
-            <div class="demo-img" aria-hidden="true">
-              <span>Your ultrasound<br />image</span>
+          <div class="steps" aria-label="How it works">
+            <div class="step"><span class="step-n">1</span> Upload an image</div>
+            <div class="step"><span class="step-n">2</span> Cathra analyzes it</div>
+            <div class="step"><span class="step-n">3</span> See two similarity scores</div>
+          </div>
+        </div>
+
+        <!-- What you get -->
+        <figure class="demo" aria-label="Example of what Cathra shows">
+          <figcaption class="demo-head">
+            <span class="demo-label">Example result</span>
+            <span class="demo-tag">Sample</span>
+          </figcaption>
+
+          <div class="demo-thumb" aria-hidden="true">
+            <svg viewBox="0 0 320 128" preserveAspectRatio="xMidYMid slice" role="presentation">
+              <defs>
+                <radialGradient id="tissue" cx="50%" cy="42%" r="72%">
+                  <stop offset="0%" stop-color="#4e4e4e" />
+                  <stop offset="60%" stop-color="#2b2b2b" />
+                  <stop offset="100%" stop-color="#0e0e0e" />
+                </radialGradient>
+                <filter id="speckle">
+                  <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" />
+                  <feColorMatrix type="saturate" values="0" />
+                </filter>
+              </defs>
+              <rect width="320" height="128" fill="url(#tissue)" />
+              <g opacity=".5">
+                <ellipse cx="70" cy="42" rx="52" ry="12" fill="#8a8a8a" opacity=".12" />
+                <ellipse cx="250" cy="34" rx="46" ry="10" fill="#8a8a8a" opacity=".1" />
+                <ellipse cx="96" cy="98" rx="60" ry="14" fill="#000" opacity=".28" />
+                <ellipse cx="262" cy="104" rx="54" ry="13" fill="#000" opacity=".24" />
+              </g>
+              <ellipse cx="162" cy="66" rx="46" ry="32" fill="#131313" opacity=".88" />
+              <ellipse cx="162" cy="66" rx="46" ry="32" fill="none" stroke="#8f8f8f"
+                       stroke-width="1.3" opacity=".42" />
+              <ellipse cx="146" cy="60" rx="10" ry="8" fill="#060606" />
+              <ellipse cx="177" cy="74" rx="7.5" ry="6" fill="#060606" />
+              <ellipse cx="166" cy="50" rx="5.5" ry="4.5" fill="#060606" opacity=".85" />
+              <rect width="320" height="128" filter="url(#speckle)" opacity=".28"
+                    style="mix-blend-mode:overlay" />
+            </svg>
+          </div>
+
+          <div class="demo-scores">
+            <div class="demo-score">
+              <div class="demo-score-top">
+                <span>Normal-pattern similarity</span><span class="demo-pct">82%</span>
+              </div>
+              <div class="demo-meter"><div class="demo-bar" style="width:82%"></div></div>
             </div>
-            <div class="demo-arrow" aria-hidden="true">→</div>
-            <div class="demo-scores">
-              <div class="demo-score">
-                <div class="demo-score-top">
-                  <span>Normal-pattern similarity</span><span class="demo-pct">82%</span>
-                </div>
-                <div class="demo-meter"><div class="demo-bar" style="width:82%"></div></div>
+            <div class="demo-score">
+              <div class="demo-score-top">
+                <span>Abnormal-pattern similarity</span><span class="demo-pct">18%</span>
               </div>
-              <div class="demo-score">
-                <div class="demo-score-top">
-                  <span>Abnormal-pattern similarity</span><span class="demo-pct">18%</span>
-                </div>
-                <div class="demo-meter"><div class="demo-bar" style="width:18%"></div></div>
-              </div>
+              <div class="demo-meter"><div class="demo-bar" style="width:18%"></div></div>
             </div>
           </div>
-          <p class="demo-foot">Sample numbers. Scores show visual similarity — not a diagnosis.</p>
-        </div>
 
-        <div class="steps" aria-label="How it works">
-          <div class="step"><span class="step-n">1</span> Upload an image</div>
-          <div class="step"><span class="step-n">2</span> Cathra analyzes it</div>
-          <div class="step"><span class="step-n">3</span> See two similarity scores</div>
-        </div>
-
-        <p class="landing-meta">
-          Trained on 600 ovarian ultrasound images · Runs on your device · Nothing is uploaded
-          or stored
-        </p>
+          <p class="demo-foot">Similarity scores — not a diagnosis.</p>
+        </figure>
       </div>
+
+      <ul class="landing-meta">
+        <li>Trained on 600 ovarian ultrasound images</li>
+        <li>Runs on your device</li>
+        <li>Nothing is uploaded or stored</li>
+      </ul>
     </section>
 
     <!-- ============ PAYWALL / ACCESS ============ -->

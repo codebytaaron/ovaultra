@@ -25,9 +25,9 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 640px;
+  max-width: 1060px;
   margin: 0 auto;
-  padding: 20px 24px;
+  padding: 26px 24px;
 }
 .wordmark {
   font-family: Georgia, "Times New Roman", serif;
@@ -39,14 +39,24 @@ html, body {
 }
 /* ---- Layout ---- */
 main {
-  max-width: 640px;
+  max-width: 1060px;
   margin: 0 auto;
-  padding: 8px 24px 48px;
+  padding: 8px 24px 56px;
 }
-.screen { margin-bottom: 40px; }
+.screen { margin-bottom: 48px; }
 
-/* ---- Landing ---- */
-.landing-inner { padding: 24px 0 8px; }
+/* Reading-width screens (everything except the landing hero) */
+#paywall, #tool { max-width: 640px; }
+
+/* ---- Landing hero ---- */
+.hero {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 64px;
+  align-items: center;
+  padding: 40px 0 8px;
+}
+.hero-copy { min-width: 0; }
 .eyebrow {
   text-transform: uppercase;
   letter-spacing: 0.14em;
@@ -56,110 +66,130 @@ main {
   margin: 0 0 16px;
 }
 h1 {
-  font-size: 36px;
-  line-height: 1.12;
-  letter-spacing: -0.03em;
-  margin: 0 0 20px;
+  font-size: 40px;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  margin: 0 0 18px;
   font-weight: 700;
+  text-wrap: balance;
 }
 .landing-lead {
-  font-size: 18px;
+  font-size: 17px;
   color: var(--ink-soft);
-  margin: 0 0 32px;
-  max-width: 30em;
+  margin: 0 0 30px;
+  max-width: 32em;
 }
+
+/* CTA */
+.cta { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.cta-note { font-size: 13px; color: var(--ink-soft); }
 
 /* How it works — compact inline steps */
 .steps {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px 22px;
-  margin: 44px 0 0;
+  flex-direction: column;
+  gap: 12px;
+  margin: 36px 0 0;
   padding-top: 28px;
   border-top: 1px solid var(--line);
 }
 .step {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   font-size: 15px;
-  font-weight: 500;
   color: var(--ink);
 }
 .step-n {
   flex: none;
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   display: grid;
   place-items: center;
-  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: #fff;
   border-radius: 999px;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
 }
 
+/* Meta strip */
 .landing-meta {
-  margin: 28px 0 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 28px;
+  margin: 44px 0 0;
+  padding: 22px 0 0;
+  border-top: 1px solid var(--line);
   font-size: 13.5px;
   color: var(--ink-soft);
 }
-
-.cta-note {
-  margin: 12px 0 0;
-  font-size: 13px;
-  color: var(--ink-soft);
+.landing-meta li { position: relative; padding-left: 15px; }
+.landing-meta li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--ink);
 }
 
-/* ---- Example result (what you get) ---- */
+/* ---- Example result panel ---- */
 .demo {
-  margin: 40px 0 0;
+  margin: 0;
   border: 1px solid var(--line);
-  border-radius: 16px;
-  padding: 20px;
+  border-radius: 18px;
+  padding: 18px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .04), 0 12px 32px rgba(0, 0, 0, .05);
+}
+.demo-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
 }
 .demo-label {
-  margin: 0 0 16px;
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.13em;
   text-transform: uppercase;
   color: var(--ink-soft);
 }
-.demo-body {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-}
-.demo-img {
-  flex: none;
-  width: 92px;
-  height: 92px;
-  border-radius: 12px;
-  background: var(--fill);
-  border: 1px solid var(--line);
-  display: grid;
-  place-items: center;
-  text-align: center;
-  font-size: 11px;
-  line-height: 1.35;
+.demo-tag {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--ink-soft);
-  padding: 6px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 3px 9px;
 }
-.demo-arrow { flex: none; color: var(--ink-soft); font-size: 18px; }
-.demo-scores { flex: 1; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.demo-thumb {
+  border-radius: 12px;
+  overflow: hidden;
+  line-height: 0;
+  margin-bottom: 18px;
+}
+.demo-thumb svg { width: 100%; height: 128px; display: block; }
+.demo-scores { display: flex; flex-direction: column; gap: 16px; }
 .demo-score-top {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
   gap: 10px;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   font-size: 13.5px;
 }
-.demo-pct { font-weight: 700; font-variant-numeric: tabular-nums; }
+.demo-pct { font-weight: 700; font-variant-numeric: tabular-nums; font-size: 15px; }
 .demo-meter {
   height: 8px;
   background: var(--fill);
-  border: 1px solid var(--line);
   border-radius: 999px;
   overflow: hidden;
 }
@@ -172,10 +202,15 @@ h1 {
   color: var(--ink-soft);
 }
 
-@media (max-width: 480px) {
-  .demo-body { flex-direction: column; align-items: stretch; gap: 14px; }
-  .demo-img { width: 100%; height: 64px; }
-  .demo-arrow { display: none; }
+/* Hero collapses to one column on narrow screens */
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    padding-top: 24px;
+  }
+  .demo { max-width: 460px; }
+  h1 { font-size: 34px; }
 }
 
 /* ---- Buttons ---- */
@@ -405,9 +440,10 @@ h1 {
 
 /* Disclaimer */
 .disclaimer {
-  border: 1px solid var(--line);
+  max-width: 640px;
+  background: var(--fill);
   border-radius: var(--radius);
-  padding: 16px 18px;
+  padding: 18px 20px;
   margin-top: 8px;
 }
 .disclaimer p { margin: 0; font-size: 13.5px; color: var(--ink-soft); }
@@ -415,9 +451,9 @@ h1 {
 
 /* Footer */
 .site-footer {
-  max-width: 640px;
+  max-width: 1060px;
   margin: 0 auto;
-  padding: 24px 24px 48px;
+  padding: 28px 24px 56px;
   color: var(--ink-soft);
   font-size: 12.5px;
 }
@@ -437,7 +473,10 @@ h1 {
 
 /* Responsive */
 @media (max-width: 540px) {
-  h1 { font-size: 27px; }
+  h1 { font-size: 29px; }
   .landing-lead { font-size: 16px; }
   .btn-row .btn-dark { min-width: 0; }
+  .cta { gap: 10px; }
+  .cta .btn-lg { width: 100%; }
+  .landing-meta { gap: 8px; flex-direction: column; }
 }
