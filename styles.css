@@ -49,12 +49,21 @@ main {
 #paywall, #tool { max-width: 640px; }
 
 /* ---- Landing hero ---- */
+/* Band grounds the hero instead of floating in white space; spans the same
+   width as the topbar/content column (cancels main's padding, then re-adds
+   it so inner content still aligns). */
+.hero-band {
+  margin: 0 -24px;
+  padding: 0 24px;
+  background: var(--fill);
+  border-bottom: 1px solid var(--line);
+}
 .hero {
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
   gap: 64px;
   align-items: center;
-  padding: 40px 0 8px;
+  padding: 56px 0 64px;
 }
 .hero-copy { min-width: 0; }
 .eyebrow {
@@ -81,35 +90,38 @@ h1 {
 }
 
 /* CTA */
-.cta { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.cta { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
 .cta-note { font-size: 13px; color: var(--ink-soft); }
 
-/* How it works — compact inline steps */
+/* How it works — chip row */
 .steps {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin: 36px 0 0;
-  padding-top: 28px;
-  border-top: 1px solid var(--line);
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 40px 0 0;
 }
 .step {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 12px;
-  font-size: 15px;
+  gap: 9px;
+  font-size: 13.5px;
+  font-weight: 500;
   color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 7px 14px 7px 7px;
 }
 .step-n {
   flex: none;
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   display: grid;
   place-items: center;
   background: var(--ink);
   color: #fff;
   border-radius: 999px;
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 700;
 }
 
@@ -119,9 +131,9 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   gap: 8px 28px;
-  margin: 44px 0 0;
-  padding: 22px 0 0;
-  border-top: 1px solid var(--line);
+  margin: 32px 0 32px;
+  padding: 0 0 24px;
+  border-bottom: 1px solid var(--line);
   font-size: 13.5px;
   color: var(--ink-soft);
 }
