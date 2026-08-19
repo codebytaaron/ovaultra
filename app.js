@@ -31,35 +31,14 @@ const ACCEPTED_TYPES = ["image/jpeg", "image/jpg", "image/png"];
 let model = null;
 let currentObjectUrl = null;
 
-// ---- Access gate ----
-//
-// The access code is verified server-side by /api/unlock (see api/unlock.js),
-// so the code itself is never shipped to the browser. This localStorage flag
-// only remembers that this browser already unlocked, to skip the paywall on
-// return visits.
-const UNLOCK_KEY = "cathra_unlocked";
-
+// ---- Landing / tool navigation ----
 const landing = document.getElementById("landing");
-const paywall = document.getElementById("paywall");
 const tool = document.getElementById("tool");
 const btnOpen = document.getElementById("btn-open");
 const homeLink = document.getElementById("home-link");
-const paywallBack = document.getElementById("paywall-back");
-const btnPay = document.getElementById("btn-pay");
-const payContact = document.getElementById("pay-contact");
-const accessInput = document.getElementById("access-code");
-const btnUnlock = document.getElementById("btn-unlock");
-const unlockError = document.getElementById("unlock-error");
-
-function isUnlocked() {
-  try { return localStorage.getItem(UNLOCK_KEY) === "1"; } catch (e) { return false; }
-}
-function rememberUnlocked() {
-  try { localStorage.setItem(UNLOCK_KEY, "1"); } catch (e) { /* ignore */ }
-}
 
 function showScreen(el) {
-  [landing, paywall, tool].forEach((s) => { s.hidden = s !== el; });
+  [landing, tool].forEach((s) => { s.hidden = s !== el; });
   window.scrollTo({ top: 0, behavior: "auto" });
 }
 
@@ -71,67 +50,8 @@ function goHome() {
   showScreen(landing);
 }
 
-// "Open the tool": paid/unlocked users skip straight in, otherwise show paywall.
-btnOpen.addEventListener("click", () => {
-  if (isUnlocked()) {
-    openTool();
-  } else {
-    unlockError.hidden = true;
-    accessInput.value = "";
-    payContact.hidden = true;
-    showScreen(paywall);
-  }
-});
-
+btnOpen.addEventListener("click", openTool);
 homeLink.addEventListener("click", (e) => { e.preventDefault(); goHome(); });
-paywallBack.addEventListener("click", goHome);
-
-// Reveal the contact-to-pay details.
-btnPay.addEventListener("click", () => {
-  payContact.hidden = false;
-  payContact.scrollIntoView({ block: "nearest", behavior: "smooth" });
-});
-
-// Unlock with the access code — verified server-side.
-function showUnlockError(msg) {
-  unlockError.textContent = msg || "That code isn’t valid. Please check and try again.";
-  unlockError.hidden = false;
-  accessInput.focus();
-  accessInput.select();
-}
-
-async function tryUnlock() {
-  const code = accessInput.value.trim();
-  if (!code) { showUnlockError(); return; }
-
-  const original = btnUnlock.textContent;
-  btnUnlock.disabled = true;
-  btnUnlock.textContent = "Checking…";
-  unlockError.hidden = true;
-
-  try {
-    const res = await fetch("/api/unlock", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ code }),
-    });
-    const data = await res.json().catch(() => ({}));
-    if (res.ok && data.ok) {
-      rememberUnlocked();
-      unlockError.hidden = true;
-      openTool();
-    } else {
-      showUnlockError();
-    }
-  } catch (e) {
-    showUnlockError("Couldn’t reach the server. Please try again.");
-  } finally {
-    btnUnlock.disabled = false;
-    btnUnlock.textContent = original;
-  }
-}
-btnUnlock.addEventListener("click", tryUnlock);
-accessInput.addEventListener("keydown", (e) => { if (e.key === "Enter") tryUnlock(); });
 
 // ---- Element refs ----
 const views = {
