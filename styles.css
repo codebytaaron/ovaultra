@@ -92,38 +92,6 @@ h1 {
 /* CTA */
 .cta { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
 
-/* How it works — chip row */
-.steps {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin: 40px 0 0;
-}
-.step {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  font-size: 13.5px;
-  font-weight: 500;
-  color: var(--ink);
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  padding: 7px 14px 7px 7px;
-}
-.step-n {
-  flex: none;
-  width: 20px;
-  height: 20px;
-  display: grid;
-  place-items: center;
-  background: var(--ink);
-  color: #fff;
-  border-radius: 999px;
-  font-size: 10.5px;
-  font-weight: 700;
-}
-
 /* Meta strip */
 .landing-meta {
   list-style: none;
@@ -371,6 +339,7 @@ h1 {
   margin-top: 8px;
 }
 .disclaimer p { margin: 0; font-size: 13.5px; color: var(--ink-soft); }
+.disclaimer p + p { margin-top: 10px; }
 .disclaimer strong { color: var(--ink); }
 
 /* Footer */
