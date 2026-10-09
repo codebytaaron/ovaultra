@@ -27,12 +27,15 @@
 
   <main>
     <article class="prose">
+      <header class="page-head">
       <p class="eyebrow">Model card</p>
       <h1>How Cathra works</h1>
       <p class="lede">
         What it was trained on, what its scores mean, and where it falls short.
       </p>
+      </header>
 
+      <section class="block">
       <h2>What it does</h2>
       <p>
         You give Cathra an existing ovarian ultrasound image. It compares the image to two visual
@@ -40,7 +43,9 @@
         <strong>abnormal ovarian appearance</strong>, and returns a similarity score for each.
         It does not diagnose anything.
       </p>
+      </section>
 
+      <section class="block">
       <h2>Training data</h2>
       <p>
         The model was trained on a labeled set of ovarian ultrasound images, sorted into two
@@ -68,7 +73,9 @@
           license. Images were sorted into Normal and Abnormal using the dataset’s own labels.
         </p>
       </div>
+      </section>
 
+      <section class="block">
       <h2>Reading the results</h2>
       <ul>
         <li>
@@ -81,7 +88,9 @@
           Cathra shows <strong>“Unable to assess confidently”</strong> instead of picking one.
         </li>
       </ul>
+      </section>
 
+      <section class="block">
       <h2>Limitations</h2>
       <ul>
         <li>The training set is small and has not been clinically validated.</li>
@@ -96,21 +105,27 @@
         </li>
         <li>It will still return scores for images that are not ovarian ultrasounds.</li>
       </ul>
+      </section>
 
+      <section class="block">
       <h2>Intended use</h2>
       <p>
         Research and education only. Cathra is not for screening, diagnosis, triage, or any
         medical decision, and it is not intended for patients. Ultrasound images must be reviewed
         by a qualified medical professional.
       </p>
+      </section>
 
+      <section class="block">
       <h2 id="ownership">Ownership</h2>
       <p>
         Cathra’s model, code, and design are proprietary and protected by copyright. You may not
         copy, download, redistribute, modify, or reverse-engineer them without written
         permission. Requests: <a href="mailto:paultaaron@icloud.com?subject=Cathra%20permission">paultaaron@icloud.com</a>.
       </p>
+      </section>
 
+      <section class="block">
       <h2 id="disclaimer">Medical &amp; legal disclaimer</h2>
       <p>
         Cathra is a research and educational
@@ -122,12 +137,15 @@
         medical decision, and always consult a qualified, licensed medical professional. You use
         Cathra entirely at your own risk.
       </p>
+      </section>
 
+      <section class="block">
       <h2>Privacy</h2>
       <p>
         The image is processed on your device and is never uploaded or stored. See the
         <a href="/privacy">privacy policy</a> for details.
       </p>
+      </section>
     </article>
   </main>
 
@@ -140,12 +158,11 @@
     </p>
     <nav class="footer-links" aria-label="Footer">
       <a href="/how-it-works">How it works</a>
-      <a href="/research">Research &amp; teaching</a>
+      <a href="/research">Research</a>
       <a href="/privacy">Privacy</a>
       <a href="/how-it-works#dataset">Data: PCOSGen (CC BY 4.0)</a>
-      <span>Last updated October 2026</span>
-      <span>© 2026 Cathra. All rights reserved.</span>
     </nav>
+    <p class="footer-meta">Last updated October 2026 · © 2026 Cathra. All rights reserved.</p>
   </footer>
 </body>
 </html>
