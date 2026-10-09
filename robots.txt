@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /model/
+
+Sitemap: https://cathra.teddyaaron.com/sitemap.xml
