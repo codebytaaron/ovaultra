@@ -58,6 +58,7 @@ function goHome() {
 
 btnOpen.addEventListener("click", openTool);
 homeLink.addEventListener("click", (e) => { e.preventDefault(); goHome(); });
+document.getElementById("tool-back").addEventListener("click", goHome);
 
 // ---- Element refs ----
 const views = {
@@ -147,6 +148,7 @@ function handleFile(file) {
   previewImg.onload = () => {
     const w = previewImg.naturalWidth;
     const h = previewImg.naturalHeight;
+    positionCropBox();
     fileMeta.textContent = `${file.name} · ${w} × ${h} px · ${formatSize(file.size)}`;
     if (Math.min(w, h) < MIN_GOOD_SIDE) {
       qualityNote.textContent =
@@ -157,6 +159,23 @@ function handleFile(file) {
   previewImg.src = currentObjectUrl;
   showView("preview");
 }
+
+// The model only sees the image's center square. Outline that region on the
+// preview (accounting for object-fit: contain letterboxing).
+const cropBox = document.getElementById("crop-box");
+function positionCropBox() {
+  const nw = previewImg.naturalWidth, nh = previewImg.naturalHeight;
+  const bw = previewImg.clientWidth, bh = previewImg.clientHeight;
+  if (!nw || !nh || !bw || !bh) { cropBox.hidden = true; return; }
+  const scale = Math.min(bw / nw, bh / nh);
+  const side = Math.min(nw, nh) * scale;
+  cropBox.style.width = cropBox.style.height = `${side}px`;
+  cropBox.style.left = `${(bw - side) / 2}px`;
+  cropBox.style.top = `${(bh - side) / 2}px`;
+  // Only worth showing when part of the image is actually left out.
+  cropBox.hidden = Math.abs(nw - nh) / Math.max(nw, nh) < 0.02;
+}
+window.addEventListener("resize", () => { if (!views.preview.hidden) positionCropBox(); });
 
 function formatSize(bytes) {
   return bytes < 1024 * 1024
@@ -186,6 +205,17 @@ dropzone.addEventListener("drop", (e) => {
   handleFile(file);
 });
 
+// The Teachable Machine library sizes its input from the element's .width/.height,
+// which for an <img> is its on-screen box, not its pixels. Passing a canvas at the
+// image's natural size keeps the aspect ratio true no matter how the preview is styled.
+function naturalSizeCanvas(img) {
+  const c = document.createElement("canvas");
+  c.width = img.naturalWidth;
+  c.height = img.naturalHeight;
+  c.getContext("2d").drawImage(img, 0, 0);
+  return c;
+}
+
 // ---- Model loading (lazy, on first analyze) ----
 async function ensureModel() {
   if (model) return model;
@@ -211,7 +241,7 @@ btnAnalyze.addEventListener("click", async () => {
 
     loadingText.textContent = "Comparing patterns…";
     const started = performance.now();
-    const predictions = await model.predict(previewImg);
+    const predictions = await model.predict(naturalSizeCanvas(previewImg));
     const elapsed = performance.now() - started;
     renderResults(predictions);
     renderResultMeta(elapsed);
@@ -272,7 +302,10 @@ function renderResults(predictions) {
 
 // A short record of how this result was produced.
 function renderResultMeta(elapsedMs) {
-  const parts = [`Analyzed on this device in ${(elapsedMs / 1000).toFixed(1)} s`];
+  const took = elapsedMs < 1000
+    ? `${Math.max(1, Math.round(elapsedMs))} ms`
+    : `${(elapsedMs / 1000).toFixed(1)} s`;
+  const parts = [`Analyzed on this device in ${took}`];
   const trained = model && model.getMetadata && model.getMetadata().timeStamp;
   if (trained) {
     const d = new Date(trained);
@@ -296,6 +329,7 @@ function resetToUpload() {
   document.getElementById("result-img").removeAttribute("src");
   fileMeta.textContent = "";
   qualityNote.hidden = true;
+  cropBox.hidden = true;
   resultMeta.textContent = "";
   document.getElementById("bar-normal").style.width = "0";
   document.getElementById("bar-abnormal").style.width = "0";

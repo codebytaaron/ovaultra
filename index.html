@@ -11,7 +11,11 @@
 </head>
 <body>
   <header class="topbar">
-    <a class="wordmark" href="#" id="home-link">Cathra</a>
+    <a class="wordmark" href="/" id="home-link">Cathra</a>
+    <nav class="topnav" aria-label="Main">
+      <a href="/how-it-works">How it works</a>
+      <a href="/privacy">Privacy</a>
+    </nav>
   </header>
 
   <main>
@@ -22,43 +26,42 @@
       <div class="hero">
         <div class="hero-copy">
           <p class="eyebrow">Ovarian ultrasound pattern tool</p>
-          <h1>Compare an ovarian ultrasound to normal and abnormal patterns.</h1>
+          <h1>Compare an ovarian ultrasound to learned patterns.</h1>
           <p class="landing-lead">
-            Upload an existing ultrasound image and Cathra shows how closely it matches each
-            learned pattern — privately, in your browser.
+            Upload an existing ultrasound image. Cathra scores how closely it matches a normal and
+            an abnormal ovarian pattern, privately, in your browser.
           </p>
 
           <div class="cta">
             <button id="btn-open" class="btn btn-dark btn-lg" type="button">Open the tool</button>
             <a class="cta-link" href="/how-it-works">How it works →</a>
           </div>
+
+          <ul class="hero-facts">
+            <li>Runs on your device</li>
+            <li>Nothing is uploaded or stored</li>
+            <li>Similarity scores, not a diagnosis</li>
+          </ul>
         </div>
 
-        <!-- Real demo of the tool -->
+        <!-- Real recording of the tool, framed like a browser window -->
         <figure class="demo" aria-label="Screen recording of Cathra analyzing an image">
-          <figcaption class="demo-head">
-            <span class="demo-label"><span class="live-dot" aria-hidden="true"></span>Real demo</span>
-            <span class="demo-tag">Actual model output</span>
-          </figcaption>
-          <div class="demo-video">
-            <video id="demo-video" src="/media/demo.mp4" poster="/media/demo-poster.jpg"
-                   autoplay muted loop playsinline preload="metadata"
-                   aria-label="Uploading an ultrasound image, confirming it, and viewing the two similarity scores"></video>
+          <div class="demo-chrome" aria-hidden="true">
+            <span class="dots"><i></i><i></i><i></i></span>
+            <span class="demo-url">Cathra</span>
           </div>
-          <p class="demo-foot">Recorded in the live tool. Similarity scores, not a diagnosis.</p>
+          <video id="demo-video" src="/media/demo.mp4" poster="/media/demo-poster.jpg"
+                 autoplay muted loop playsinline preload="metadata"
+                 aria-label="Uploading an ultrasound image, confirming it, and viewing the two similarity scores"></video>
+          <figcaption class="demo-foot"><span class="live-dot" aria-hidden="true"></span>Real recording of the live tool</figcaption>
         </figure>
       </div>
       </div>
-
-      <ul class="landing-meta">
-        <li>Trained on labeled ovarian ultrasound images</li>
-        <li>Runs on your device</li>
-        <li>Nothing is uploaded or stored</li>
-      </ul>
     </section>
 
     <!-- ============ TOOL ============ -->
     <section id="tool" class="screen" hidden>
+      <button class="back-link" id="tool-back" type="button">← Back to home</button>
 
       <ol class="progress" aria-label="Progress">
         <li class="progress-step" data-step="1"><span class="progress-n">1</span>Upload</li>
@@ -73,8 +76,12 @@
         <label id="dropzone" class="dropzone" for="file-input" tabindex="0" role="button"
                aria-label="Choose an ultrasound image to analyze">
           <input id="file-input" type="file" accept="image/jpeg,image/jpg,image/png" hidden />
-          <span class="dz-title">Choose an image</span>
-          <span class="dz-sub">or drag it here · JPG or PNG</span>
+          <span class="dz-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+          </span>
+          <span class="dz-title">Drop an ultrasound image here</span>
+          <span class="dz-sub">JPG or PNG</span>
+          <span class="dz-browse">Browse files</span>
         </label>
         <p id="file-error" class="file-error" role="alert" hidden></p>
         <ul class="tips" aria-label="Tips for best results">
@@ -88,6 +95,7 @@
         <h2 class="view-title">Confirm your image</h2>
         <div class="preview-wrap">
           <img id="preview-img" alt="The ultrasound image you selected" />
+          <div id="crop-box" class="crop-box" hidden><span>Area analyzed</span></div>
         </div>
         <p id="file-meta" class="file-meta"></p>
         <p id="quality-note" class="quality-note" hidden></p>
