@@ -521,18 +521,6 @@ h1 {
 .prose li { margin-bottom: 6px; }
 .prose strong { color: var(--ink); }
 .prose a { color: var(--ink); text-underline-offset: 2px; }
-.spec {
-  display: grid;
-  grid-template-columns: 180px 1fr;
-  margin: 8px 0 0;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  overflow: hidden;
-  font-size: 14.5px;
-}
-.spec dt, .spec dd { margin: 0; padding: 12px 16px; border-top: 1px solid var(--line); }
-.spec dt:first-of-type, .spec dt:first-of-type + dd { border-top: 0; }
-.spec dt { background: var(--fill); font-weight: 600; }
 
 /* Responsive */
 @media (max-width: 900px) {
@@ -542,8 +530,6 @@ h1 {
   .hero-band { padding: 0 20px; border-radius: 18px; }
   .hero { padding: 36px 0; }
   .prose h1 { font-size: 29px; }
-  .spec { grid-template-columns: 1fr; }
-  .spec dd { border-top: 0; padding-top: 0; }
   h1 { font-size: 29px; }
   .landing-lead { font-size: 16px; }
   .btn-row .btn-dark { min-width: 0; }
