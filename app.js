@@ -11,8 +11,12 @@
  * hardcode the input dimensions.
  */
 
-const MODEL_URL = "/model/model.json";
-const METADATA_URL = "/model/metadata.json";
+// Each model version lives in its own folder because /model/ is cached for a
+// year. To ship a new model, add it as /model/v2/ and change this line; never
+// overwrite the files inside an existing version folder.
+const MODEL_VERSION = "v1";
+const MODEL_URL = `/model/${MODEL_VERSION}/model.json`;
+const METADATA_URL = `/model/${MODEL_VERSION}/metadata.json`;
 
 // Class index mapping (Teachable Machine returns predictions in training order).
 // Index 0 = normal ovarian appearance, Index 1 = abnormal ovarian appearance.
@@ -150,11 +154,15 @@ function handleFile(file) {
     const h = previewImg.naturalHeight;
     positionCropBox();
     fileMeta.textContent = `${file.name} · ${w} × ${h} px · ${formatSize(file.size)}`;
-    if (Math.min(w, h) < MIN_GOOD_SIDE) {
-      qualityNote.textContent =
-        `This image is small (${w} × ${h} px). Low-resolution images can make the scores less reliable.`;
-      qualityNote.hidden = false;
+    const notes = [];
+    if (looksLikeColorPhoto(previewImg)) {
+      notes.push("This looks like a color photo, not an ultrasound. Cathra only compares ovarian ultrasound patterns, so scores for other images are meaningless.");
     }
+    if (Math.min(w, h) < MIN_GOOD_SIDE) {
+      notes.push(`This image is small (${w} × ${h} px). Low-resolution images can make the scores less reliable.`);
+    }
+    qualityNote.textContent = notes.join(" ");
+    qualityNote.hidden = notes.length === 0;
   };
   previewImg.src = currentObjectUrl;
   showView("preview");
@@ -176,6 +184,33 @@ function positionCropBox() {
   cropBox.hidden = Math.abs(nw - nh) / Math.max(nw, nh) < 0.02;
 }
 window.addEventListener("resize", () => { if (!views.preview.hidden) positionCropBox(); });
+
+// Ultrasound images are almost entirely grayscale; Doppler overlays add only small
+// patches of color, and some machines tint the whole image one hue (sepia, blue).
+// Flag only images where many pixels are clearly colored across several hues.
+function looksLikeColorPhoto(img) {
+  const size = 64;
+  const c = document.createElement("canvas");
+  c.width = c.height = size;
+  const ctx = c.getContext("2d", { willReadFrequently: true });
+  ctx.drawImage(img, 0, 0, size, size);
+  const px = ctx.getImageData(0, 0, size, size).data;
+  const total = size * size;
+  const hueBuckets = new Array(6).fill(0);
+  let colored = 0;
+  for (let i = 0; i < px.length; i += 4) {
+    const r = px[i], g = px[i + 1], b = px[i + 2];
+    const max = Math.max(r, g, b), min = Math.min(r, g, b);
+    if (max <= 40 || (max - min) / max <= 0.25) continue;
+    colored++;
+    const d = max - min;
+    let h = max === r ? ((g - b) / d) % 6 : max === g ? (b - r) / d + 2 : (r - g) / d + 4;
+    if (h < 0) h += 6;
+    hueBuckets[Math.floor(h) % 6]++;
+  }
+  const distinctHues = hueBuckets.filter((n) => n / total > 0.05).length;
+  return colored / total > 0.25 && distinctHues >= 2;
+}
 
 function formatSize(bytes) {
   return bytes < 1024 * 1024
@@ -288,14 +323,15 @@ function renderResults(predictions) {
   if (uncertain) {
     verdictLabel.textContent = "Unable to assess confidently";
     verdictTag.textContent = "Scores are close or low";
+    verdictTag.hidden = false;
     verdict.classList.add("is-uncertain");
   } else if (normal >= abnormal) {
     verdictLabel.textContent = "Normal-pattern similarity";
-    verdictTag.textContent = "Higher similarity score";
+    verdictTag.hidden = true;
     verdict.classList.add("is-normal");
   } else {
     verdictLabel.textContent = "Abnormal-pattern similarity";
-    verdictTag.textContent = "Higher similarity score";
+    verdictTag.hidden = true;
     verdict.classList.add("is-abnormal");
   }
 }
