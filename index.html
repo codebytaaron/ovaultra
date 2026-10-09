@@ -30,6 +30,7 @@
 
           <div class="cta">
             <button id="btn-open" class="btn btn-dark btn-lg" type="button">Open the tool</button>
+            <a class="cta-link" href="/how-it-works">How it works →</a>
           </div>
         </div>
 
@@ -92,7 +93,7 @@
       </div>
 
       <ul class="landing-meta">
-        <li>Trained on 600 ovarian ultrasound images</li>
+        <li>Trained on labeled ovarian ultrasound images</li>
         <li>Runs on your device</li>
         <li>Nothing is uploaded or stored</li>
       </ul>
@@ -100,6 +101,12 @@
 
     <!-- ============ TOOL ============ -->
     <section id="tool" class="screen" hidden>
+
+      <ol class="progress" aria-label="Progress">
+        <li class="progress-step" data-step="1"><span class="progress-n">1</span>Upload</li>
+        <li class="progress-step" data-step="2"><span class="progress-n">2</span>Confirm</li>
+        <li class="progress-step" data-step="3"><span class="progress-n">3</span>Results</li>
+      </ol>
 
       <!-- Upload -->
       <div id="view-upload" class="view">
@@ -128,7 +135,7 @@
       <!-- Loading -->
       <div id="view-loading" class="view view-center" hidden>
         <div class="spinner" aria-hidden="true"></div>
-        <p id="loading-text" class="loading-text">Analyzing…</p>
+        <p id="loading-text" class="loading-text">Comparing patterns…</p>
         <p class="loading-sub">Running privately in your browser.</p>
       </div>
 
@@ -141,6 +148,10 @@
           <span class="verdict-tag" id="verdict-tag">Higher similarity score</span>
         </div>
 
+        <div class="result-body">
+        <div class="result-thumb">
+          <img id="result-img" alt="The ultrasound image that was analyzed" />
+        </div>
         <div class="scores">
           <div class="score">
             <div class="score-top">
@@ -156,6 +167,7 @@
             </div>
             <div class="meter"><div id="bar-abnormal" class="bar"></div></div>
           </div>
+        </div>
         </div>
 
         <p class="score-explainer">
@@ -195,7 +207,11 @@
       ’26 ·
       <a href="https://www.linkedin.com/in/teddy-aaron/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
     </p>
-    <p>Cathra · Research prototype · Runs entirely in your browser · No images are uploaded, saved, transmitted, logged, or stored.</p>
+    <nav class="footer-links" aria-label="Footer">
+      <a href="/how-it-works">How it works</a>
+      <a href="/privacy">Privacy</a>
+      <span>© 2026 Cathra · Research prototype</span>
+    </nav>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.21.0/dist/tf.min.js"></script>

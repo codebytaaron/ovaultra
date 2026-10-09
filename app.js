@@ -70,9 +70,29 @@ const btnChange = document.getElementById("btn-change");
 const btnAgain = document.getElementById("btn-again");
 
 // ---- View switching ----
+// Which progress step (1 Upload, 2 Confirm, 3 Results) each view belongs to.
+const VIEW_STEP = { upload: 1, preview: 2, loading: 3, results: 3 };
+const progressSteps = document.querySelectorAll(".progress-step");
+
 function showView(name) {
   Object.entries(views).forEach(([key, el]) => {
-    el.hidden = key !== name;
+    const active = key === name;
+    el.hidden = !active;
+    // Restart the fade-in each time a view is shown.
+    el.classList.remove("view-enter");
+    if (active) {
+      void el.offsetWidth;
+      el.classList.add("view-enter");
+    }
+  });
+
+  const current = VIEW_STEP[name];
+  progressSteps.forEach((stepEl) => {
+    const n = Number(stepEl.dataset.step);
+    stepEl.classList.toggle("is-current", n === current);
+    stepEl.classList.toggle("is-done", n < current);
+    if (n === current) stepEl.setAttribute("aria-current", "step");
+    else stepEl.removeAttribute("aria-current");
   });
 }
 
@@ -140,7 +160,7 @@ btnAnalyze.addEventListener("click", async () => {
   showView("loading");
   try {
     await ensureModel();
-    loadingText.textContent = "Analyzing image…";
+    loadingText.textContent = "Comparing patterns…";
 
     // Ensure the preview image is fully decoded before predicting.
     if (!previewImg.complete || previewImg.naturalWidth === 0) {
@@ -170,6 +190,9 @@ function renderResults(predictions) {
 
   const normalPct = Math.round(normal * 100);
   const abnormalPct = Math.round(abnormal * 100);
+
+  // Keep the analyzed image visible beside its scores (same in-memory URL).
+  document.getElementById("result-img").src = currentObjectUrl;
 
   document.getElementById("score-normal-val").textContent = normalPct + "%";
   document.getElementById("score-abnormal-val").textContent = abnormalPct + "%";
@@ -213,6 +236,7 @@ function resetToUpload() {
     currentObjectUrl = null;
   }
   previewImg.removeAttribute("src");
+  document.getElementById("result-img").removeAttribute("src");
   document.getElementById("bar-normal").style.width = "0";
   document.getElementById("bar-abnormal").style.width = "0";
   showView("upload");
