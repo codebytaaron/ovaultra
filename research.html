@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Using Cathra for teaching and research: a lesson outline, how to cite Cathra, model files, and how to contact us." />
+  <title>Research &amp; teaching · Cathra</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23111'/%3E%3Ctext x='50' y='72' font-size='60' text-anchor='middle' fill='%23fff' font-family='Georgia,serif'%3EC%3C/text%3E%3C/svg%3E" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="wordmark" href="/">Cathra</a>
+    <nav class="topnav" aria-label="Main">
+      <a href="/how-it-works">How it works</a>
+      <a href="/research" aria-current="page">Research</a>
+      <a href="/privacy">Privacy</a>
+    </nav>
+  </header>
+
+  <main>
+    <article class="prose">
+      <p class="eyebrow">For educators and researchers</p>
+      <h1>Research &amp; teaching</h1>
+      <p class="lede">
+        Cathra is free to use for learning and research. It is not for diagnosis or any medical
+        decision.
+      </p>
+
+      <h2 id="classroom">Use Cathra in your class</h2>
+      <p>A 45-minute lesson on what image AI can and can’t do in medicine.</p>
+      <ol class="steps-plain">
+        <li><strong>Introduce (10 min).</strong> What a classifier does: it compares an image to
+          patterns it learned. Read the <a href="/how-it-works">How it works</a> page together.</li>
+        <li><strong>Explore (15 min).</strong> Students run the tool on a few images, then on
+          something that isn’t an ultrasound, and note what happens.</li>
+        <li><strong>Discuss (15 min).</strong> Use the questions below.</li>
+        <li><strong>Reflect (5 min).</strong> Each student writes one thing a tool like this
+          should never be used for.</li>
+      </ol>
+
+      <p><strong>Discussion questions</strong></p>
+      <ul>
+        <li>Why is a similarity score not the same as the chance someone has a condition?</li>
+        <li>The tool still scores a photo of a cat. What does that tell you about AI models?</li>
+        <li>What could go wrong if a model is trained on images from only one source?</li>
+        <li>Who should be responsible when a medical AI tool is wrong?</li>
+        <li>Why might it matter that Cathra runs on your device instead of a server?</li>
+      </ul>
+
+      <h2 id="cite">How to cite Cathra</h2>
+      <div class="cite-box">
+        <p id="citation">Aaron, T. (2026). <em>Cathra: ovarian ultrasound pattern research
+          prototype</em> [Computer software]. <span id="cite-url">cathra</span></p>
+        <button class="btn btn-plain cite-copy" id="copy-cite" type="button">Copy</button>
+      </div>
+      <p class="small-note">
+        If you use the training data, also cite the PCOSGen dataset (see
+        <a href="/how-it-works#dataset">dataset credit</a>).
+      </p>
+
+      <h2 id="model">Model files</h2>
+      <p>
+        The model is the same one the website runs in your browser. Download all three files and
+        keep them in one folder.
+      </p>
+      <ul class="file-list">
+        <li><a href="/model/model.json" download>model.json</a></li>
+        <li><a href="/model/weights.bin" download>weights.bin</a></li>
+        <li><a href="/model/metadata.json" download>metadata.json</a></li>
+      </ul>
+      <p class="small-note">
+        Provided for research and educational use only, “as is,” with no warranty of any kind.
+        Not for clinical use, diagnosis, or any medical decision. If you use it, cite Cathra and
+        the PCOSGen dataset.
+      </p>
+
+      <h2 id="contact">For schools and labs</h2>
+      <p>
+        Interested in a version for your school, class, or lab? Email
+        <a href="mailto:paultaaron@icloud.com?subject=Cathra%20for%20my%20institution">paultaaron@icloud.com</a>
+        with your organization’s name and how you plan to use it.
+      </p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <p class="footer-credit">
+      Founded by
+      <a href="https://teddyaaron.com" target="_blank" rel="noopener noreferrer">Teddy Aaron</a>
+      ’26 ·
+      <a href="https://www.linkedin.com/in/teddy-aaron/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    </p>
+    <nav class="footer-links" aria-label="Footer">
+      <a href="/how-it-works">How it works</a>
+      <a href="/research">Research &amp; teaching</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/how-it-works#dataset">Data: PCOSGen (CC BY 4.0)</a>
+      <span>Last updated October 2026</span>
+      <span>© 2026 Cathra · Research prototype</span>
+    </nav>
+  </footer>
+
+  <script>
+    // Fill in the site's real address so the citation is correct on any domain.
+    var url = location.origin + "/";
+    document.getElementById("cite-url").textContent = url;
+    document.getElementById("copy-cite").addEventListener("click", function () {
+      var text = document.getElementById("citation").textContent.replace(/\s+/g, " ").trim();
+      var btn = this;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = "Copied";
+        setTimeout(function () { btn.textContent = "Copy"; }, 1500);
+      });
+    });
+  </script>
+</body>
+</html>
