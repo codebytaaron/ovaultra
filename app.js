@@ -42,12 +42,18 @@ function showScreen(el) {
   window.scrollTo({ top: 0, behavior: "auto" });
 }
 
+const demoVideo = document.getElementById("demo-video");
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
 function openTool() {
   showScreen(tool);
   resetToUpload();
+  if (demoVideo) demoVideo.pause();
 }
 function goHome() {
   showScreen(landing);
+  // Browsers don't resume a hidden autoplay video by themselves.
+  if (demoVideo && !reduceMotion) demoVideo.play().catch(() => {});
 }
 
 btnOpen.addEventListener("click", openTool);
@@ -68,6 +74,20 @@ const loadingText = document.getElementById("loading-text");
 const btnAnalyze = document.getElementById("btn-analyze");
 const btnChange = document.getElementById("btn-change");
 const btnAgain = document.getElementById("btn-again");
+const fileMeta = document.getElementById("file-meta");
+const qualityNote = document.getElementById("quality-note");
+const resultMeta = document.getElementById("result-meta");
+
+// Images smaller than this on their short side get a low-resolution warning.
+const MIN_GOOD_SIDE = 300;
+
+// Keyboard access for the dropzone (it is a label, so it isn't focusable by default).
+dropzone.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" || e.key === " ") {
+    e.preventDefault();
+    fileInput.click();
+  }
+});
 
 // ---- View switching ----
 // Which progress step (1 Upload, 2 Confirm, 3 Results) each view belongs to.
@@ -121,8 +141,27 @@ function handleFile(file) {
   // Release any previous object URL before creating a new one.
   if (currentObjectUrl) URL.revokeObjectURL(currentObjectUrl);
   currentObjectUrl = URL.createObjectURL(file);
+
+  fileMeta.textContent = file.name;
+  qualityNote.hidden = true;
+  previewImg.onload = () => {
+    const w = previewImg.naturalWidth;
+    const h = previewImg.naturalHeight;
+    fileMeta.textContent = `${file.name} · ${w} × ${h} px · ${formatSize(file.size)}`;
+    if (Math.min(w, h) < MIN_GOOD_SIDE) {
+      qualityNote.textContent =
+        `This image is small (${w} × ${h} px). Low-resolution images can make the scores less reliable.`;
+      qualityNote.hidden = false;
+    }
+  };
   previewImg.src = currentObjectUrl;
   showView("preview");
+}
+
+function formatSize(bytes) {
+  return bytes < 1024 * 1024
+    ? `${Math.max(1, Math.round(bytes / 1024))} KB`
+    : `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 }
 
 fileInput.addEventListener("change", (e) => {
@@ -160,18 +199,22 @@ btnAnalyze.addEventListener("click", async () => {
   showView("loading");
   try {
     await ensureModel();
-    loadingText.textContent = "Comparing patterns…";
+    loadingText.textContent = "Preparing image…";
 
     // Ensure the preview image is fully decoded before predicting.
     if (!previewImg.complete || previewImg.naturalWidth === 0) {
       await new Promise((resolve, reject) => {
-        previewImg.onload = resolve;
-        previewImg.onerror = () => reject(new Error("Could not read the image."));
+        previewImg.addEventListener("load", resolve, { once: true });
+        previewImg.addEventListener("error", () => reject(new Error("Could not read the image.")), { once: true });
       });
     }
 
+    loadingText.textContent = "Comparing patterns…";
+    const started = performance.now();
     const predictions = await model.predict(previewImg);
+    const elapsed = performance.now() - started;
     renderResults(predictions);
+    renderResultMeta(elapsed);
     showView("results");
   } catch (err) {
     console.error(err);
@@ -227,6 +270,20 @@ function renderResults(predictions) {
   }
 }
 
+// A short record of how this result was produced.
+function renderResultMeta(elapsedMs) {
+  const parts = [`Analyzed on this device in ${(elapsedMs / 1000).toFixed(1)} s`];
+  const trained = model && model.getMetadata && model.getMetadata().timeStamp;
+  if (trained) {
+    const d = new Date(trained);
+    if (!isNaN(d)) {
+      parts.push(`Model trained ${d.toLocaleDateString(undefined, { month: "short", year: "numeric" })}`);
+    }
+  }
+  parts.push(new Date().toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" }));
+  resultMeta.textContent = parts.join(" · ");
+}
+
 // ---- Reset flows ----
 function resetToUpload() {
   clearError();
@@ -237,6 +294,9 @@ function resetToUpload() {
   }
   previewImg.removeAttribute("src");
   document.getElementById("result-img").removeAttribute("src");
+  fileMeta.textContent = "";
+  qualityNote.hidden = true;
+  resultMeta.textContent = "";
   document.getElementById("bar-normal").style.width = "0";
   document.getElementById("bar-abnormal").style.width = "0";
   showView("upload");
@@ -244,6 +304,13 @@ function resetToUpload() {
 
 btnChange.addEventListener("click", resetToUpload);
 btnAgain.addEventListener("click", resetToUpload);
+
+// Respect reduced-motion: don't autoplay the homepage demo, show controls instead.
+if (demoVideo && reduceMotion) {
+  demoVideo.removeAttribute("autoplay");
+  demoVideo.pause();
+  demoVideo.controls = true;
+}
 
 // Initial state
 showView("upload");
