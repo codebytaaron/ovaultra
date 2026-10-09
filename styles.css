@@ -677,17 +677,6 @@ main:has(#tool:not([hidden])) .disclaimer { max-width: 640px; margin-left: auto;
 .cite-box p { margin: 0; font-size: 14.5px; overflow-wrap: anywhere; }
 .cite-copy { flex: none; padding: 7px 14px; font-size: 13px; }
 .small-note { font-size: 13.5px !important; color: var(--ink-soft) !important; }
-.file-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
-.file-list a {
-  display: inline-block;
-  padding: 8px 14px;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  font-size: 14px;
-  font-weight: 600;
-  text-decoration: none;
-}
-.file-list a:hover { background: var(--fill); }
 .topnav a { white-space: nowrap; }
 @media (max-width: 540px) {
   .topnav { gap: 16px; }
