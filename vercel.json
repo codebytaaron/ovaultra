@@ -5,8 +5,30 @@
     {
       "source": "/model/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
       ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/analyze",
+      "destination": "/index.html"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "cathra.teddyaaron.com"
+        }
+      ],
+      "destination": "https://www.cathra.dev/:path*",
+      "permanent": true
     }
   ]
 }

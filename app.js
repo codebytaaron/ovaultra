@@ -49,20 +49,51 @@ function showScreen(el) {
 const demoVideo = document.getElementById("demo-video");
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-function openTool() {
+// The tool has its own address (/analyze) so it can be linked, bookmarked, and
+// left with the browser's Back button. Vercel serves index.html for /analyze.
+const TOOL_PATH = "/analyze";
+const HOME_TITLE = document.title;
+const TOOL_TITLE = "Analyze an image · Cathra";
+const canonical = document.querySelector('link[rel="canonical"]');
+const CANONICAL_ORIGIN = canonical ? new URL(canonical.href).origin : location.origin;
+
+function setAddress(path, title) {
+  document.title = title;
+  if (canonical) canonical.href = CANONICAL_ORIGIN + path;
+}
+
+function openTool({ push = true } = {}) {
   showScreen(tool);
   resetToUpload();
   if (demoVideo) demoVideo.pause();
+  if (push) history.pushState({ screen: "tool" }, "", TOOL_PATH);
+  setAddress(TOOL_PATH, TOOL_TITLE);
 }
-function goHome() {
+function goHome({ push = true } = {}) {
   showScreen(landing);
   // Browsers don't resume a hidden autoplay video by themselves.
   if (demoVideo && !reduceMotion) demoVideo.play().catch(() => {});
+  if (push) history.pushState({ screen: "home" }, "", "/");
+  setAddress("/", HOME_TITLE);
 }
 
-btnOpen.addEventListener("click", openTool);
+// Back/forward buttons move between the homepage and the tool.
+window.addEventListener("popstate", () => {
+  if (location.pathname === TOOL_PATH) openTool({ push: false });
+  else goHome({ push: false });
+});
+
+btnOpen.addEventListener("click", () => openTool());
 homeLink.addEventListener("click", (e) => { e.preventDefault(); goHome(); });
-document.getElementById("tool-back").addEventListener("click", goHome);
+// "Back to home" behaves like the browser's Back button when the user came from it.
+document.getElementById("tool-back").addEventListener("click", () => {
+  if (history.state && history.state.screen === "tool" && history.length > 1) history.back();
+  else goHome();
+});
+// Links to /analyze on this page open the tool without a reload.
+document.querySelectorAll(`a[href="${TOOL_PATH}"]`).forEach((a) =>
+  a.addEventListener("click", (e) => { e.preventDefault(); if (location.pathname !== TOOL_PATH) openTool(); })
+);
 
 // ---- Element refs ----
 const views = {
@@ -252,17 +283,40 @@ function naturalSizeCanvas(img) {
 }
 
 // ---- Model loading (lazy, on first analyze) ----
-async function ensureModel() {
-  if (model) return model;
-  loadingText.textContent = "Loading model…";
-  model = await tmImage.load(MODEL_URL, METADATA_URL);
-  return model;
+// One shared load. It starts in the background once the page is idle, so the
+// first analysis usually doesn't wait; if it fails, the next call retries.
+let modelPromise = null;
+function ensureModel() {
+  if (!modelPromise) {
+    modelPromise = tmImage.load(MODEL_URL, METADATA_URL)
+      .then(async (m) => {
+        // The first prediction compiles the GPU shaders (several seconds); do it
+        // once on a blank image now so the user's first real analysis is fast.
+        const warm = document.createElement("canvas");
+        warm.width = warm.height = 224;
+        await m.predict(warm);
+        return (model = m);
+      })
+      .catch((err) => { modelPromise = null; throw err; });
+  }
+  return modelPromise;
 }
+
+function preloadModel() {
+  const saveData = navigator.connection && navigator.connection.saveData;
+  if (saveData) return; // respect data-saver; load on first analysis instead
+  const start = () => ensureModel().catch(() => {});
+  if ("requestIdleCallback" in window) requestIdleCallback(start, { timeout: 3000 });
+  else setTimeout(start, 1500);
+}
+if (document.readyState === "complete") preloadModel();
+else window.addEventListener("load", preloadModel);
 
 // ---- Analyze ----
 btnAnalyze.addEventListener("click", async () => {
   showView("loading");
   try {
+    if (!model) loadingText.textContent = "Loading model…";
     await ensureModel();
     loadingText.textContent = "Preparing image…";
 
@@ -382,5 +436,23 @@ if (demoVideo && reduceMotion) {
   demoVideo.controls = true;
 }
 
+// ---- Save as PDF ----
+// Printing uses the print stylesheet (results only, full disclaimer, no buttons).
+const disclaimer = document.querySelector("details.disclaimer");
+let disclaimerWasOpen = false;
+window.addEventListener("beforeprint", () => {
+  disclaimerWasOpen = disclaimer.open;
+  disclaimer.open = true;
+  document.getElementById("print-url").textContent = location.origin + TOOL_PATH;
+});
+window.addEventListener("afterprint", () => { disclaimer.open = disclaimerWasOpen; });
+document.getElementById("btn-print").addEventListener("click", () => window.print());
+
 // Initial state
 showView("upload");
+if (location.pathname === TOOL_PATH) {
+  history.replaceState({ screen: "tool" }, "", TOOL_PATH);
+  openTool({ push: false });
+} else {
+  history.replaceState({ screen: "home" }, "", location.pathname + location.search);
+}

@@ -728,3 +728,84 @@ main:has(#tool:not([hidden])) .disclaimer { max-width: 640px; margin-left: auto;
   .dz-desktop { display: none; }
   .dz-touch { display: inline; }
 }
+
+/* ---- Save as PDF: a clean one-page result report ---- */
+.print-only { display: none; }
+@media print {
+  @page { margin: 16mm; }
+  html, body { background: #fff; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .view-enter { animation: none !important; }
+  .topbar, .site-footer, .back-link, .progress, .btn-row, #landing,
+  .disclaimer-toggle { display: none !important; }
+  main { padding: 0; max-width: none; }
+  #tool { max-width: none; }
+  .print-only { display: block; }
+  .print-head { border-bottom: 1px solid #111; padding-bottom: 10px; margin-bottom: 18px; }
+  .print-head p { margin: 2px 0; font-size: 11pt; color: #333; }
+  .print-head .print-brand { font-family: Georgia, "Times New Roman", serif; font-size: 20pt; font-weight: 700; color: #111; }
+  .result-body { grid-template-columns: 180px 1fr; }
+  .verdict, .result-body, .score-explainer, .disclaimer { break-inside: avoid; }
+  .disclaimer { max-width: none !important; border: 1px solid #ccc; margin-top: 18px; }
+  .disclaimer summary { display: block; padding-bottom: 6px; }
+  a { color: #111; text-decoration: none; }
+}
+
+/* ==== Phone layout (≤540px). Desktop styles above are untouched. ==== */
+@media (max-width: 540px) {
+  /* Header: "How it works" plus an Analyze pill; Research and Privacy live in the footer */
+  .topnav { gap: 12px; align-items: center; }
+  .topnav a[href="/research"], .topnav a[href="/privacy"] { display: none; }
+  .topnav a[href="/analyze"] {
+    order: 2;
+    padding: 7px 14px;
+    border-radius: 999px;
+    background: var(--ink);
+    color: #fff;
+    font-weight: 600;
+  }
+  .topnav a[href="/analyze"][aria-current="page"], .topnav a[href="/analyze"]:hover { color: #fff; opacity: .9; }
+
+  /* Hero: tighter, so the button and facts sit higher */
+  .hero-band { padding: 0 18px; border-radius: 20px; }
+  .hero { padding: 26px 0 22px; gap: 26px; }
+  .hero .eyebrow { font-size: 11px; letter-spacing: .1em; margin-bottom: 10px; }
+  h1 { font-size: 30px; line-height: 1.08; margin-bottom: 12px; }
+  .landing-lead { font-size: 15.5px; margin-bottom: 20px; }
+  .cta { gap: 12px; }
+  .cta-link { align-self: center; font-size: 14.5px; }
+  .hero-facts { margin-top: 20px; padding-top: 16px; gap: 9px; font-size: 13.5px; }
+  .hero-facts li::before { width: 15px; height: 15px; background-size: 15px; }
+  .demo-chrome { padding: 8px 10px; }
+
+  /* Founder: small photo beside the heading, text wraps under it */
+  .founder { display: block; padding: 20px 18px; margin-top: 16px; }
+  .founder-photo { float: left; margin: 0 14px 8px 0; }
+  .founder-photo img { width: 64px; height: 64px; border-radius: 14px; }
+  .founder-text h2 { font-size: 19px; margin: 6px 0 14px; min-height: 52px; display: flex; align-items: center; }
+  .founder-text p { font-size: 15px; clear: both; }
+  .founder-credit { font-size: 11.5px !important; }
+
+  /* Tool */
+  .back-link { margin-bottom: 12px; }
+  .progress { margin-bottom: 20px; }
+  .progress-step { font-size: 12px; gap: 6px; }
+  .view-title { font-size: 19px; margin-bottom: 12px; }
+  .dropzone { padding: 32px 16px; }
+  .preview-wrap { height: 220px; }
+
+  /* Results: thumbnail beside the scores so everything fits on one screen */
+  .verdict { padding: 14px 16px; margin-bottom: 16px; }
+  .verdict-label { font-size: 17px; }
+  .result-body { grid-template-columns: 84px 1fr; gap: 14px; align-items: start; }
+  .result-thumb { max-height: none; aspect-ratio: 1; }
+  .result-thumb img { max-height: none; }
+  .scores { gap: 12px; }
+  .score-name { font-size: 13.5px; }
+  .score-val { font-size: 15px; }
+  .meter { height: 8px; }
+  .score-explainer { margin-top: 16px; padding-top: 14px; font-size: 13px; }
+  .btn-row { gap: 8px; }
+  .btn-row .btn { flex: 1 1 auto; padding: 11px 14px; font-size: 14px; }
+  .btn-row .btn-dark { flex-basis: 100%; }
+}

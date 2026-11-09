@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /model/
 
-Sitemap: https://cathra.teddyaaron.com/sitemap.xml
+Sitemap: https://www.cathra.dev/sitemap.xml

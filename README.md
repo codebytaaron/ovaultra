@@ -5,7 +5,7 @@ ultrasound image to two learned patterns, normal and abnormal, and shows a
 similarity score for each. The model runs entirely in the visitor's browser, so
 images are never uploaded or stored.
 
-Live site: https://cathra.teddyaaron.com
+Live site: https://www.cathra.dev
 
 > **Not a medical device.** Cathra does not diagnose, detect, confirm, or rule out
 > ovarian cancer or any other condition. See the disclaimer on the site.
