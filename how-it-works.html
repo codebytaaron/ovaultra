@@ -136,11 +136,13 @@
       <ul>
         <li><strong>Normal:</strong> ovaries with a typical appearance.</li>
         <li>
-          <strong>Abnormal:</strong> a broad category of non-cancerous findings. In this dataset,
-          most abnormal images show a polycystic ovarian appearance. An abnormal-pattern result
-          does not mean cancer.
+          <strong>Abnormal:</strong> ovaries that differ from a typical appearance. In this
+          dataset, most abnormal images show a polycystic ovarian appearance.
         </li>
       </ul>
+      <p>
+        Neither result confirms or rules out cancer or any other condition.
+      </p>
       <div class="credit" id="dataset">
         <p class="credit-label">Dataset credit</p>
         <p>
@@ -158,10 +160,11 @@
       </section>
 
       <section class="block" id="results">
-      <h2>How accurate is it?</h2>
+      <h2>Test results</h2>
       <p>
-        Both versions of the model were tested on the same 1,449 held-out PCOSGen test images
-        (411 normal, 1,038 abnormal). Each image was scored exactly as the website scores it.
+        We tested both versions of the model on the same 1,449 PCOSGen test images (411 normal,
+        1,038 abnormal), none of which were used in training. Each image was scored exactly the
+        way the website scores it.
       </p>
       <div class="table-wrap">
         <table class="results-table">
@@ -171,30 +174,33 @@
           <tbody>
             <tr><th scope="row">Overall accuracy</th><td>74.2%</td><td><strong>85.6%</strong></td></tr>
             <tr><th scope="row">Balanced accuracy</th><td>57.6%</td><td><strong>81.1%</strong></td></tr>
-            <tr><th scope="row">Normal scans called normal</th><td>19.2% (79 of 411)</td><td><strong>70.8%</strong> (291 of 411)</td></tr>
-            <tr><th scope="row">Abnormal scans called abnormal</th><td><strong>96.0%</strong> (996 of 1,038)</td><td>91.4% (949 of 1,038)</td></tr>
+            <tr><th scope="row">Normal images matched correctly</th><td>19.2% (79 of 411)</td><td><strong>70.8%</strong> (291 of 411)</td></tr>
+            <tr><th scope="row">Abnormal images matched correctly</th><td><strong>96.0%</strong> (996 of 1,038)</td><td>91.4% (949 of 1,038)</td></tr>
           </tbody>
         </table>
       </div>
       <ul>
         <li>
-          <strong>Why v2 is better:</strong> v1 labeled almost every image abnormal, so it
-          recognized only 1 in 5 normal scans. v2 actually tells the two patterns apart.
+          <strong>What improved:</strong> v2 recognizes normal images far more reliably, rising
+          from 19% to 71%, so its results are much more balanced across both patterns.
         </li>
         <li>
-          <strong>The trade-off:</strong> v2 catches slightly fewer abnormal scans than v1 (91.4%
-          vs 96.0%).
+          <strong>What changed slightly:</strong> v2 matches 91% of abnormal images, compared with
+          96% for v1.
         </li>
         <li>
-          <strong>Balanced accuracy</strong> averages the two rates, because the test set is
-          mostly abnormal and overall accuracy alone can hide a model that favors one answer.
+          <strong>Balanced accuracy</strong> gives equal weight to normal and abnormal images.
+          We report it because most of the test images are abnormal.
         </li>
         <li>
-          v1 was trained on a smaller set of images whose source isn't documented. v2's training
-          and test images come from the same source, which may make its score higher than it would
-          be on images from other hospitals or machines.
+          <strong>Context:</strong> v2 was trained and tested on images from the same dataset.
+          Results on images from other sources may differ.
         </li>
       </ul>
+      <p class="small-note">
+        These are research results on a public image dataset. They are not clinical performance
+        figures and do not describe how Cathra would perform on any individual’s scan.
+      </p>
       </section>
 
       <section class="block">
@@ -216,19 +222,23 @@
       <h2>Limitations</h2>
       <ul>
         <li>
-          It has not been clinically validated. On the test set it misses about 1 in 11 abnormal
-          scans and calls about 3 in 10 normal scans abnormal.
+          Cathra is a research tool and has not been clinically validated. Like any model, it can
+          be wrong (see <a href="#results">test results</a>).
         </li>
         <li>
-          It was trained and tested on one dataset of images collected from the internet. Results
-          on images from other hospitals, ultrasound machines, or patient populations are unknown.
+          Its training images come from one public research dataset gathered from online sources.
+          Performance on images from other hospitals, machines, or patient groups hasn’t been
+          tested.
         </li>
-        <li>Image quality, cropping, on-screen labels, and annotations can change the scores.</li>
+        <li>Image quality, cropping, on-screen labels, and annotations can affect the scores.</li>
         <li>
-          It only knows two broad categories. It cannot identify specific conditions or assign
+          It compares two broad patterns. It doesn’t identify specific conditions or assign
           clinical categories such as O-RADS.
         </li>
-        <li>It will still return scores for images that are not ovarian ultrasounds.</li>
+        <li>
+          It’s designed only for ovarian ultrasound images. Other images can still produce
+          scores, but those scores have no meaning.
+        </li>
       </ul>
       </section>
 
