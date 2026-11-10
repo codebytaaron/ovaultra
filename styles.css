@@ -833,3 +833,8 @@ main:has(#tool:not([hidden])) .disclaimer { max-width: 640px; margin-left: auto;
   .stat { grid-template-columns: auto 1fr; align-items: center; gap: 12px; padding: 12px 14px; }
   .stat-num { font-size: 22px; }
 }
+
+/* ---- Research page: paper ---- */
+.paper-title { font-family: Georgia, "Times New Roman", serif; font-size: 19px; font-weight: 700; line-height: 1.3; margin: 0 0 6px; color: var(--ink); }
+.paper-meta { font-size: 14px; color: var(--ink-soft); margin: 0 0 16px; }
+.prose a.btn-dark { color: #fff; text-decoration: none; }
