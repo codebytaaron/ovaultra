@@ -822,3 +822,14 @@ main:has(#tool:not([hidden])) .disclaimer { max-width: 640px; margin-left: auto;
   .results-table th, .results-table td { padding: 9px 10px; }
   .results-table td { white-space: normal; }
 }
+
+/* ---- Research page: key results ---- */
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 6px 0 16px; }
+.stat { background: var(--fill); border-radius: 14px; padding: 16px; display: grid; gap: 4px; }
+.stat-num { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.stat-label { font-size: 13px; color: var(--ink-soft); line-height: 1.4; }
+@media (max-width: 540px) {
+  .stats { grid-template-columns: 1fr; gap: 8px; }
+  .stat { grid-template-columns: auto 1fr; align-items: center; gap: 12px; padding: 12px 14px; }
+  .stat-num { font-size: 22px; }
+}

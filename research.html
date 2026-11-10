@@ -109,57 +109,80 @@
   <main>
     <article class="prose">
       <header class="page-head">
-      <p class="eyebrow">For educators and researchers</p>
-      <h1>Research &amp; teaching</h1>
-      <p class="lede">
-        Cathra is free to use for learning and research. It is not for diagnosis or any medical
-        decision.
-      </p>
+        <p class="eyebrow">Research</p>
+        <h1>Research &amp; teaching</h1>
+        <p class="lede">
+          Results, data, a citation, and a ready-to-use lesson. Free for learning and research,
+          not for diagnosis or any medical decision.
+        </p>
       </header>
 
-      <section class="block">
-      <h2 id="classroom">Use Cathra in your class</h2>
-      <p>A 45-minute lesson on what image AI can and can’t do in medicine.</p>
-      <ol class="steps-plain">
-        <li><strong>Introduce (10 min).</strong> What a classifier does: it compares an image to
-          patterns it learned. Read the <a href="/how-it-works">How it works</a> page together.</li>
-        <li><strong>Explore (15 min).</strong> Students run the tool on a few images, then on
-          something that isn’t an ultrasound, and note what happens.</li>
-        <li><strong>Discuss (15 min).</strong> Use the questions below.</li>
-        <li><strong>Reflect (5 min).</strong> Each student writes one thing a tool like this
-          should never be used for.</li>
-      </ol>
-
-      <p><strong>Discussion questions</strong></p>
-      <ul>
-        <li>Why is a similarity score not the same as the chance someone has a condition?</li>
-        <li>The tool still scores a photo of a cat. What does that tell you about AI models?</li>
-        <li>What could go wrong if a model is trained on images from only one source?</li>
-        <li>Who should be responsible when a medical AI tool is wrong?</li>
-        <li>Why might it matter that Cathra runs on your device instead of a server?</li>
-      </ul>
+      <section class="block" id="results">
+        <h2>Results at a glance</h2>
+        <div class="stats">
+          <div class="stat"><span class="stat-num">85.6%</span><span class="stat-label">accuracy on 1,449 held-out test images</span></div>
+          <div class="stat"><span class="stat-num">81.1%</span><span class="stat-label">balanced accuracy across both classes</span></div>
+          <div class="stat"><span class="stat-num">1,734</span><span class="stat-label">training images, equal normal and abnormal</span></div>
+        </div>
+        <p>
+          Model v2, tested on images it never saw during training. See the
+          <a href="/how-it-works#results">full results, comparison with v1, and limitations</a>.
+        </p>
+        <p class="small-note">
+          Research results on a public image dataset, not clinical performance figures.
+        </p>
       </section>
 
-      <section class="block">
-      <h2 id="cite">How to cite Cathra</h2>
-      <div class="cite-box">
-        <p id="citation">Aaron, T. (2026). <em>Cathra: ovarian ultrasound pattern research
-          prototype</em> [Computer software]. <span id="cite-url">cathra</span></p>
-        <button class="btn btn-plain cite-copy" id="copy-cite" type="button">Copy</button>
-      </div>
-      <p class="small-note">
-        If you use the training data, also cite the PCOSGen dataset (see
-        <a href="/how-it-works#dataset">dataset credit</a>).
-      </p>
+      <section class="block" id="data">
+        <h2>Data</h2>
+        <p>
+          Cathra is trained and tested on the <strong>PCOSGen</strong> ovarian ultrasound dataset
+          (Handa et al., Zenodo, 2025), used under CC BY 4.0. The training and test sets are kept
+          separate, with duplicates removed. <a href="/how-it-works#dataset">Full dataset credit</a>.
+        </p>
       </section>
 
-      <section class="block">
-      <h2 id="contact">For schools and labs</h2>
-      <p>
-        Interested in a version for your school, class, or lab? Email
-        <a href="mailto:paultaaron@icloud.com?subject=Cathra%20for%20my%20institution">paultaaron@icloud.com</a>
-        with your organization’s name and how you plan to use it.
-      </p>
+      <section class="block" id="cite">
+        <h2>Cite Cathra</h2>
+        <div class="cite-box">
+          <p id="citation">Aaron, T. (2026). <em>Cathra</em> (Version 2) [Computer software].
+            https://www.cathra.dev</p>
+          <button class="btn btn-plain cite-copy" id="copy-cite" type="button">Copy</button>
+        </div>
+        <p class="small-note">If you use the training data, please also cite the PCOSGen dataset.</p>
+      </section>
+
+      <section class="block" id="classroom">
+        <h2>Teach with Cathra</h2>
+        <p>A 45-minute lesson on what image AI can and can’t do in medicine.</p>
+        <ol class="steps-plain">
+          <li><strong>Introduce (10 min).</strong> A classifier compares an image to patterns it
+            learned. Read <a href="/how-it-works">How it works</a> together.</li>
+          <li><strong>Explore (15 min).</strong> Students analyze a few ultrasound images and
+            record the scores and any “Unable to assess” results.</li>
+          <li><strong>Discuss (15 min).</strong> Use the questions below.</li>
+          <li><strong>Reflect (5 min).</strong> Each student writes one thing a tool like this
+            should never be used for.</li>
+        </ol>
+        <p><strong>Discussion questions</strong></p>
+        <ul>
+          <li>Why is a similarity score not the same as the chance someone has a condition?</li>
+          <li>Version 1 scored 74% overall but recognized only 19% of normal images. How can a
+            single accuracy number be misleading?</li>
+          <li>Both versions were tested on images from one dataset. Why might results differ at
+            another hospital?</li>
+          <li>Who should be responsible when a medical AI tool is wrong?</li>
+          <li>Why does it matter that Cathra runs on your device instead of a server?</li>
+        </ul>
+      </section>
+
+      <section class="block" id="contact">
+        <h2>For schools and labs</h2>
+        <p>
+          Want to use Cathra with your class or lab? Email
+          <a href="mailto:paultaaron@icloud.com?subject=Cathra%20for%20my%20institution">paultaaron@icloud.com</a>
+          with your organization’s name and how you plan to use it.
+        </p>
       </section>
     </article>
   </main>
@@ -178,13 +201,10 @@
       <a href="/privacy">Privacy</a>
       <a href="/how-it-works#dataset">Data: PCOSGen (CC BY 4.0)</a>
     </nav>
-    <p class="footer-meta">Last updated October 2026 · © 2026 Cathra. All rights reserved.</p>
+    <p class="footer-meta">Last updated November 2026 · © 2026 Cathra. All rights reserved.</p>
   </footer>
 
   <script>
-    // Fill in the site's real address so the citation is correct on any domain.
-    var url = location.origin + "/";
-    document.getElementById("cite-url").textContent = url;
     document.getElementById("copy-cite").addEventListener("click", function () {
       var text = document.getElementById("citation").textContent.replace(/\s+/g, " ").trim();
       var btn = this;
