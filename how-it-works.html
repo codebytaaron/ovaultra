@@ -129,15 +129,16 @@
       <section class="block">
       <h2>Training data</h2>
       <p>
-        The model was trained on a labeled set of ovarian ultrasound images, sorted into two
-        categories:
+        The current model (v2) was trained on 1,734 labeled ovarian ultrasound images, 867 in each
+        category, and tested on a separate set of 1,449 images it never saw during training.
+        Exact duplicates were removed, and no test image is a copy of a training image.
       </p>
       <ul>
         <li><strong>Normal:</strong> ovaries with a typical appearance.</li>
         <li>
-          <strong>Abnormal:</strong> a broad category that includes non-cancerous findings such as
-          polycystic ovarian appearance, simple cysts, and complex cysts. An abnormal-pattern
-          result does not mean cancer.
+          <strong>Abnormal:</strong> a broad category of non-cancerous findings. In this dataset,
+          most abnormal images show a polycystic ovarian appearance. An abnormal-pattern result
+          does not mean cancer.
         </li>
       </ul>
       <div class="credit" id="dataset">
@@ -154,6 +155,46 @@
           license. Images were sorted into Normal and Abnormal using the dataset’s own labels.
         </p>
       </div>
+      </section>
+
+      <section class="block" id="results">
+      <h2>How accurate is it?</h2>
+      <p>
+        Both versions of the model were tested on the same 1,449 held-out PCOSGen test images
+        (411 normal, 1,038 abnormal). Each image was scored exactly as the website scores it.
+      </p>
+      <div class="table-wrap">
+        <table class="results-table">
+          <thead>
+            <tr><th scope="col"></th><th scope="col">v1 (July 2026)</th><th scope="col">v2 (November 2026)</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Overall accuracy</th><td>74.2%</td><td><strong>85.6%</strong></td></tr>
+            <tr><th scope="row">Balanced accuracy</th><td>57.6%</td><td><strong>81.1%</strong></td></tr>
+            <tr><th scope="row">Normal scans called normal</th><td>19.2% (79 of 411)</td><td><strong>70.8%</strong> (291 of 411)</td></tr>
+            <tr><th scope="row">Abnormal scans called abnormal</th><td><strong>96.0%</strong> (996 of 1,038)</td><td>91.4% (949 of 1,038)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li>
+          <strong>Why v2 is better:</strong> v1 labeled almost every image abnormal, so it
+          recognized only 1 in 5 normal scans. v2 actually tells the two patterns apart.
+        </li>
+        <li>
+          <strong>The trade-off:</strong> v2 catches slightly fewer abnormal scans than v1 (91.4%
+          vs 96.0%).
+        </li>
+        <li>
+          <strong>Balanced accuracy</strong> averages the two rates, because the test set is
+          mostly abnormal and overall accuracy alone can hide a model that favors one answer.
+        </li>
+        <li>
+          v1 was trained on a smaller set of images whose source isn't documented. v2's training
+          and test images come from the same source, which may make its score higher than it would
+          be on images from other hospitals or machines.
+        </li>
+      </ul>
       </section>
 
       <section class="block">
@@ -174,10 +215,13 @@
       <section class="block">
       <h2>Limitations</h2>
       <ul>
-        <li>The training set is small and has not been clinically validated.</li>
         <li>
-          Results on images from other hospitals, ultrasound machines, or patient populations are
-          unknown.
+          It has not been clinically validated. On the test set it misses about 1 in 11 abnormal
+          scans and calls about 3 in 10 normal scans abnormal.
+        </li>
+        <li>
+          It was trained and tested on one dataset of images collected from the internet. Results
+          on images from other hospitals, ultrasound machines, or patient populations are unknown.
         </li>
         <li>Image quality, cropping, on-screen labels, and annotations can change the scores.</li>
         <li>

@@ -34,7 +34,7 @@ privacy.html        Privacy policy
 app.js              Tool logic: file handling, preview, model, results
 styles.css          All styles (white and black, minimal)
 media/              Demo video, poster image, founder photo
-model/v1/           Current model: model.json, weights.bin, metadata.json
+model/v1/, model/v2/ Model versions (v2 is live): model.json, weights.bin, metadata.json
 robots.txt          Allows indexing, keeps /model/ out of search
 sitemap.xml         Pages for search engines
 vercel.json         Clean URLs; long-term caching for /model/
@@ -49,8 +49,8 @@ No build step. Vercel deploys the repo root as a static site on every push to
 existing version folder**. Returning visitors would keep the old model.
 
 1. Export from Teachable Machine: **Export Model → TensorFlow.js → Download**.
-2. Put the three files in a new folder, for example `model/v2/`.
-3. In `app.js`, change `MODEL_VERSION` to `"v2"`.
+2. Put the three files in a new folder, for example `model/v3/`.
+3. In `app.js`, change `MODEL_VERSION` to `"v3"`.
 4. Keep the class order **Normal first, Abnormal second**. The app relies on it.
 5. Update the training wording and dataset credit on `how-it-works.html` and the
    homepage facts if the training data changed.
@@ -58,9 +58,11 @@ existing version folder**. Returning visitors would keep the old model.
 
 ## Training data
 
-**Note:** `model/v1` is the original July 2026 model and predates PCOSGen. The
-retrained model (to be added as `model/v2`) uses the PCOSGen dataset, which the
-site already credits. Ship v2 so the site's wording matches the live model.
+**v2 (live, `model/v2`, Nov 2026):** trained on 1,734 PCOSGen training images
+(867 normal, 867 abnormal, balanced), tested on the 1,449 held-out PCOSGen test
+images: 85.6% accuracy, 81.1% balanced accuracy, 70.8% of normal and 91.4% of
+abnormal scans classified correctly. `model/v1` (July 2026, different smaller
+data) scored 74.2% / 57.6% on the same test set. Full table on How it works.
 
 PCOSGen dataset (train and test), Handa et al., Zenodo 2025,
 [10.5281/zenodo.14592001](https://doi.org/10.5281/zenodo.14592001) and

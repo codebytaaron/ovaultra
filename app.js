@@ -14,7 +14,7 @@
 // Each model version lives in its own folder because /model/ is cached for a
 // year. To ship a new model, add it as /model/v2/ and change this line; never
 // overwrite the files inside an existing version folder.
-const MODEL_VERSION = "v1";
+const MODEL_VERSION = "v2";
 const MODEL_URL = `/model/${MODEL_VERSION}/model.json`;
 const METADATA_URL = `/model/${MODEL_VERSION}/metadata.json`;
 
@@ -400,7 +400,7 @@ function renderResultMeta(elapsedMs) {
   if (trained) {
     const d = new Date(trained);
     if (!isNaN(d)) {
-      parts.push(`Model trained ${d.toLocaleDateString(undefined, { month: "short", year: "numeric" })}`);
+      parts.push(`Model ${MODEL_VERSION}, trained ${d.toLocaleDateString(undefined, { month: "short", year: "numeric" })}`);
     }
   }
   parts.push(new Date().toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" }));

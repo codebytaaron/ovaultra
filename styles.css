@@ -809,3 +809,16 @@ main:has(#tool:not([hidden])) .disclaimer { max-width: 640px; margin-left: auto;
   .btn-row .btn { flex: 1 1 auto; padding: 11px 14px; font-size: 14px; }
   .btn-row .btn-dark { flex-basis: 100%; }
 }
+
+/* ---- Results table (How it works) ---- */
+.table-wrap { overflow-x: auto; margin: 14px 0 16px; border: 1px solid var(--line); border-radius: 12px; }
+.results-table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+.results-table th, .results-table td { padding: 11px 14px; text-align: left; border-top: 1px solid var(--line); }
+.results-table thead th { border-top: 0; background: var(--fill); font-size: 13px; font-weight: 700; }
+.results-table tbody th { font-weight: 500; color: #333; }
+.results-table td { font-variant-numeric: tabular-nums; white-space: nowrap; }
+@media (max-width: 540px) {
+  .results-table { font-size: 13px; }
+  .results-table th, .results-table td { padding: 9px 10px; }
+  .results-table td { white-space: normal; }
+}
