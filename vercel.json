@@ -10,6 +10,19 @@
           "value": "public, max-age=31536000, immutable"
         }
       ]
+    },
+    {
+      "source": "/cathra-paper.pdf",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/pdf"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "inline; filename=\"Aaron_2026_Cathra_preprint.pdf\""
+        }
+      ]
     }
   ],
   "rewrites": [
