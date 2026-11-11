@@ -104,6 +104,15 @@
       <a href="/research">Research</a>
       <a href="/privacy">Privacy</a>
     </nav>
+    <details class="mnav">
+      <summary aria-label="Menu"><span class="mnav-bars" aria-hidden="true"></span>Menu</summary>
+      <nav class="mnav-panel" aria-label="Menu">
+        <a href="/analyze">Analyze</a>
+        <a href="/how-it-works" aria-current="page">How it works</a>
+        <a href="/research">Research</a>
+        <a href="/privacy">Privacy</a>
+      </nav>
+    </details>
   </header>
 
   <main>
@@ -211,12 +220,42 @@
           Each percentage is a <strong>visual similarity score</strong>: how closely the image
           resembles that pattern. It is not the probability that a person has any condition.
         </li>
-        <li>The higher of the two scores is shown as the result label.</li>
         <li>
-          If the higher score is below 60%, or the two scores are within 15 points of each other,
-          Cathra shows <strong>“Unable to assess confidently”</strong> instead of picking one.
+          Cathra names a pattern only when it is confident enough, using the calibrated rule
+          below. Otherwise it shows <strong>“Unable to assess confidently”</strong>.
         </li>
       </ul>
+      </section>
+
+      <section class="block" id="confidence">
+      <h2>When Cathra gives an answer</h2>
+      <p>
+        Cathra’s answer rule was calibrated with <strong>conformal prediction</strong>, a
+        statistical method that sets thresholds from test data so that errors stay below a chosen
+        rate. We targeted at most about 1 in 10 wrong answers for each pattern.
+      </p>
+      <ul>
+        <li><strong>Normal pattern:</strong> the normal score is 60% or higher.</li>
+        <li><strong>Abnormal pattern:</strong> the abnormal score is about 97% or higher.</li>
+        <li><strong>Anything in between:</strong> “Unable to assess confidently.”</li>
+      </ul>
+      <p>
+        The abnormal bar is higher because the model tends to over-call abnormal. On test images
+        held out from calibration, Cathra gave an answer for about 9 in 10 images, and about 90%
+        of those answers matched the dataset’s label. Normal images wrongly labeled abnormal fell
+        from 28% to about 10%.
+      </p>
+      <p>
+        <strong>Images that don’t match the training data.</strong> Cathra also checks whether an
+        image resembles the ovarian ultrasounds it was trained on. If not, it shows “Unable to
+        assess this image” instead of a pattern. In testing, this flagged all 151 X-rays, CT and MRI
+        scans, microscope slides, photos, and blank images we tried, and 62 of 73 ultrasounds of
+        other organs, while flagging about 1% of real ovarian ultrasound test images.
+      </p>
+      <p class="small-note">
+        This guarantee only applies to images similar to the PCOSGen test set. It says nothing
+        about images from other sources, and it does not make the scores a diagnosis.
+      </p>
       </section>
 
       <section class="block">
@@ -238,7 +277,8 @@
         </li>
         <li>
           It’s designed only for ovarian ultrasound images. Other images can still produce
-          scores, but those scores have no meaning.
+          scores, but those scores have no meaning. Cathra tries to
+          <a href="#confidence">flag them</a>, but it can miss some.
         </li>
       </ul>
       </section>

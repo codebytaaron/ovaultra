@@ -23,12 +23,22 @@ const METADATA_URL = `/model/${MODEL_VERSION}/metadata.json`;
 const NORMAL_INDEX = 0;
 const ABNORMAL_INDEX = 1;
 
-// Uncertainty thresholds (tunable):
-//  - if the top score is below this, or
-//  - if the two scores are closer than this margin,
-// we decline to assert a category.
-const MIN_TOP_SCORE = 0.60;   // 60%
-const MIN_MARGIN = 0.15;      // 15 percentage points
+// When to name a pattern (calibrated with class-conditional conformal prediction
+// on the 1,449 PCOSGen test images, 90% target per class). A pattern is a
+// candidate when its score clears its threshold; Cathra names it only when it is
+// the sole candidate and scores at least MIN_TOP_SCORE. Otherwise it says it is
+// unable to assess. The abnormal threshold is stricter because v2 tends to
+// over-call abnormal.
+const CONFORMAL_MIN = { normal: 0.030715, abnormal: 0.641009 };
+const MIN_TOP_SCORE = 0.60;
+
+function decide(normal, abnormal) {
+  const isNormal = normal >= CONFORMAL_MIN.normal;
+  const isAbnormal = abnormal >= CONFORMAL_MIN.abnormal;
+  if (isNormal && !isAbnormal && normal >= MIN_TOP_SCORE) return "normal";
+  if (isAbnormal && !isNormal && abnormal >= MIN_TOP_SCORE) return "abnormal";
+  return "uncertain";
+}
 
 const ACCEPTED_TYPES = ["image/jpeg", "image/jpg", "image/png"];
 
@@ -95,6 +105,13 @@ document.querySelectorAll(`a[href="${TOOL_PATH}"]`).forEach((a) =>
   a.addEventListener("click", (e) => { e.preventDefault(); if (location.pathname !== TOOL_PATH) openTool(); })
 );
 
+// Phone menu: close it after choosing a link or tapping elsewhere.
+const mnav = document.querySelector(".mnav");
+if (mnav) {
+  mnav.addEventListener("click", (e) => { if (e.target.closest("a")) mnav.open = false; });
+  document.addEventListener("click", (e) => { if (mnav.open && !mnav.contains(e.target)) mnav.open = false; });
+}
+
 // ---- Element refs ----
 const views = {
   upload: document.getElementById("view-upload"),
@@ -141,6 +158,10 @@ function showView(name) {
       el.classList.add("view-enter");
     }
   });
+
+  // On a phone the new step can start above the screen; bring it into view.
+  const top = tool.getBoundingClientRect().top;
+  if (!tool.hidden && top < 0) window.scrollBy({ top: top - 8, behavior: "auto" });
 
   const current = VIEW_STEP[name];
   progressSteps.forEach((stepEl) => {
@@ -288,6 +309,7 @@ function naturalSizeCanvas(img) {
 let modelPromise = null;
 function ensureModel() {
   if (!modelPromise) {
+    loadTrainingReference();
     modelPromise = tmImage.load(MODEL_URL, METADATA_URL)
       .then(async (m) => {
         // The first prediction compiles the GPU shaders (several seconds); do it
@@ -300,6 +322,58 @@ function ensureModel() {
       .catch((err) => { modelPromise = null; throw err; });
   }
   return modelPromise;
+}
+
+// ---- "Does this look like the training data?" check ----
+// A compact summary of what the model's internal features look like on the
+// 3,120 training images (mean + 32 main directions). Images far from it, such as
+// photos, other scan types, or other organs, get flagged. Threshold = the 99th
+// percentile of the PCOSGen test images, so about 1% of real ones are flagged.
+// If it fails to load, results are shown without the check.
+let trainingRef = null;
+function loadTrainingReference() {
+  if (trainingRef) return;
+  trainingRef = Promise.all([
+    fetch(`/model/${MODEL_VERSION}/ood.json`).then((r) => r.json()),
+    fetch(`/model/${MODEL_VERSION}/ood.bin`).then((r) => r.arrayBuffer()),
+  ]).then(([meta, buf]) => {
+    const f = new Float32Array(buf), d = meta.dim, k = meta.k;
+    return { ...meta, mean: f.subarray(0, d), dirs: f.subarray(d, d + k * d), invVar: f.subarray(d + k * d, d + k * d + k) };
+  }).catch(() => (trainingRef = null));
+}
+
+// Same 224 × 224 center crop the Teachable Machine library uses.
+function cropLikeModel(src, size = 224) {
+  const w = src.width, h = src.height, s = size / Math.min(w, h);
+  const sw = Math.ceil(w * s), sh = Math.ceil(h * s);
+  const c = document.createElement("canvas");
+  c.width = c.height = size;
+  c.getContext("2d").drawImage(src, ~~((sw - size) / 2) * -1, ~~((sh - size) / 2) * -1, sw, sh);
+  return c;
+}
+
+// Returns true if the image looks unlike the training images, false if it looks
+// like them, or null if the check isn't available.
+async function looksUnlikeTrainingData(canvas) {
+  const ref = trainingRef && (await trainingRef);
+  if (!ref || !model || !model.model) return null;
+  const feats = tf.tidy(() => {
+    const x = tf.browser.fromPixels(cropLikeModel(canvas)).toFloat().div(127).sub(1).expandDims(0);
+    return model.model.layers[0].predict(x).dataSync();
+  });
+  const { dim, k, mean, dirs, invVar, invRest, threshold } = ref;
+  const diff = new Float64Array(dim);
+  let total = 0;
+  for (let i = 0; i < dim; i++) { diff[i] = feats[i] - mean[i]; total += diff[i] * diff[i]; }
+  let explained = 0, score = 0;
+  for (let j = 0; j < k; j++) {
+    let z = 0;
+    for (let i = 0; i < dim; i++) z += diff[i] * dirs[j * dim + i];
+    explained += z * z;
+    score += z * z * invVar[j];
+  }
+  score += (total - explained) * invRest;
+  return score > threshold;
 }
 
 function preloadModel() {
@@ -330,9 +404,12 @@ btnAnalyze.addEventListener("click", async () => {
 
     loadingText.textContent = "Comparing patterns…";
     const started = performance.now();
-    const predictions = await model.predict(naturalSizeCanvas(previewImg));
+    const canvas = naturalSizeCanvas(previewImg);
+    const predictions = await model.predict(canvas);
     const elapsed = performance.now() - started;
-    renderResults(predictions);
+    let unlike = null;
+    try { unlike = await looksUnlikeTrainingData(canvas); } catch (e) { unlike = null; }
+    renderResults(predictions, unlike === true);
     renderResultMeta(elapsed);
     showView("results");
   } catch (err) {
@@ -345,7 +422,7 @@ btnAnalyze.addEventListener("click", async () => {
 });
 
 // ---- Results ----
-function renderResults(predictions) {
+function renderResults(predictions, unlikeTraining = false) {
   // predictions: [{ className, probability }, ...] in training order.
   const normal = predictions[NORMAL_INDEX] ? predictions[NORMAL_INDEX].probability : 0;
   const abnormal = predictions[ABNORMAL_INDEX] ? predictions[ABNORMAL_INDEX].probability : 0;
@@ -365,21 +442,24 @@ function renderResults(predictions) {
     document.getElementById("bar-abnormal").style.width = abnormalPct + "%";
   });
 
-  const top = Math.max(normal, abnormal);
-  const margin = Math.abs(normal - abnormal);
-  const uncertain = top < MIN_TOP_SCORE || margin < MIN_MARGIN;
+  const decision = unlikeTraining ? "unlike" : decide(normal, abnormal);
 
   const verdict = document.getElementById("verdict");
   const verdictLabel = document.getElementById("verdict-label");
   const verdictTag = verdict.querySelector(".verdict-tag");
-  verdict.classList.remove("is-normal", "is-abnormal", "is-uncertain");
+  verdict.classList.remove("is-normal", "is-abnormal", "is-uncertain", "is-unlike");
 
-  if (uncertain) {
+  if (decision === "unlike") {
+    verdictLabel.textContent = "Unable to assess this image";
+    verdictTag.textContent = "It doesn’t look like the ovarian ultrasounds Cathra was trained on, so these scores are likely meaningless.";
+    verdictTag.hidden = false;
+    verdict.classList.add("is-uncertain", "is-unlike");
+  } else if (decision === "uncertain") {
     verdictLabel.textContent = "Unable to assess confidently";
-    verdictTag.textContent = "Scores are close or low";
+    verdictTag.textContent = "Not confident enough to choose";
     verdictTag.hidden = false;
     verdict.classList.add("is-uncertain");
-  } else if (normal >= abnormal) {
+  } else if (decision === "normal") {
     verdictLabel.textContent = "Normal-pattern similarity";
     verdictTag.hidden = true;
     verdict.classList.add("is-normal");

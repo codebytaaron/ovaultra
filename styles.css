@@ -838,3 +838,71 @@ main:has(#tool:not([hidden])) .disclaimer { max-width: 640px; margin-left: auto;
 .paper-title { font-family: Georgia, "Times New Roman", serif; font-size: 19px; font-weight: 700; line-height: 1.3; margin: 0 0 6px; color: var(--ink); }
 .paper-meta { font-size: 14px; color: var(--ink-soft); margin: 0 0 16px; }
 .prose a.btn-dark { color: #fff; text-decoration: none; }
+
+/* ---- Phone menu (hidden on desktop) ---- */
+.mnav { display: none; }
+
+/* Taps register immediately (no double-tap-zoom delay) */
+a, button, summary, label { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+
+/* Touch screens: hover styles otherwise stick after a tap and look "pressed" */
+@media (hover: none) {
+  .btn-dark:hover { opacity: 1; }
+  .btn-plain:hover { background: transparent; }
+  .dropzone:hover { border-color: var(--line); }
+  .dropzone:hover .dz-browse { opacity: 1; }
+  .btn-dark:active { opacity: .8; }
+  .btn-plain:active, .dropzone:active { background: var(--fill); }
+}
+
+@media (max-width: 540px) {
+  /* Header: Analyze pill + Menu. Everything is at least 44px tall to tap. */
+  .topbar { padding: 10px 16px 10px 20px; position: relative; }
+  .topnav { gap: 8px; margin-left: auto; }
+  .topbar { gap: 4px; }
+  .topnav a[href="/how-it-works"] { display: none; }
+  .topnav a[href="/analyze"] { padding: 0 16px; min-height: 40px; display: inline-flex; align-items: center; }
+  .mnav { display: block; }
+  .mnav summary {
+    list-style: none; display: inline-flex; align-items: center; gap: 8px;
+    min-height: 44px; padding: 0 6px 0 10px; font-size: 14px; font-weight: 600; cursor: pointer; user-select: none;
+  }
+  .mnav summary::-webkit-details-marker { display: none; }
+  .mnav-bars, .mnav-bars::before, .mnav-bars::after {
+    display: block; width: 16px; height: 2px; background: var(--ink); border-radius: 2px; position: relative;
+  }
+  .mnav-bars::before, .mnav-bars::after { content: ""; position: absolute; left: 0; }
+  .mnav-bars::before { top: -5px; }
+  .mnav-bars::after { top: 5px; }
+  .mnav[open] .mnav-bars { background: transparent; }
+  .mnav[open] .mnav-bars::before { top: 0; transform: rotate(45deg); }
+  .mnav[open] .mnav-bars::after { top: 0; transform: rotate(-45deg); }
+  .mnav-panel {
+    position: absolute; top: 100%; left: 12px; right: 12px; z-index: 20;
+    display: grid; padding: 6px; background: #fff;
+    border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 12px 32px rgba(0,0,0,.10);
+  }
+  .mnav-panel a {
+    display: flex; align-items: center; min-height: 48px; padding: 0 14px; border-radius: 10px;
+    font-size: 16px; font-weight: 500; color: var(--ink); text-decoration: none;
+  }
+  .mnav-panel a:active, .mnav-panel a[aria-current="page"] { background: var(--fill); }
+
+  /* Tool: bigger "Back" target, buttons sized for thumbs */
+  .back-link { min-height: 44px; align-items: center; margin: -8px 0 4px; font-size: 15px; }
+  .btn-row .btn { min-height: 48px; }
+  .btn-row .btn-dark { font-size: 15.5px; }
+  .disclaimer summary { min-height: 44px; }
+
+  /* Footer: links in a two-column grid with full-height tap rows */
+  .site-footer { gap: 6px; }
+  .footer-links { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; width: 100%; }
+  .footer-links a { display: flex; align-items: center; min-height: 44px; font-size: 14px; }
+  .footer-links a[href="/how-it-works#dataset"] { grid-column: 1 / -1; }
+  .footer-credit a { display: inline-block; padding: 10px 0; }
+  .cite-copy { min-height: 44px; }
+}
+
+/* Result for an image that doesn't resemble the training data */
+.verdict.is-unlike .verdict-tag { flex-basis: 100%; color: var(--ink); }
+.verdict.is-unlike ~ .result-body .scores { opacity: .45; }
