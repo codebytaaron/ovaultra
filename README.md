@@ -41,4 +41,4 @@ PCOSGen dataset, Handa et al., Zenodo 2025
 ([train](https://doi.org/10.5281/zenodo.14592001),
 [test](https://doi.org/10.5281/zenodo.14591782)), CC BY 4.0.
 
-© 2026 Cathra. All rights reserved.
+© 2026 Teddy Aaron Ventures LLC. All rights reserved.
