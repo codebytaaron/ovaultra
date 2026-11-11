@@ -235,13 +235,6 @@
         of those answers matched the dataset’s label. Normal images wrongly labeled abnormal fell
         from 28% to about 10%.
       </p>
-      <p>
-        <strong>Images that don’t match the training data.</strong> Cathra also checks whether an
-        image resembles the ovarian ultrasounds it was trained on. If not, it shows “Unable to
-        assess this image” instead of a pattern. In testing, this flagged all 151 X-rays, CT and MRI
-        scans, microscope slides, photos, and blank images we tried, and 62 of 73 ultrasounds of
-        other organs, while flagging about 1% of real ovarian ultrasound test images.
-      </p>
       <p class="small-note">
         This guarantee only applies to images similar to the PCOSGen test set. It says nothing
         about images from other sources, and it does not make the scores a diagnosis.
@@ -268,8 +261,7 @@
         </li>
         <li>
           It’s designed only for ovarian ultrasound images. Other images can still produce
-          scores, but those scores have no meaning. Cathra tries to
-          <a href="#confidence">flag them</a>, but it can miss some.
+          scores, but those scores have no meaning.
         </li>
       </ul>
             <p class="small-note">

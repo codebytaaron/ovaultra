@@ -309,7 +309,6 @@ function naturalSizeCanvas(img) {
 let modelPromise = null;
 function ensureModel() {
   if (!modelPromise) {
-    loadTrainingReference();
     modelPromise = tmImage.load(MODEL_URL, METADATA_URL)
       .then(async (m) => {
         // The first prediction compiles the GPU shaders (several seconds); do it
@@ -322,58 +321,6 @@ function ensureModel() {
       .catch((err) => { modelPromise = null; throw err; });
   }
   return modelPromise;
-}
-
-// ---- "Does this look like the training data?" check ----
-// A compact summary of what the model's internal features look like on the
-// 3,120 training images (mean + 32 main directions). Images far from it, such as
-// photos, other scan types, or other organs, get flagged. Threshold = the 99th
-// percentile of the PCOSGen test images, so about 1% of real ones are flagged.
-// If it fails to load, results are shown without the check.
-let trainingRef = null;
-function loadTrainingReference() {
-  if (trainingRef) return;
-  trainingRef = Promise.all([
-    fetch(`/model/${MODEL_VERSION}/ood.json`).then((r) => r.json()),
-    fetch(`/model/${MODEL_VERSION}/ood.bin`).then((r) => r.arrayBuffer()),
-  ]).then(([meta, buf]) => {
-    const f = new Float32Array(buf), d = meta.dim, k = meta.k;
-    return { ...meta, mean: f.subarray(0, d), dirs: f.subarray(d, d + k * d), invVar: f.subarray(d + k * d, d + k * d + k) };
-  }).catch(() => (trainingRef = null));
-}
-
-// Same 224 × 224 center crop the Teachable Machine library uses.
-function cropLikeModel(src, size = 224) {
-  const w = src.width, h = src.height, s = size / Math.min(w, h);
-  const sw = Math.ceil(w * s), sh = Math.ceil(h * s);
-  const c = document.createElement("canvas");
-  c.width = c.height = size;
-  c.getContext("2d").drawImage(src, ~~((sw - size) / 2) * -1, ~~((sh - size) / 2) * -1, sw, sh);
-  return c;
-}
-
-// Returns true if the image looks unlike the training images, false if it looks
-// like them, or null if the check isn't available.
-async function looksUnlikeTrainingData(canvas) {
-  const ref = trainingRef && (await trainingRef);
-  if (!ref || !model || !model.model) return null;
-  const feats = tf.tidy(() => {
-    const x = tf.browser.fromPixels(cropLikeModel(canvas)).toFloat().div(127).sub(1).expandDims(0);
-    return model.model.layers[0].predict(x).dataSync();
-  });
-  const { dim, k, mean, dirs, invVar, invRest, threshold } = ref;
-  const diff = new Float64Array(dim);
-  let total = 0;
-  for (let i = 0; i < dim; i++) { diff[i] = feats[i] - mean[i]; total += diff[i] * diff[i]; }
-  let explained = 0, score = 0;
-  for (let j = 0; j < k; j++) {
-    let z = 0;
-    for (let i = 0; i < dim; i++) z += diff[i] * dirs[j * dim + i];
-    explained += z * z;
-    score += z * z * invVar[j];
-  }
-  score += (total - explained) * invRest;
-  return score > threshold;
 }
 
 function preloadModel() {
@@ -407,9 +354,7 @@ btnAnalyze.addEventListener("click", async () => {
     const canvas = naturalSizeCanvas(previewImg);
     const predictions = await model.predict(canvas);
     const elapsed = performance.now() - started;
-    let unlike = null;
-    try { unlike = await looksUnlikeTrainingData(canvas); } catch (e) { unlike = null; }
-    renderResults(predictions, unlike === true);
+    renderResults(predictions);
     renderResultMeta(elapsed);
     showView("results");
   } catch (err) {
@@ -422,7 +367,7 @@ btnAnalyze.addEventListener("click", async () => {
 });
 
 // ---- Results ----
-function renderResults(predictions, unlikeTraining = false) {
+function renderResults(predictions) {
   // predictions: [{ className, probability }, ...] in training order.
   const normal = predictions[NORMAL_INDEX] ? predictions[NORMAL_INDEX].probability : 0;
   const abnormal = predictions[ABNORMAL_INDEX] ? predictions[ABNORMAL_INDEX].probability : 0;
@@ -442,19 +387,14 @@ function renderResults(predictions, unlikeTraining = false) {
     document.getElementById("bar-abnormal").style.width = abnormalPct + "%";
   });
 
-  const decision = unlikeTraining ? "unlike" : decide(normal, abnormal);
+  const decision = decide(normal, abnormal);
 
   const verdict = document.getElementById("verdict");
   const verdictLabel = document.getElementById("verdict-label");
   const verdictTag = verdict.querySelector(".verdict-tag");
-  verdict.classList.remove("is-normal", "is-abnormal", "is-uncertain", "is-unlike");
+  verdict.classList.remove("is-normal", "is-abnormal", "is-uncertain");
 
-  if (decision === "unlike") {
-    verdictLabel.textContent = "Unable to assess this image";
-    verdictTag.textContent = "It doesn’t look like the ovarian ultrasounds Cathra was trained on, so these scores are likely meaningless.";
-    verdictTag.hidden = false;
-    verdict.classList.add("is-uncertain", "is-unlike");
-  } else if (decision === "uncertain") {
+  if (decision === "uncertain") {
     verdictLabel.textContent = "Unable to assess confidently";
     verdictTag.textContent = "Not confident enough to choose";
     verdictTag.hidden = false;

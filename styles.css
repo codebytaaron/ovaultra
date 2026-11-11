@@ -903,9 +903,6 @@ a, button, summary, label { touch-action: manipulation; -webkit-tap-highlight-co
   .cite-copy { min-height: 44px; }
 }
 
-/* Result for an image that doesn't resemble the training data */
-.verdict.is-unlike .verdict-tag { flex-basis: 100%; color: var(--ink); }
-.verdict.is-unlike ~ .result-body .scores { opacity: .45; }
 
 /* ---- Research page: changelog ---- */
 .changelog { display: grid; grid-template-columns: 120px 1fr; gap: 12px 20px; margin: 4px 0 0; }
@@ -916,3 +913,6 @@ a, button, summary, label { touch-action: manipulation; -webkit-tap-highlight-co
   .changelog { grid-template-columns: 1fr; gap: 2px; }
   .changelog dd { margin-bottom: 14px; }
 }
+
+/* Small note under the upload box */
+.upload-note { margin: 10px 2px 0; font-size: 13px; color: var(--ink-soft); text-align: center; }

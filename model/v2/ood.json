@@ -1,7 +1,0 @@
-{
- "dim": 1280,
- "k": 32,
- "invRest": 32.96049546584222,
- "threshold": 5687.71,
- "note": "Training-data similarity check for model v2. Fit on 3,120 PCOSGen training images; threshold = 99th percentile of the 1,449 test images."
-}
