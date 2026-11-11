@@ -1,0 +1,30 @@
+# Cathra
+
+> Cathra is a free research and education tool that uses machine learning to compare an ovarian ultrasound image to two learned patterns, normal and abnormal ovarian appearance, and returns a similarity score for each. It runs entirely in the web browser, so images are never uploaded or stored. It is not a medical device and does not diagnose any condition.
+
+Website: https://www.cathra.dev
+Built by: Teddy Aaron (https://www.cathra.dev/founder, https://teddyaaron.com)
+Owner: Teddy Aaron Ventures LLC
+
+## What it does
+- The user chooses an ovarian ultrasound image (JPG or PNG). A neural network running in the browser scores how closely it matches normal and abnormal ovarian appearance.
+- Cathra names a pattern only when it is confident, using thresholds calibrated with conformal prediction: normal at 60% or higher, abnormal at about 97% or higher. Otherwise it shows "Unable to assess confidently."
+- No accounts, no cookies, and no image uploads. Only anonymous, cookie-free visit counts are collected.
+
+## Results (model v2, research results, not clinical performance)
+- Trained on 1,734 images from the public PCOSGen dataset (Handa et al., 2025, CC BY 4.0), balanced between normal and abnormal.
+- Tested on 1,449 held-out images: 85.6% accuracy, 81.1% balanced accuracy, 91.4% of abnormal and 70.8% of normal images matched correctly.
+- Training and test images come from one public dataset; performance on images from other sources has not been tested.
+
+## Intended use
+Research and education only. Not for diagnosis, screening, or any medical decision. Ultrasound images should be interpreted by a qualified medical professional.
+
+## Paper
+Aaron, T. (2026). Cathra: An In-Browser Classifier for Normal and Abnormal Ovarian Ultrasound Appearance [Preprint]. Zenodo. https://doi.org/10.5281/zenodo.24118082
+
+## Pages
+- [Analyze an image](https://www.cathra.dev/analyze)
+- [How it works, test results, and FAQ](https://www.cathra.dev/how-it-works)
+- [Research, citation, lesson plan, and changelog](https://www.cathra.dev/research)
+- [Privacy and terms](https://www.cathra.dev/privacy)
+- [Founder](https://www.cathra.dev/founder)

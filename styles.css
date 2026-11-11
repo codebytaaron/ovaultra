@@ -949,3 +949,11 @@ a, button, summary, label { touch-action: manipulation; -webkit-tap-highlight-co
 .notfound h1 { margin-bottom: 10px; }
 .notfound .lede { margin: 0 auto 26px; max-width: 460px; }
 .notfound .founder-links { justify-content: center; }
+
+/* Research page: paper abstract */
+.abstract { margin: 0 0 18px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.abstract summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; min-height: 48px; font-weight: 600; font-size: 15px; }
+.abstract summary::-webkit-details-marker { display: none; }
+.abstract summary::after { content: "+"; font-weight: 400; font-size: 20px; color: var(--ink-soft); }
+.abstract[open] summary::after { content: "−"; }
+.abstract p { margin: 0 0 14px; }

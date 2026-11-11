@@ -21,6 +21,14 @@
   <link rel="stylesheet" href="/styles.css" />
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <meta name="theme-color" content="#ffffff" />
+  <meta name="citation_title" content="Cathra: An In-Browser Classifier for Normal and Abnormal Ovarian Ultrasound Appearance" />
+  <meta name="citation_author" content="Aaron, Teddy" />
+  <meta name="citation_publication_date" content="2026/11/10" />
+  <meta name="citation_publisher" content="Zenodo" />
+  <meta name="citation_doi" content="10.5281/zenodo.24118082" />
+  <meta name="citation_pdf_url" content="https://www.cathra.dev/cathra-paper.pdf" />
+  <meta name="citation_abstract_html_url" content="https://www.cathra.dev/research" />
+  <meta name="citation_language" content="en" />
   <meta name="author" content="Teddy Aaron" />
   <link rel="author" href="https://www.cathra.dev/founder" />
   <link rel="icon" href="/favicon.ico" sizes="48x48" />
@@ -168,6 +176,10 @@
           <div class="stat"><span class="stat-num">81.1%</span><span class="stat-label">balanced accuracy across both classes</span></div>
           <div class="stat"><span class="stat-num">1,734</span><span class="stat-label">training images, equal normal and abnormal</span></div>
         </div>
+        <details class="abstract">
+          <summary>Abstract</summary>
+          <p>I built Cathra, a free web tool that compares an existing ovarian ultrasound image to two learned patterns, normal and abnormal, and returns a similarity score for each. The model runs entirely in the browser, so images are never uploaded. I trained the current model (v2) on 1,734 images from the public PCOSGen dataset, balanced between the two classes, and tested it on 1,449 separate images. v2 reached 85.6% accuracy and 81.1% balanced accuracy, matching 91.4% of abnormal and 70.8% of normal test images. My first model (v1) reached 74.2% accuracy on the same images but recognized only 19.2% of normal ones. Cathra is for research and education only and is not a diagnostic tool.</p>
+        </details>
         <a class="btn btn-dark" href="/cathra-paper.pdf" target="_blank" rel="noopener">Read the paper</a>
         <p class="small-note">
           Model v2 on the PCOSGen dataset (Handa et al., 2025, CC BY 4.0). Research results, not
