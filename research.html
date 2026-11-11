@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cathra for Research and Teaching: Lesson Plan and Citation</title>
-  <meta name="description" content="Teach AI in medicine with Cathra: a 45-minute lesson plan, discussion questions, and how to cite this free ovarian ultrasound research tool." />
+  <title>Cathra Research: Paper, Citation, Lesson Plan and Changelog</title>
+  <meta name="description" content="The Cathra preprint, how to cite it, a 45-minute lesson plan on AI in medicine, and the changelog for this free ovarian ultrasound research tool." />
   <link rel="canonical" href="https://www.cathra.dev/research" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Cathra" />
-  <meta property="og:title" content="Cathra for Research and Teaching: Lesson Plan and Citation" />
-  <meta property="og:description" content="Teach AI in medicine with Cathra: a 45-minute lesson plan, discussion questions, and how to cite this free ovarian ultrasound research tool." />
+  <meta property="og:title" content="Cathra Research: Paper, Citation, Lesson Plan and Changelog" />
+  <meta property="og:description" content="The Cathra preprint, how to cite it, a 45-minute lesson plan on AI in medicine, and the changelog for this free ovarian ultrasound research tool." />
   <meta property="og:url" content="https://www.cathra.dev/research" />
   <meta property="og:image" content="https://www.cathra.dev/media/og-image.png" />
   <meta property="og:image:width" content="1200" />
@@ -63,8 +63,8 @@
       "@type": "WebPage",
       "@id": "https://www.cathra.dev/research#webpage",
       "url": "https://www.cathra.dev/research",
-      "name": "Cathra for Research and Teaching: Lesson Plan and Citation",
-      "description": "Teach AI in medicine with Cathra: a 45-minute lesson plan, discussion questions, and how to cite this free ovarian ultrasound research tool.",
+      "name": "Cathra Research: Paper, Citation, Lesson Plan and Changelog",
+      "description": "The Cathra preprint, how to cite it, a 45-minute lesson plan on AI in medicine, and the changelog for this free ovarian ultrasound research tool.",
       "isPartOf": {
         "@id": "https://www.cathra.dev/#website"
       },
@@ -145,8 +145,8 @@
         <p class="eyebrow">Research</p>
         <h1>Research &amp; teaching</h1>
         <p class="lede">
-          The paper, results, data, a citation, and a ready-to-use lesson. Free for learning and
-          research, not for diagnosis or any medical decision.
+          The paper, how to cite it, a ready-to-use lesson, and what’s changed. Free for learning
+          and research, not for diagnosis.
         </p>
       </header>
 
@@ -155,31 +155,15 @@
         <p class="paper-title">Cathra: An In-Browser Classifier for Normal and Abnormal Ovarian Ultrasound Appearance</p>
         <p class="paper-meta">Teddy Aaron · Preprint · Zenodo, November 2026 ·
           DOI <a href="https://doi.org/10.5281/zenodo.24118082" target="_blank" rel="noopener">10.5281/zenodo.24118082</a></p>
-        <a class="btn btn-dark" href="/cathra-paper.pdf" target="_blank" rel="noopener">Read the paper</a>
-      </section>
-
-      <section class="block" id="results">
-        <h2>Results at a glance</h2>
-        <div class="stats">
+        <div class="stats" id="results">
           <div class="stat"><span class="stat-num">85.6%</span><span class="stat-label">accuracy on 1,449 held-out test images</span></div>
           <div class="stat"><span class="stat-num">81.1%</span><span class="stat-label">balanced accuracy across both classes</span></div>
           <div class="stat"><span class="stat-num">1,734</span><span class="stat-label">training images, equal normal and abnormal</span></div>
         </div>
-        <p>
-          Model v2, tested on images it never saw during training. See the
-          <a href="/how-it-works#results">full results, comparison with v1, and limitations</a>.
-        </p>
+        <a class="btn btn-dark" href="/cathra-paper.pdf" target="_blank" rel="noopener">Read the paper</a>
         <p class="small-note">
-          Research results on a public image dataset, not clinical performance figures.
-        </p>
-      </section>
-
-      <section class="block" id="data">
-        <h2>Data</h2>
-        <p>
-          Cathra is trained and tested on the <strong>PCOSGen</strong> ovarian ultrasound dataset
-          (Handa et al., Zenodo, 2025), used under CC BY 4.0. The training and test sets are kept
-          separate, with duplicates removed. <a href="/how-it-works#dataset">Full dataset credit</a>.
+          Model v2 on the PCOSGen dataset (Handa et al., 2025, CC BY 4.0). Research results, not
+          clinical performance figures. <a href="/how-it-works#results">Full results and limitations</a>.
         </p>
       </section>
 
@@ -193,7 +177,7 @@
         <p class="small-note">
           To cite the tool itself: Aaron, T. (2026). <em>Cathra</em> (Version 2) [Computer
           software]. https://www.cathra.dev. If you use the training data, please also cite the
-          PCOSGen dataset.
+          <a href="/how-it-works#dataset">PCOSGen dataset</a>.
         </p>
       </section>
 
@@ -219,15 +203,29 @@
           <li>Who should be responsible when a medical AI tool is wrong?</li>
           <li>Why does it matter that Cathra runs on your device instead of a server?</li>
         </ul>
-      </section>
-
-      <section class="block" id="contact">
-        <h2>For schools and labs</h2>
         <p>
-          Want to use Cathra with your class or lab? Email
+          Using Cathra with a class or lab? Email
           <a href="mailto:paultaaron@icloud.com?subject=Cathra%20for%20my%20institution">paultaaron@icloud.com</a>
           with your organization’s name and how you plan to use it.
         </p>
+      </section>
+
+      <section class="block" id="changelog">
+        <h2>Changelog</h2>
+        <dl class="changelog">
+          <dt>Nov 11, 2026</dt>
+          <dd>Calibrated answer rule (conformal prediction). New check that flags images unlike the
+            training data. Easier phone navigation. Privacy and legal terms combined on one page.</dd>
+          <dt>Nov 10, 2026</dt>
+          <dd>Model v2, trained on balanced data, with published test results. Preprint released
+            on Zenodo.</dd>
+          <dt>Nov 9, 2026</dt>
+          <dd>Moved to cathra.dev. The tool got its own address, and results can be saved as a PDF.</dd>
+          <dt>Oct 9, 2026</dt>
+          <dd>How it works, Privacy, and Research pages. Demo video and dataset credit.</dd>
+          <dt>Jul 20, 2026</dt>
+          <dd>Cathra launched with model v1.</dd>
+        </dl>
       </section>
     </article>
   </main>
@@ -242,7 +240,8 @@
       <a href="/analyze">Analyze</a>
       <a href="/how-it-works">How it works</a>
       <a href="/research">Research</a>
-      <a href="/privacy">Privacy</a>
+      <a href="/privacy">Privacy &amp; terms</a>
+      <a href="/research#changelog">Changelog</a>
       <a href="/how-it-works#dataset">Data: PCOSGen (CC BY 4.0)</a>
     </nav>
     <p class="footer-meta">Last updated November 2026 · © 2026 Cathra. All rights reserved.</p>

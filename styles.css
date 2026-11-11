@@ -906,3 +906,13 @@ a, button, summary, label { touch-action: manipulation; -webkit-tap-highlight-co
 /* Result for an image that doesn't resemble the training data */
 .verdict.is-unlike .verdict-tag { flex-basis: 100%; color: var(--ink); }
 .verdict.is-unlike ~ .result-body .scores { opacity: .45; }
+
+/* ---- Research page: changelog ---- */
+.changelog { display: grid; grid-template-columns: 120px 1fr; gap: 12px 20px; margin: 4px 0 0; }
+.changelog dt { font-size: 14px; font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; }
+.changelog dd { margin: 0; font-size: 15px; color: #333; }
+#paper .stats { margin: 14px 0 18px; }
+@media (max-width: 540px) {
+  .changelog { grid-template-columns: 1fr; gap: 2px; }
+  .changelog dd { margin-bottom: 14px; }
+}
