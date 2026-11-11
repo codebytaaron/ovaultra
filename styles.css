@@ -860,7 +860,7 @@ a, button, summary, label { touch-action: manipulation; -webkit-tap-highlight-co
   .topbar { padding: 10px 16px 10px 20px; position: relative; }
   .topnav { gap: 8px; margin-left: auto; }
   .topbar { gap: 4px; }
-  .topnav a[href="/how-it-works"] { display: none; }
+  .topnav a[href="/how-it-works"], .topnav a[href="/founder"] { display: none; }
   .topnav a[href="/analyze"] { padding: 0 16px; min-height: 40px; display: inline-flex; align-items: center; }
   .mnav { display: block; }
   .mnav summary {
@@ -916,3 +916,18 @@ a, button, summary, label { touch-action: manipulation; -webkit-tap-highlight-co
 
 /* Small note under the upload box */
 .upload-note { margin: 10px 2px 0; font-size: 13px; color: var(--ink-soft); text-align: center; }
+
+/* ---- Founder page ---- */
+.founder-head { display: flex; align-items: center; gap: 28px; }
+.founder-head h1 { margin-bottom: 6px; }
+.founder-head .lede { margin: 0; }
+.founder-photo-credit { margin: 8px 0 0; font-size: 12px; color: var(--ink-soft); }
+.founder-portrait { width: 160px; height: 160px; border-radius: 20px; object-fit: cover; flex: none; }
+.founder-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+.prose .founder-links a.btn-plain { text-decoration: none; }
+.founder-sign a { color: var(--ink); text-underline-offset: 2px; }
+@media (max-width: 540px) {
+  .founder-head { flex-direction: column; align-items: flex-start; gap: 18px; }
+  .founder-portrait { width: 120px; height: 120px; border-radius: 16px; }
+  .founder-links .btn { flex: 1 1 auto; min-height: 48px; }
+}
