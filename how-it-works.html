@@ -95,10 +95,57 @@
           "item": "https://www.cathra.dev/how-it-works"
         }
       ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.cathra.dev/how-it-works#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is this a diagnosis?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Cathra is a research and education tool. It shows how closely an image matches two visual patterns it learned. It does not diagnose, detect, confirm, or rule out any condition. Only a qualified medical professional can interpret an ultrasound."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my image stored?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Your image is analyzed on your own device and is never uploaded, saved, or sent anywhere. When you choose another image or close the page, it is discarded."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What images work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A single ovarian ultrasound view, saved as a JPG or PNG. Grayscale and Doppler scans both work. Higher-resolution images with fewer on-screen labels work best. Avoid collages, photos of screens, and screenshots of whole web pages. Cathra analyzes the center square of the image, which it outlines before you analyze."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it detect PCOS?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Cathra compares an image to normal and abnormal ovarian appearance. In its training data, most abnormal images show a polycystic appearance, but PCOS is diagnosed by a doctor using several criteria, not a single image."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does it say “Unable to assess confidently”?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Cathra only names a pattern when its scores clear a calibrated threshold: 60% or higher for normal, and about 97% or higher for abnormal. When the scores fall in between, it says it can’t tell instead of guessing. See Reading the results."
+          }
+        }
+      ]
     }
   ]
 }
   </script>
+  <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
   <header class="topbar">
@@ -248,6 +295,32 @@
       </p>
       </section>
 
+
+      <section class="block" id="faq">
+      <h2>Questions</h2>
+      <div class="faq">
+        <details class="faq-item">
+          <summary>Is this a diagnosis?</summary>
+          <p>No. Cathra is a research and education tool. It shows how closely an image matches two visual patterns it learned. It does not diagnose, detect, confirm, or rule out any condition. Only a qualified medical professional can interpret an ultrasound.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Is my image stored?</summary>
+          <p>No. Your image is analyzed on your own device and is never uploaded, saved, or sent anywhere. When you choose another image or close the page, it is discarded.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What images work?</summary>
+          <p>A single ovarian ultrasound view, saved as a JPG or PNG. Grayscale and Doppler scans both work. Higher-resolution images with fewer on-screen labels work best. Avoid collages, photos of screens, and screenshots of whole web pages. Cathra analyzes the center square of the image, which it outlines before you analyze.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Does it detect PCOS?</summary>
+          <p>No. Cathra compares an image to normal and abnormal ovarian appearance. In its training data, most abnormal images show a polycystic appearance, but PCOS is diagnosed by a doctor using several criteria, not a single image.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Why does it say “Unable to assess confidently”?</summary>
+          <p>Cathra only names a pattern when its scores clear a calibrated threshold: 60% or higher for normal, and about 97% or higher for abnormal. When the scores fall in between, it says it can’t tell instead of guessing. See <a href="#confidence">Reading the results</a>.</p>
+        </details>
+      </div>
+      </section>
 
       <section class="block">
       <h2>Limitations</h2>

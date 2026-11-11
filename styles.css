@@ -931,3 +931,21 @@ a, button, summary, label { touch-action: manipulation; -webkit-tap-highlight-co
   .founder-portrait { width: 120px; height: 120px; border-radius: 16px; }
   .founder-links .btn { flex: 1 1 auto; min-height: 48px; }
 }
+
+/* ---- FAQ ---- */
+.faq { border-top: 1px solid var(--line); }
+.faq-item { border-bottom: 1px solid var(--line); }
+.faq-item summary {
+  list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+  gap: 16px; min-height: 52px; padding: 12px 0; font-weight: 600; font-size: 15.5px; color: var(--ink);
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after { content: "+"; font-weight: 400; font-size: 20px; color: var(--ink-soft); flex: none; }
+.faq-item[open] summary::after { content: "−"; }
+.faq-item p { margin: 0 0 16px; }
+
+/* ---- 404 ---- */
+.notfound { text-align: center; padding: 72px 0 40px; }
+.notfound h1 { margin-bottom: 10px; }
+.notfound .lede { margin: 0 auto 26px; max-width: 460px; }
+.notfound .founder-links { justify-content: center; }
