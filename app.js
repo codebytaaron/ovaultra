@@ -63,7 +63,7 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
 // left with the browser's Back button. Vercel serves index.html for /analyze.
 const TOOL_PATH = "/analyze";
 const HOME_TITLE = document.title;
-const TOOL_TITLE = "Analyze an image · Cathra";
+const TOOL_TITLE = "Cathra: Analyze an Ovarian Ultrasound Image";
 const canonical = document.querySelector('link[rel="canonical"]');
 const CANONICAL_ORIGIN = canonical ? new URL(canonical.href).origin : location.origin;
 
