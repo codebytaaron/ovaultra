@@ -5,7 +5,7 @@
 Website: https://www.cathra.dev
 Built by: Teddy Aaron (https://www.cathra.dev/founder, https://teddyaaron.com)
 Owner: Teddy Aaron Ventures LLC
-Sister project: Hemra (https://hemra-research.vercel.app), which compares white blood cell images to learned patterns in the browser
+Sister project: Hemra (https://hemraresarch.teddyaaron.com), which compares white blood cell images to learned patterns in the browser
 
 ## What it does
 - The user chooses an ovarian ultrasound image (JPG or PNG). A neural network running in the browser scores how closely it matches normal and abnormal ovarian appearance.
