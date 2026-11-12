@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cathra Dataset Check: Find Duplicate and Mislabeled Medical Images</title>
+  <meta name="description" content="Free tool that finds exact copies, near-copies, conflicting labels, and train/test leaks in a folder of medical images. Runs in your browser; nothing is uploaded." />
+  <link rel="canonical" href="https://www.cathra.dev/dataset-check" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Cathra" />
+  <meta property="og:title" content="Cathra Dataset Check: Find Duplicate and Mislabeled Medical Images" />
+  <meta property="og:description" content="Free tool that finds exact copies, near-copies, conflicting labels, and train/test leaks in a folder of medical images. Runs in your browser; nothing is uploaded." />
+  <meta property="og:url" content="https://www.cathra.dev/dataset-check" />
+  <meta property="og:image" content="https://www.cathra.dev/media/cathra-ovarian-ultrasound-tool.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Cathra: compare an ovarian ultrasound to learned patterns. Machine learning that runs privately in your browser, for research and education, not diagnosis." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://www.cathra.dev/media/cathra-ovarian-ultrasound-tool.png" />
+  <meta name="twitter:image:alt" content="Cathra: compare an ovarian ultrasound to learned patterns. Machine learning that runs privately in your browser, for research and education, not diagnosis." />
+  <link rel="stylesheet" href="/styles.css" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="author" content="Teddy Aaron" />
+  <link rel="author" href="https://www.cathra.dev/founder" />
+  <link rel="icon" href="/favicon.ico" sizes="48x48" />
+  <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "@id": "https://www.cathra.dev/dataset-check#app",
+      "name": "Cathra Dataset Check",
+      "url": "https://www.cathra.dev/dataset-check",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any (web browser)",
+      "isAccessibleForFree": true,
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "Free tool that finds exact copies, near-copies, conflicting labels, and train/test leaks in a folder of medical images. Runs in your browser; nothing is uploaded.",
+      "creator": {
+        "@id": "https://www.cathra.dev/#founder"
+      },
+      "isPartOf": {
+        "@id": "https://www.cathra.dev/#website"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.cathra.dev/#website",
+      "name": "Cathra",
+      "url": "https://www.cathra.dev/",
+      "alternateName": [
+        "Cathra AI",
+        "cathra.dev"
+      ]
+    },
+    {
+      "@type": "Person",
+      "@id": "https://www.cathra.dev/#founder",
+      "name": "Teddy Aaron",
+      "url": "https://teddyaaron.com",
+      "mainEntityOfPage": "https://www.cathra.dev/founder"
+    }
+  ]
+}
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="wordmark" href="/">Cathra</a>
+    <nav class="topnav" aria-label="Main">
+      <a href="/analyze">Analyze</a>
+      <a href="/how-it-works">How it works</a>
+      <a href="/research">Research</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/founder">Founder</a>
+    </nav>
+    <details class="mnav">
+      <summary aria-label="Menu"><span class="mnav-bars" aria-hidden="true"></span>Menu</summary>
+      <nav class="mnav-panel" aria-label="Menu">
+        <a href="/analyze">Analyze</a>
+        <a href="/how-it-works">How it works</a>
+        <a href="/research">Research</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/founder">Founder</a>
+      </nav>
+    </details>
+  </header>
+
+  <main>
+    <article class="prose dc">
+      <header class="page-head">
+        <p class="eyebrow">Free tool</p>
+        <h1>Cathra Dataset Check</h1>
+        <p class="lede">
+          Find copied and mislabeled images in a medical image dataset before you train or test
+          a model. It runs in your browser, and nothing is uploaded.
+        </p>
+      </header>
+
+      <section class="block" id="dc-start">
+        <div id="dc-zone" class="dropzone dc-zone">
+          <span class="dz-title">Drop a dataset folder here</span>
+          <span class="dz-sub">Folder names become labels, for example <code>Normal/</code> and <code>Abnormal/</code>.
+            Add <code>train/</code> and <code>test/</code> folders to check for leaks.</span>
+          <div class="dc-buttons">
+            <button class="btn btn-dark" id="dc-pick-folder" type="button">Choose a folder</button>
+            <button class="btn btn-plain" id="dc-pick-files" type="button">Choose images</button>
+          </div>
+          <input id="dc-folder" type="file" webkitdirectory multiple hidden />
+          <input id="dc-files" type="file" accept="image/*" multiple hidden />
+        </div>
+        <label class="dc-strict">
+          <span>How similar counts as a near-copy: <b id="dc-strict-label">Very close (recommended)</b></span>
+          <select id="dc-strict">
+            <option value="0">Identical only</option>
+            <option value="4" selected>Very close (recommended)</option>
+            <option value="8">Close</option>
+            <option value="12">Loose</option>
+          </select>
+        </label>
+        <p class="small-note">Your images stay on this device. Cathra never sees them, their names, or the results.</p>
+      </section>
+
+      <section class="block" id="dc-run" hidden>
+        <p id="dc-status" class="dc-status">Starting…</p>
+        <div class="meter"><div id="dc-bar" class="bar"></div></div>
+      </section>
+
+      <section class="block" id="dc-results" hidden>
+        <h2>Results</h2>
+        <div class="dc-stats">
+          <div class="stat"><span class="stat-num" id="dc-total">0</span><span class="stat-label">images checked</span></div>
+          <div class="stat"><span class="stat-num" id="dc-affected">0</span><span class="stat-label">images with a copy <span id="dc-affected-pct"></span></span></div>
+          <div class="stat"><span class="stat-num" id="dc-exact">0</span><span class="stat-label">exact-copy pairs</span></div>
+          <div class="stat"><span class="stat-num" id="dc-near">0</span><span class="stat-label">near-copy pairs</span></div>
+          <div class="stat"><span class="stat-num" id="dc-conflicts">0</span><span class="stat-label">copies with different labels</span></div>
+          <div class="stat"><span class="stat-num" id="dc-leaks">0</span><span class="stat-label">copies across train and test</span></div>
+        </div>
+        <p class="small-note" id="dc-notes"></p>
+        <div class="dc-tabs" role="tablist">
+          <button class="dc-tab" type="button" role="tab" data-kind="conflicts" aria-selected="true">Different labels</button>
+          <button class="dc-tab" type="button" role="tab" data-kind="leaks" aria-selected="false">Train/test leaks</button>
+          <button class="dc-tab" type="button" role="tab" data-kind="all" aria-selected="false">All copies</button>
+        </div>
+        <div id="dc-list" class="dc-list"></div>
+        <div class="btn-row">
+          <button class="btn btn-dark" id="dc-csv" type="button">Download CSV</button>
+          <button class="btn btn-plain" id="dc-again" type="button">Check another folder</button>
+        </div>
+      </section>
+
+      <section class="block">
+        <h2>Why this matters</h2>
+        <p>
+          If the same scan appears in both the training and test sets, a model can look more
+          accurate than it really is. If the same scan is labeled two different ways, no model can
+          get both right. While building Cathra, I found both problems in a public ovarian
+          ultrasound dataset, so I made this check free for anyone.
+        </p>
+        <h2>How it works</h2>
+        <p>
+          Each image is shrunk to a tiny grayscale “fingerprint” (a perceptual hash). Images whose
+          fingerprints are almost the same look almost the same, even if they were resized,
+          re-saved, or slightly cropped. Exact copies are confirmed with a file checksum.
+        </p>
+        <p class="small-note">
+          Similar-looking images aren’t always true copies. Review the matches before removing
+          anything. Research use only.
+        </p>
+      </section>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <p class="footer-credit">
+      Founded by
+      <a href="https://teddyaaron.com" target="_blank" rel="noopener noreferrer">Teddy Aaron</a> ·
+      <a href="https://www.linkedin.com/in/teddy-aaron/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    </p>
+    <nav class="footer-links" aria-label="Footer">
+      <a href="/analyze">Analyze</a>
+      <a href="/how-it-works">How it works</a>
+      <a href="/research">Research</a>
+      <a href="/privacy">Privacy &amp; terms</a>
+      <a href="/research#changelog">Changelog</a>
+      <a href="/dataset-check">Dataset Check</a>
+      <a href="/founder">Founder</a>
+      <a href="/how-it-works#dataset">Data: PCOSGen (CC BY 4.0)</a>
+      <a href="https://hemra-research.vercel.app" target="_blank" rel="noopener">Sister project: Hemra</a>
+    </nav>
+    <p class="footer-meta">Last updated November 2026 · © 2026 Teddy Aaron Ventures LLC. All rights reserved.</p>
+  </footer>
+  <script src="/dataset-check.js"></script>
+</body>
+</html>

@@ -957,3 +957,34 @@ a, button, summary, label { touch-action: manipulation; -webkit-tap-highlight-co
 .abstract summary::after { content: "+"; font-weight: 400; font-size: 20px; color: var(--ink-soft); }
 .abstract[open] summary::after { content: "−"; }
 .abstract p { margin: 0 0 14px; }
+
+/* ---- Dataset Check ---- */
+.dc-zone { gap: 10px; }
+.dc-zone code, .dc code { font-size: 13px; background: var(--fill); padding: 1px 5px; border-radius: 5px; }
+.dc-buttons { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 10px; }
+.dc-strict { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin: 16px 0 6px; font-size: 14px; }
+.dc-strict select { font: inherit; font-size: 14px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 10px; background: #fff; }
+.dc-status { font-weight: 600; margin: 0 0 12px; }
+#dc-run .bar { transition: width .2s; }
+.dc-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 6px 0 12px; }
+.dc-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin: 18px 0 12px; }
+.dc-tab { font: inherit; font-size: 14px; font-weight: 600; padding: 9px 14px; min-height: 40px; border: 1px solid var(--line); border-radius: 999px; background: #fff; cursor: pointer; color: var(--ink-soft); }
+.dc-tab[aria-selected="true"] { background: var(--ink); color: #fff; border-color: var(--ink); }
+.dc-list { display: grid; gap: 12px; }
+.dc-pair { border: 1px solid var(--line); border-radius: 14px; padding: 12px; }
+.dc-pair-head { font-size: 13px; font-weight: 600; margin-bottom: 8px; }
+.dc-pair-imgs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.dc-thumb { margin: 0; }
+.dc-thumb img { width: 100%; aspect-ratio: 4 / 3; object-fit: contain; background: #000; border-radius: 10px; display: block; }
+.dc-thumb figcaption { font-size: 12px; color: var(--ink-soft); margin-top: 6px; word-break: break-all; }
+.dc-thumb b { color: var(--ink); }
+.dc-thumb i { font-style: normal; background: var(--fill); padding: 0 5px; border-radius: 4px; white-space: nowrap; }
+.dc-empty { color: var(--ink-soft); font-size: 14px; }
+@media (max-width: 540px) {
+  .dc-stats { grid-template-columns: 1fr 1fr; }
+  .dc-stats .stat { display: grid; grid-template-columns: 1fr; gap: 2px; padding: 12px; }
+  .dc-stats .stat-num { font-size: 22px; }
+  .dc-buttons .btn { flex: 1 1 100%; min-height: 48px; }
+}
+
+.prose a.btn-plain { text-decoration: none; color: var(--ink); }

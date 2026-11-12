@@ -23,6 +23,7 @@ Tested on 1,449 held-out images from the PCOSGen dataset:
 
 - `index.html`, `app.js`: homepage and tool
 - `how-it-works.html`, `research.html`, `privacy.html`: info pages
+- `dataset-check.html`, `dataset-check.js`: Dataset Check tool (finds duplicate and mislabeled images)
 - `styles.css`: styles
 - `model/v2/`: current model (`model/v1/` kept for reference)
 - `media/`: images and demo video

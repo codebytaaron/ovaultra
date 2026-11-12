@@ -17,6 +17,9 @@ Sister project: Hemra (https://hemra-research.vercel.app), which compares white 
 - Tested on 1,449 held-out images: 85.6% accuracy, 81.1% balanced accuracy, 91.4% of abnormal and 70.8% of normal images matched correctly.
 - Training and test images come from one public dataset; performance on images from other sources has not been tested.
 
+## Dataset Check
+Cathra Dataset Check (https://www.cathra.dev/dataset-check) is a free in-browser tool that finds exact copies, near-copies (using perceptual hashing), images with conflicting labels, and train/test leaks in a folder of medical images. Folder names are used as labels. Nothing is uploaded.
+
 ## Intended use
 Research and education only. Not for diagnosis, screening, or any medical decision. Ultrasound images should be interpreted by a qualified medical professional.
 
@@ -28,4 +31,5 @@ Aaron, T. (2026). Cathra: An In-Browser Classifier for Normal and Abnormal Ovari
 - [How it works, test results, and FAQ](https://www.cathra.dev/how-it-works)
 - [Research, citation, lesson plan, and changelog](https://www.cathra.dev/research)
 - [Privacy and terms](https://www.cathra.dev/privacy)
+- [Dataset Check](https://www.cathra.dev/dataset-check)
 - [Founder](https://www.cathra.dev/founder)
