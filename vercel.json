@@ -43,5 +43,6 @@
       "destination": "https://www.cathra.dev/:path*",
       "permanent": true
     }
-  ]
+  ],
+  "trailingSlash": false
 }
