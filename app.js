@@ -74,6 +74,7 @@ function setAddress(path, title) {
 
 function openTool({ push = true } = {}) {
   showScreen(tool);
+  preloadModel();
   resetToUpload();
   if (demoVideo) demoVideo.pause();
   if (push) history.pushState({ screen: "tool" }, "", TOOL_PATH);
@@ -82,7 +83,7 @@ function openTool({ push = true } = {}) {
 function goHome({ push = true } = {}) {
   showScreen(landing);
   // Browsers don't resume a hidden autoplay video by themselves.
-  if (demoVideo && !reduceMotion) demoVideo.play().catch(() => {});
+  startDemo();
   if (push) history.pushState({ screen: "home" }, "", "/");
   setAddress("/", HOME_TITLE);
 }
@@ -303,13 +304,37 @@ function naturalSizeCanvas(img) {
   return c;
 }
 
-// ---- Model loading (lazy, on first analyze) ----
-// One shared load. It starts in the background once the page is idle, so the
-// first analysis usually doesn't wait; if it fails, the next call retries.
+// ---- Model loading ----
+// The machine-learning libraries (about 1 MB) download only when someone heads to
+// the tool, so the homepage stays fast. One shared load; if it fails, the next
+// call retries.
+const LIBS = [
+  "https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.21.0/dist/tf.min.js",
+  "https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8.5/dist/teachablemachine-image.min.js",
+];
+function loadScript(src) {
+  return new Promise((resolve, reject) => {
+    const s = document.createElement("script");
+    s.src = src; s.async = false;
+    s.onload = resolve; s.onerror = () => { s.remove(); reject(new Error("Could not load " + src)); };
+    document.head.appendChild(s);
+  });
+}
+let libsPromise = null;
+function loadLibs() {
+  if (window.tmImage) return Promise.resolve();
+  if (!libsPromise) {
+    libsPromise = LIBS.reduce((p, src) => p.then(() => loadScript(src)), Promise.resolve())
+      .catch((err) => { libsPromise = null; throw err; });
+  }
+  return libsPromise;
+}
+
 let modelPromise = null;
 function ensureModel() {
   if (!modelPromise) {
-    modelPromise = tmImage.load(MODEL_URL, METADATA_URL)
+    modelPromise = loadLibs()
+      .then(() => tmImage.load(MODEL_URL, METADATA_URL))
       .then(async (m) => {
         // The first prediction compiles the GPU shaders (several seconds); do it
         // once on a blank image now so the user's first real analysis is fast.
@@ -326,12 +351,18 @@ function ensureModel() {
 function preloadModel() {
   const saveData = navigator.connection && navigator.connection.saveData;
   if (saveData) return; // respect data-saver; load on first analysis instead
-  const start = () => ensureModel().catch(() => {});
-  if ("requestIdleCallback" in window) requestIdleCallback(start, { timeout: 3000 });
-  else setTimeout(start, 1500);
+  ensureModel().catch(() => {});
 }
-if (document.readyState === "complete") preloadModel();
-else window.addEventListener("load", preloadModel);
+// Start loading when the tool is open, or as soon as someone reaches for it.
+btnOpen.addEventListener("pointerenter", preloadModel, { once: true });
+btnOpen.addEventListener("focus", preloadModel, { once: true });
+function preloadIfToolOpen() {
+  if (location.pathname !== TOOL_PATH) return;
+  if ("requestIdleCallback" in window) requestIdleCallback(preloadModel, { timeout: 2000 });
+  else setTimeout(preloadModel, 500);
+}
+if (document.readyState === "complete") preloadIfToolOpen();
+else window.addEventListener("load", preloadIfToolOpen);
 
 // ---- Analyze ----
 btnAnalyze.addEventListener("click", async () => {
@@ -450,11 +481,16 @@ btnChange.addEventListener("click", resetToUpload);
 btnAgain.addEventListener("click", resetToUpload);
 
 // Respect reduced-motion: don't autoplay the homepage demo, show controls instead.
-if (demoVideo && reduceMotion) {
-  demoVideo.removeAttribute("autoplay");
-  demoVideo.pause();
-  demoVideo.controls = true;
+// The demo video (1.4 MB) loads only after the page has finished loading and only
+// when the homepage is showing, so it never slows down the first screen.
+function startDemo() {
+  if (!demoVideo || landing.hidden) return;
+  if (!demoVideo.src) demoVideo.src = demoVideo.dataset.src;
+  if (reduceMotion) { demoVideo.controls = true; return; }
+  demoVideo.play().catch(() => {});
 }
+if (document.readyState === "complete") startDemo();
+else window.addEventListener("load", startDemo);
 
 // ---- Save as PDF ----
 // Printing uses the print stylesheet (results only, full disclaimer, no buttons).
