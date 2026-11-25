@@ -859,7 +859,7 @@ a, button, summary, label { touch-action: manipulation; -webkit-tap-highlight-co
   .topbar { padding: 10px 16px 10px 20px; position: relative; }
   .topnav { gap: 8px; margin-left: auto; }
   .topbar { gap: 4px; }
-  .topnav a[href="/how-it-works"], .topnav a[href="/founder"] { display: none; }
+  .topnav a[href="/how-it-works"], .topnav a[href="/founder"], .topnav a[href="/learn"] { display: none; }
   .topnav a[href="/analyze"] { padding: 0 16px; min-height: 40px; display: inline-flex; align-items: center; }
   .mnav { display: block; }
   .mnav summary {
@@ -1002,3 +1002,20 @@ a, button, summary, label { touch-action: manipulation; -webkit-tap-highlight-co
 .about-grid a { color: var(--ink); text-underline-offset: 2px; white-space: nowrap; }
 @media (max-width: 900px) { .about-grid { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 540px) { .about { padding: 0 18px; } .about-grid { grid-template-columns: 1fr; gap: 14px; } }
+
+/* ---- Learn pages ---- */
+.page-head .eyebrow a { color: inherit; text-decoration: none; }
+.learn-meta { font-size: 13px; color: var(--ink-soft); margin: 10px 0 0; }
+.learn-answer { background: var(--fill); border-radius: 14px; padding: 16px 18px; margin: 0 0 8px; }
+.learn-answer-label { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft) !important; margin: 0 0 6px; }
+.learn-answer p:last-child { margin: 0; }
+.learn-cta { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; margin: 28px 0 8px; }
+.learn-cta p { margin: 0; flex: 1 1 280px; }
+.prose .learn-cta a.btn-dark { color: #fff; text-decoration: none; }
+.learn-sources { font-size: 13.5px; padding-left: 20px; }
+.learn-sources li { color: var(--ink-soft); margin-bottom: 6px; word-break: break-word; }
+.learn-cards { display: grid; gap: 12px; }
+.learn-card { display: grid; gap: 4px; padding: 16px 18px; border: 1px solid var(--line); border-radius: 14px; text-decoration: none; color: var(--ink); transition: border-color .15s; }
+.learn-card:hover { border-color: var(--ink); }
+.learn-card-title { font-weight: 600; font-size: 16px; }
+.learn-card-text { font-size: 14px; color: var(--ink-soft); }

@@ -27,6 +27,14 @@ Key facts:
 - [Privacy and terms](https://www.cathra.dev/privacy): images never leave the device; medical and legal disclaimer; ownership.
 - [Founder: Teddy Aaron](https://www.cathra.dev/founder): who built Cathra and why.
 
+## Learn
+
+- [What does a normal ovary look like on ultrasound?](https://www.cathra.dev/learn/normal-ovary-ultrasound): Shape, follicles, and how a normal ovary changes across the cycle.
+- [What does a polycystic ovary look like on ultrasound?](https://www.cathra.dev/learn/polycystic-ovary-ultrasound): Many small follicles, the guideline thresholds, and why it isn’t the same as PCOS.
+- [How accurate is AI at reading ultrasounds?](https://www.cathra.dev/learn/ai-ultrasound-accuracy): Why one accuracy number can mislead, and what to ask about any AI tool.
+- [Can AI detect PCOS from an ultrasound?](https://www.cathra.dev/learn/can-ai-detect-pcos): An honest answer: what ultrasound AI can and can’t tell you about PCOS.
+- [Why duplicate images make medical AI look better than it is](https://www.cathra.dev/learn/duplicate-images-medical-ai): How copied and mislabeled images inflate results, with a real dataset example.
+
 ## Optional
 
 - [Full text of every page](https://www.cathra.dev/llms-full.txt): all of the above in one plain-text file.

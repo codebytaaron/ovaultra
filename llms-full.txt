@@ -332,3 +332,331 @@ His health work focuses on private, on-device machine-learning tools that analyz
 He also built [Hemra](https://hemraresarch.teddyaaron.com), Cathra’s sister project, which compares white blood cell images to learned patterns, privately in the browser.
 
 [teddyaaron.com](https://teddyaaron.com) [LinkedIn](https://www.linkedin.com/in/teddy-aaron/) [Email](mailto:paultaaron@icloud.com?subject=Cathra)
+
+---
+
+## What does a normal ovary look like on ultrasound?
+
+Source: https://www.cathra.dev/learn/normal-ovary-ultrasound
+
+[Learn](https://www.cathra.dev/learn)
+
+### What does a normal ovary look like on ultrasound?
+
+A short, plain-English guide to reading a normal ovary on an ultrasound image.
+
+From Cathra · Updated November 25, 2026 · General education, not medical advice
+
+Short answer
+
+On ultrasound, a normal ovary in an adult of reproductive age usually looks like a small, oval, mid-gray structure with a few small, dark, round spots. Those spots are follicles, tiny fluid-filled sacs that hold developing eggs. Their number and size change throughout the menstrual cycle.
+
+### Reading the gray, black, and white
+
+Ultrasound images are built from sound echoes, so they show structures in shades of gray:
+
+- **Black:** fluid, such as the inside of a follicle or a cyst. Fluid lets sound pass through without echoing.
+- **Gray:** soft tissue, such as the ovary’s inner tissue (the stroma).
+- **Bright white:** denser surfaces that reflect a lot of sound.
+
+### What a typical ovary shows
+
+- **Shape and size:** an oval structure, usually a few centimeters long. An ovarian volume of 10 mL or more is one of the signs doctors look for when considering polycystic ovarian morphology.
+- **Small follicles:** several small, dark, round follicles, usually spread through the ovary.
+- **One larger follicle mid-cycle:** as ovulation approaches, one follicle usually grows larger than the rest before it releases an egg.
+- **After ovulation:** the follicle that released the egg becomes the corpus luteum, which can look like a small, thick-walled structure.
+
+### What changes the picture
+
+- **Cycle timing:** the same ovary can look quite different at the start, middle, and end of a cycle.
+- **Age:** after menopause, ovaries are usually smaller and show few or no follicles. Before puberty they are also small.
+- **Hormonal birth control** can reduce follicle growth.
+- **Simple, fluid-filled cysts** are common and often part of the normal cycle. A doctor decides whether any follow-up is needed.
+
+### How the scan is done
+
+Ovaries are usually imaged with a **transvaginal** ultrasound, which gives the clearest view, or a **transabdominal** ultrasound through the lower belly. The exam is painless or mildly uncomfortable and uses no radiation.
+
+### How Cathra relates to this
+
+Cathra learned a “normal ovarian appearance” pattern from ultrasound images labeled normal in the public PCOSGen dataset. It compares a new image to that pattern and gives a similarity score. It cannot tell you whether an ovary is healthy; only a qualified professional reading the full exam can do that.
+
+**Try Cathra.** Compare an ovarian ultrasound image to learned patterns, free and privately in your browser.
+
+[Open the tool](https://www.cathra.dev/analyze)
+
+### Sources
+
+- MedlinePlus (U.S. National Library of Medicine). Transvaginal ultrasound. [medlineplus.gov/ency/article/003779.htm](https://medlineplus.gov/ency/article/003779.htm)
+- Teede HJ, Tay CT, Laven JJE, et al. Recommendations from the 2023 international evidence-based guideline for the assessment and management of polycystic ovary syndrome. J Clin Endocrinol Metab. 2023;108(10):2447–2469. [doi.org/10.1210/clinem/dgad463](https://doi.org/10.1210/clinem/dgad463)
+- Handa P, Saini A, Dutta S, et al. PCOSGen-train and PCOSGen-test datasets. Zenodo; 2025. CC BY 4.0. [doi.org/10.5281/zenodo.14592001](https://doi.org/10.5281/zenodo.14592001)
+
+This page is general education and is not medical advice. It does not replace a qualified medical professional. Cathra is not a medical device and does not diagnose any condition. See [the full disclaimer](https://www.cathra.dev/privacy#disclaimer).
+
+### Keep reading
+
+- [What does a polycystic ovary look like on ultrasound?](https://www.cathra.dev/learn/polycystic-ovary-ultrasound)
+- [How accurate is AI at reading ultrasounds?](https://www.cathra.dev/learn/ai-ultrasound-accuracy)
+- [Can AI detect PCOS from an ultrasound?](https://www.cathra.dev/learn/can-ai-detect-pcos)
+
+---
+
+## What does a polycystic ovary look like on ultrasound?
+
+Source: https://www.cathra.dev/learn/polycystic-ovary-ultrasound
+
+[Learn](https://www.cathra.dev/learn)
+
+### What does a polycystic ovary look like on ultrasound?
+
+What “polycystic ovarian morphology” means, how it is measured, and how it relates to PCOS.
+
+From Cathra · Updated November 25, 2026 · General education, not medical advice
+
+Short answer
+
+A polycystic ovary usually looks larger than average and contains many small, dark, round follicles, often arranged around its outer edge. Under the 2023 international PCOS guideline, doctors call this polycystic ovarian morphology (PCOM) in adults when one ovary has 20 or more follicles, or an ovarian volume of 10 mL or more.
+
+### What doctors look for
+
+- **Many small follicles:** numerous small, dark, fluid-filled follicles in one or both ovaries, often lined up around the edge.
+- **Follicle count:** 20 or more follicles in at least one ovary, counted on a transvaginal scan with a modern, high-frequency probe.
+- **Ovarian volume:** 10 mL or more in at least one ovary. Volume is used on its own when image quality or older equipment makes counting follicles unreliable.
+- These measurements are taken when there is no dominant follicle, corpus luteum, or cyst that would change them.
+
+### Polycystic ovaries are not the same as PCOS
+
+The name is confusing. **Polycystic ovarian morphology** describes how an ovary looks. **Polycystic ovary syndrome (PCOS)** is a hormonal condition. In adults, PCOS is diagnosed when at least two of these three are present, after other causes have been ruled out:
+
+- irregular periods or ovulation problems,
+- signs of high androgens (“male” hormones), seen in symptoms or blood tests,
+- polycystic ovarian morphology on ultrasound, or a high AMH blood level.
+
+That means someone can have polycystic-looking ovaries without PCOS, and someone can have PCOS with normal-looking ovaries.
+
+### Teens are different
+
+Many teenagers naturally have ovaries with lots of follicles. The guideline says ultrasound should not be used to diagnose PCOS in adolescents, generally within 8 years of their first period.
+
+### How Cathra relates to this
+
+In the PCOSGen dataset Cathra learned from, most images labeled abnormal show a polycystic ovarian appearance. Cathra compares a new image to that learned pattern. It does not count follicles, measure volume, or diagnose PCOS, and its scores should never be used to make a medical decision.
+
+**Try Cathra.** Compare an ovarian ultrasound image to learned patterns, free and privately in your browser.
+
+[Open the tool](https://www.cathra.dev/analyze)
+
+### Sources
+
+- Teede HJ, Tay CT, Laven JJE, et al. Recommendations from the 2023 international evidence-based guideline for the assessment and management of polycystic ovary syndrome. J Clin Endocrinol Metab. 2023;108(10):2447–2469. [doi.org/10.1210/clinem/dgad463](https://doi.org/10.1210/clinem/dgad463)
+- MedlinePlus Genetics. Polycystic ovary syndrome. [medlineplus.gov/genetics/condition/polycystic-ovary-syndrome/](https://medlineplus.gov/genetics/condition/polycystic-ovary-syndrome/)
+- Handa P, Saini A, Dutta S, et al. PCOSGen-train and PCOSGen-test datasets. Zenodo; 2025. CC BY 4.0. [doi.org/10.5281/zenodo.14592001](https://doi.org/10.5281/zenodo.14592001)
+
+This page is general education and is not medical advice. It does not replace a qualified medical professional. Cathra is not a medical device and does not diagnose any condition. See [the full disclaimer](https://www.cathra.dev/privacy#disclaimer).
+
+### Keep reading
+
+- [What does a normal ovary look like on ultrasound?](https://www.cathra.dev/learn/normal-ovary-ultrasound)
+- [How accurate is AI at reading ultrasounds?](https://www.cathra.dev/learn/ai-ultrasound-accuracy)
+- [Can AI detect PCOS from an ultrasound?](https://www.cathra.dev/learn/can-ai-detect-pcos)
+
+---
+
+## How accurate is AI at reading ultrasounds?
+
+Source: https://www.cathra.dev/learn/ai-ultrasound-accuracy
+
+[Learn](https://www.cathra.dev/learn)
+
+### How accurate is AI at reading ultrasounds?
+
+What accuracy numbers really mean, using Cathra’s own test results as a worked example.
+
+From Cathra · Updated November 25, 2026 · General education, not medical advice
+
+Short answer
+
+It depends on the tool, the task, and especially how it was tested. A single accuracy number can look impressive while hiding serious weaknesses, so it helps to know a few other measures and to ask where the test images came from.
+
+### Why one number can mislead
+
+Cathra’s first model (v1) scored **74.2% accuracy** on 1,449 test images. That sounds decent, but it correctly recognized only **19.2% of normal images**. Because most test images were abnormal, a model that called almost everything abnormal still looked fairly accurate.
+
+Cathra’s current model (v2) was trained on balanced data. It scored 85.6% accuracy and, more importantly, recognized 70.8% of normal images and 91.4% of abnormal ones.
+
+### The measures that matter
+
+- **Sensitivity:** of the truly abnormal images, how many the AI called abnormal.
+- **Specificity:** of the truly normal images, how many the AI called normal.
+- **Balanced accuracy:** the average of the two, so a lopsided test set can’t hide a weak spot. Cathra v1 scored 57.6% here; v2 scored 81.1%.
+- **Positive predictive value:** when the AI says “abnormal,” how often it is right. This depends heavily on how common the condition is in the group being tested.
+
+### Where the test images came from matters most
+
+- **Same source vs. new sources:** models are often tested on images from the same dataset they learned from. Results on images from other hospitals, machines, or patients are usually lower.
+- **Near-duplicate images:** if test images are near-copies of training images, results look better than they really are. [Learn why](https://www.cathra.dev/learn/duplicate-images-medical-ai).
+- **Confidence:** a good tool should say when it isn’t sure. Cathra only names a pattern when its scores clear calibrated thresholds, and otherwise says it can’t tell.
+
+### Questions to ask about any ultrasound AI
+
+- What were sensitivity and specificity, not just accuracy?
+- Was it tested on images from different hospitals or machines?
+- Were duplicate or near-duplicate images removed before testing?
+- Has it been reviewed or cleared by a regulator for clinical use?
+
+Cathra is a research and education tool. It has not been clinically validated or cleared by any regulator, and its results come from one public dataset.
+
+**Try Cathra.** Compare an ovarian ultrasound image to learned patterns, free and privately in your browser.
+
+[Open the tool](https://www.cathra.dev/analyze)
+
+### Sources
+
+- Aaron T. Cathra: An In-Browser Classifier for Normal and Abnormal Ovarian Ultrasound Appearance [Preprint]. Zenodo; 2026. [doi.org/10.5281/zenodo.24118082](https://doi.org/10.5281/zenodo.24118082)
+- Collins GS, Moons KGM, Dhiman P, et al. TRIPOD+AI statement: updated guidance for reporting clinical prediction models that use regression or machine learning methods. BMJ. 2024;385:e078378. [doi.org/10.1136/bmj-2023-078378](https://doi.org/10.1136/bmj-2023-078378)
+- Handa P, Saini A, Dutta S, et al. PCOSGen-train and PCOSGen-test datasets. Zenodo; 2025. CC BY 4.0. [doi.org/10.5281/zenodo.14592001](https://doi.org/10.5281/zenodo.14592001)
+
+This page is general education and is not medical advice. It does not replace a qualified medical professional. Cathra is not a medical device and does not diagnose any condition. See [the full disclaimer](https://www.cathra.dev/privacy#disclaimer).
+
+### Keep reading
+
+- [What does a normal ovary look like on ultrasound?](https://www.cathra.dev/learn/normal-ovary-ultrasound)
+- [What does a polycystic ovary look like on ultrasound?](https://www.cathra.dev/learn/polycystic-ovary-ultrasound)
+- [Can AI detect PCOS from an ultrasound?](https://www.cathra.dev/learn/can-ai-detect-pcos)
+
+---
+
+## Can AI detect PCOS from an ultrasound?
+
+Source: https://www.cathra.dev/learn/can-ai-detect-pcos
+
+[Learn](https://www.cathra.dev/learn)
+
+### Can AI detect PCOS from an ultrasound?
+
+An honest look at what ultrasound AI can and cannot tell you about PCOS.
+
+From Cathra · Updated November 25, 2026 · General education, not medical advice
+
+Short answer
+
+No. An AI tool cannot diagnose PCOS from an ultrasound alone. PCOS is diagnosed by a clinician using symptoms, blood tests, and ruling out other conditions. At most, ultrasound AI can estimate whether an image resembles a polycystic ovarian appearance, which is only one part of one diagnostic criterion.
+
+### Why an ultrasound alone isn’t enough
+
+In adults, PCOS is diagnosed when at least two of three features are present: irregular periods or ovulation problems, signs of high androgens, and polycystic ovarian morphology on ultrasound (or a high AMH blood level). Other conditions must be ruled out first. An image can only speak to one of those three, and many people with polycystic-looking ovaries don’t have PCOS.
+
+### What ultrasound AI can do in research
+
+- Compare an image to patterns learned from labeled examples.
+- Help researchers and students study how image AI behaves, including its mistakes.
+- Highlight how dataset quality, such as duplicate or mislabeled images, affects results.
+
+### What it can’t do
+
+- Diagnose PCOS or any other condition.
+- Account for symptoms, hormone levels, age, or cycle timing.
+- Replace an ultrasound exam read by a qualified professional.
+
+### Be careful with PCOS AI claims
+
+If an app says it can “detect” or “diagnose” PCOS from a photo or scan, ask how it was tested, on whose images, and whether it has been cleared for medical use. Treat high accuracy claims with caution unless they are backed by testing on images from many different sources.
+
+### Where Cathra fits
+
+Cathra compares an ovarian ultrasound to normal and abnormal appearance patterns. Most abnormal images it learned from show a polycystic appearance, but Cathra does not detect or diagnose PCOS. It is a free research and education tool, and it runs privately in your browser.
+
+### Quick answers
+
+**Can AI diagnose PCOS?**
+
+No. PCOS is diagnosed by a clinician using symptoms, blood tests, and ultrasound or AMH, after ruling out other causes. AI cannot make that diagnosis from an image.
+
+**Does Cathra detect PCOS?**
+
+No. Cathra compares an ovarian ultrasound to normal and abnormal appearance patterns for research and education. It does not detect or diagnose PCOS or any other condition.
+
+**Do polycystic ovaries mean PCOS?**
+
+Not necessarily. Polycystic-looking ovaries are common, especially in teenagers, and are only one of three criteria used to diagnose PCOS in adults.
+
+**Try Cathra.** Compare an ovarian ultrasound image to learned patterns, free and privately in your browser.
+
+[Open the tool](https://www.cathra.dev/analyze)
+
+### Sources
+
+- Teede HJ, Tay CT, Laven JJE, et al. Recommendations from the 2023 international evidence-based guideline for the assessment and management of polycystic ovary syndrome. J Clin Endocrinol Metab. 2023;108(10):2447–2469. [doi.org/10.1210/clinem/dgad463](https://doi.org/10.1210/clinem/dgad463)
+- MedlinePlus Genetics. Polycystic ovary syndrome. [medlineplus.gov/genetics/condition/polycystic-ovary-syndrome/](https://medlineplus.gov/genetics/condition/polycystic-ovary-syndrome/)
+- Aaron T. Cathra: An In-Browser Classifier for Normal and Abnormal Ovarian Ultrasound Appearance [Preprint]. Zenodo; 2026. [doi.org/10.5281/zenodo.24118082](https://doi.org/10.5281/zenodo.24118082)
+
+This page is general education and is not medical advice. It does not replace a qualified medical professional. Cathra is not a medical device and does not diagnose any condition. See [the full disclaimer](https://www.cathra.dev/privacy#disclaimer).
+
+### Keep reading
+
+- [What does a normal ovary look like on ultrasound?](https://www.cathra.dev/learn/normal-ovary-ultrasound)
+- [What does a polycystic ovary look like on ultrasound?](https://www.cathra.dev/learn/polycystic-ovary-ultrasound)
+- [How accurate is AI at reading ultrasounds?](https://www.cathra.dev/learn/ai-ultrasound-accuracy)
+
+---
+
+## Why duplicate images make medical AI look better than it is
+
+Source: https://www.cathra.dev/learn/duplicate-images-medical-ai
+
+[Learn](https://www.cathra.dev/learn)
+
+### Why duplicate images make medical AI look better than it is
+
+How copied and mislabeled images quietly inflate results, and how to check a dataset for free.
+
+From Cathra · Updated November 25, 2026 · General education, not medical advice
+
+Short answer
+
+When the same or nearly the same image appears in both the training set and the test set, an AI model is partly being tested on images it has already seen. That makes its accuracy look higher than it would be on truly new images. When the same image appears with two different labels, no model can get both right.
+
+### How duplicates sneak in
+
+- **Video frames:** ultrasound datasets often include several frames from the same scan, which look almost identical.
+- **Re-saved or resized copies:** the same picture saved at a different size or quality.
+- **Images collected from the web:** the same image can be downloaded from several places.
+
+### A real example
+
+Running [Cathra Dataset Check](https://www.cathra.dev/dataset-check) on the public PCOSGen ovarian ultrasound dataset (4,569 images after removing exact duplicate files), at its recommended setting, flagged:
+
+- **3,626 images (79%)** that have at least one near-copy in the dataset,
+- **5,173 near-copy pairs** that cross the training and test sets, and
+- **7,939 near-copy pairs** where the two images carry different labels.
+
+Looking similar isn’t always the same as being a true copy, so matches should be reviewed by hand. Still, numbers like these mean test results on this dataset, including Cathra’s own, may look better than they would on images from new sources. Cathra says so on its [How it works](https://www.cathra.dev/how-it-works) page.
+
+### How to avoid it
+
+- Remove exact and near-duplicate images before splitting data into training and test sets.
+- Split by patient or by scan, not by individual image, so frames from one scan stay together.
+- Review images that appear with conflicting labels.
+- Report results on a cleaned test set, and say what was removed.
+
+### Check a dataset for free
+
+[Cathra Dataset Check](https://www.cathra.dev/dataset-check) finds exact copies, near-copies, conflicting labels, and train/test leaks in a folder of images. It runs entirely in your browser, so nothing is uploaded.
+
+**Try Cathra.** Compare an ovarian ultrasound image to learned patterns, free and privately in your browser.
+
+[Open the tool](https://www.cathra.dev/analyze)
+
+### Sources
+
+- Handa P, Saini A, Dutta S, et al. PCOSGen-train and PCOSGen-test datasets. Zenodo; 2025. CC BY 4.0. [doi.org/10.5281/zenodo.14592001](https://doi.org/10.5281/zenodo.14592001)
+- Aaron T. Cathra: An In-Browser Classifier for Normal and Abnormal Ovarian Ultrasound Appearance [Preprint]. Zenodo; 2026. [doi.org/10.5281/zenodo.24118082](https://doi.org/10.5281/zenodo.24118082)
+- Collins GS, Moons KGM, Dhiman P, et al. TRIPOD+AI statement: updated guidance for reporting clinical prediction models that use regression or machine learning methods. BMJ. 2024;385:e078378. [doi.org/10.1136/bmj-2023-078378](https://doi.org/10.1136/bmj-2023-078378)
+
+This page is general education and is not medical advice. It does not replace a qualified medical professional. Cathra is not a medical device and does not diagnose any condition. See [the full disclaimer](https://www.cathra.dev/privacy#disclaimer).
+
+### Keep reading
+
+- [What does a normal ovary look like on ultrasound?](https://www.cathra.dev/learn/normal-ovary-ultrasound)
+- [What does a polycystic ovary look like on ultrasound?](https://www.cathra.dev/learn/polycystic-ovary-ultrasound)
+- [How accurate is AI at reading ultrasounds?](https://www.cathra.dev/learn/ai-ultrasound-accuracy)

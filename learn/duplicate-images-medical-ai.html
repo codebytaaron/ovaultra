@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Why Duplicate Images Make Medical AI Look Better Than It Is | Cathra</title>
+  <meta name="description" content="How near-duplicate and mislabeled images in medical datasets inflate AI accuracy, a real example from a public ovarian ultrasound dataset, and how to check your own data for free." />
+  <link rel="canonical" href="https://www.cathra.dev/learn/duplicate-images-medical-ai" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Cathra" />
+  <meta property="og:title" content="Why Duplicate Images Make Medical AI Look Better Than It Is | Cathra" />
+  <meta property="og:description" content="How near-duplicate and mislabeled images in medical datasets inflate AI accuracy, a real example from a public ovarian ultrasound dataset, and how to check your own data for free." />
+  <meta property="og:url" content="https://www.cathra.dev/learn/duplicate-images-medical-ai" />
+  <meta property="og:image" content="https://www.cathra.dev/media/cathra-ovarian-ultrasound-tool.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Why Duplicate Images Make Medical AI Look Better Than It Is | Cathra" />
+  <meta name="twitter:description" content="How near-duplicate and mislabeled images in medical datasets inflate AI accuracy, a real example from a public ovarian ultrasound dataset, and how to check your own data for free." />
+  <meta name="twitter:image" content="https://www.cathra.dev/media/cathra-ovarian-ultrasound-tool.png" />
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="icon" href="/favicon.ico" sizes="48x48" />
+  <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://www.cathra.dev/learn/duplicate-images-medical-ai#article",
+      "headline": "Why duplicate images make medical AI look better than it is",
+      "description": "How near-duplicate and mislabeled images in medical datasets inflate AI accuracy, a real example from a public ovarian ultrasound dataset, and how to check your own data for free.",
+      "url": "https://www.cathra.dev/learn/duplicate-images-medical-ai",
+      "mainEntityOfPage": "https://www.cathra.dev/learn/duplicate-images-medical-ai",
+      "inLanguage": "en",
+      "dateModified": "2026-11-25",
+      "datePublished": "2026-11-25",
+      "author": {
+        "@type": "Organization",
+        "@id": "https://www.cathra.dev/#org",
+        "name": "Cathra",
+        "url": "https://www.cathra.dev/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "@id": "https://www.cathra.dev/#org",
+        "name": "Cathra",
+        "url": "https://www.cathra.dev/"
+      },
+      "image": "https://www.cathra.dev/media/cathra-ovarian-ultrasound-tool.png",
+      "isAccessibleForFree": true,
+      "citation": [
+        "https://doi.org/10.5281/zenodo.14592001",
+        "https://doi.org/10.5281/zenodo.24118082",
+        "https://doi.org/10.1136/bmj-2023-078378"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Cathra",
+          "item": "https://www.cathra.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Learn",
+          "item": "https://www.cathra.dev/learn"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Why duplicate images make medical AI look better than it is",
+          "item": "https://www.cathra.dev/learn/duplicate-images-medical-ai"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="wordmark" href="/">Cathra</a>
+    <nav class="topnav" aria-label="Main">
+      <a href="/analyze">Analyze</a>
+      <a href="/how-it-works">How it works</a>
+      <a href="/research">Research</a>
+      <a href="/learn">Learn</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/founder">Founder</a>
+    </nav>
+    <details class="mnav">
+      <summary aria-label="Menu"><span class="mnav-bars" aria-hidden="true"></span>Menu</summary>
+      <nav class="mnav-panel" aria-label="Menu">
+        <a href="/analyze">Analyze</a>
+        <a href="/how-it-works">How it works</a>
+        <a href="/research">Research</a>
+        <a href="/learn">Learn</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/founder">Founder</a>
+      </nav>
+    </details>
+  </header>
+
+  <main>
+    <article class="prose learn-article">
+      <header class="page-head">
+        <p class="eyebrow"><a href="/learn">Learn</a></p>
+        <h1>Why duplicate images make medical AI look better than it is</h1>
+        <p class="lede">How copied and mislabeled images quietly inflate results, and how to check a dataset for free.</p>
+        <p class="learn-meta">From Cathra · Updated November 25, 2026 · General education, not medical advice</p>
+      </header>
+
+      <section class="block">
+      <div class="learn-answer">
+        <p class="learn-answer-label">Short answer</p>
+        <p>When the same or nearly the same image appears in both the training set and the test set, an AI model is partly being tested on images it has already seen. That makes its accuracy look higher than it would be on truly new images. When the same image appears with two different labels, no model can get both right.</p>
+      </div>
+
+<h2>How duplicates sneak in</h2>
+<ul>
+  <li><strong>Video frames:</strong> ultrasound datasets often include several frames from the same scan, which look almost identical.</li>
+  <li><strong>Re-saved or resized copies:</strong> the same picture saved at a different size or quality.</li>
+  <li><strong>Images collected from the web:</strong> the same image can be downloaded from several places.</li>
+</ul>
+
+<h2>A real example</h2>
+<p>Running <a href="/dataset-check">Cathra Dataset Check</a> on the public PCOSGen ovarian ultrasound dataset (4,569 images after removing exact duplicate files), at its recommended setting, flagged:</p>
+<ul>
+  <li><strong>3,626 images (79%)</strong> that have at least one near-copy in the dataset,</li>
+  <li><strong>5,173 near-copy pairs</strong> that cross the training and test sets, and</li>
+  <li><strong>7,939 near-copy pairs</strong> where the two images carry different labels.</li>
+</ul>
+<p>Looking similar isn’t always the same as being a true copy, so matches should be reviewed by hand. Still, numbers like these mean test results on this dataset, including Cathra’s own, may look better than they would on images from new sources. Cathra says so on its <a href="/how-it-works">How it works</a> page.</p>
+
+<h2>How to avoid it</h2>
+<ul>
+  <li>Remove exact and near-duplicate images before splitting data into training and test sets.</li>
+  <li>Split by patient or by scan, not by individual image, so frames from one scan stay together.</li>
+  <li>Review images that appear with conflicting labels.</li>
+  <li>Report results on a cleaned test set, and say what was removed.</li>
+</ul>
+
+<h2>Check a dataset for free</h2>
+<p><a href="/dataset-check">Cathra Dataset Check</a> finds exact copies, near-copies, conflicting labels, and train/test leaks in a folder of images. It runs entirely in your browser, so nothing is uploaded.</p>
+
+      <div class="learn-cta">
+        <p><strong>Try Cathra.</strong> Compare an ovarian ultrasound image to learned patterns, free and privately in your browser.</p>
+        <a class="btn btn-dark" href="/analyze">Open the tool</a>
+      </div>
+
+      <h2>Sources</h2>
+      <ol class="learn-sources">
+          <li>Handa P, Saini A, Dutta S, et al. PCOSGen-train and PCOSGen-test datasets. Zenodo; 2025. CC BY 4.0. <a href="https://doi.org/10.5281/zenodo.14592001" target="_blank" rel="noopener">doi.org/10.5281/zenodo.14592001</a></li>
+          <li>Aaron T. Cathra: An In-Browser Classifier for Normal and Abnormal Ovarian Ultrasound Appearance [Preprint]. Zenodo; 2026. <a href="https://doi.org/10.5281/zenodo.24118082" target="_blank" rel="noopener">doi.org/10.5281/zenodo.24118082</a></li>
+          <li>Collins GS, Moons KGM, Dhiman P, et al. TRIPOD+AI statement: updated guidance for reporting clinical prediction models that use regression or machine learning methods. BMJ. 2024;385:e078378. <a href="https://doi.org/10.1136/bmj-2023-078378" target="_blank" rel="noopener">doi.org/10.1136/bmj-2023-078378</a></li>
+      </ol>
+      <p class="small-note">This page is general education and is not medical advice. It does not replace a qualified medical professional. Cathra is not a medical device and does not diagnose any condition. See <a href="/privacy#disclaimer">the full disclaimer</a>.</p>
+
+      <h2>Keep reading</h2>
+      <ul>
+          <li><a href="/learn/normal-ovary-ultrasound">What does a normal ovary look like on ultrasound?</a></li>
+          <li><a href="/learn/polycystic-ovary-ultrasound">What does a polycystic ovary look like on ultrasound?</a></li>
+          <li><a href="/learn/ai-ultrasound-accuracy">How accurate is AI at reading ultrasounds?</a></li>
+      </ul>
+      </section>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <p class="footer-credit">
+      Founded by
+      <a href="https://teddyaaron.com" target="_blank" rel="noopener noreferrer">Teddy Aaron</a> ·
+      <a href="https://www.linkedin.com/in/teddy-aaron/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    </p>
+    <nav class="footer-links" aria-label="Footer">
+      <a href="/analyze">Analyze</a>
+      <a href="/how-it-works">How it works</a>
+      <a href="/research">Research</a>
+      <a href="/learn">Learn</a>
+      <a href="/privacy">Privacy &amp; terms</a>
+      <a href="/research#changelog">Changelog</a>
+      <a href="/dataset-check">Dataset Check</a>
+      <a href="/founder">Founder</a>
+      <a href="/how-it-works#dataset">Data: PCOSGen (CC BY 4.0)</a>
+      <a href="https://hemraresarch.teddyaaron.com" target="_blank" rel="noopener">Sister project: Hemra</a>
+    </nav>
+    <p class="footer-meta">Last updated November 2026 · © 2026 Teddy Aaron Ventures LLC. All rights reserved.</p>
+  </footer>
+</body>
+</html>
