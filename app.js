@@ -427,7 +427,7 @@ function renderResults(predictions) {
 
   if (decision === "uncertain") {
     verdictLabel.textContent = "Unable to assess confidently";
-    verdictTag.textContent = "Not confident enough to choose";
+    verdictTag.textContent = "Normal needs 60%+ and abnormal about 97%+ to name a pattern";
     verdictTag.hidden = false;
     verdict.classList.add("is-uncertain");
   } else if (decision === "normal") {

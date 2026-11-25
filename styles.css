@@ -112,14 +112,13 @@ h1 {
   margin: 26px 0 0;
   padding: 20px 0 0;
   border-top: 1px solid var(--line);
-  display: grid;
-  grid-template-columns: repeat(2, auto);
-  justify-content: start;
+  display: flex;
+  flex-wrap: wrap;
   gap: 10px 28px;
   font-size: 14px;
   color: var(--ink-soft);
 }
-.hero-facts li { display: flex; align-items: center; gap: 10px; }
+.hero-facts li { display: flex; align-items: center; gap: 10px; white-space: nowrap; }
 .hero-facts li::before {
   content: "";
   flex: none;
@@ -658,7 +657,7 @@ main:has(#tool:not([hidden])) .disclaimer { max-width: 640px; margin-left: auto;
 }
 .credit p { font-size: 14.5px; margin: 0; }
 @media (max-width: 540px) {
-  .hero-facts { grid-template-columns: 1fr; }
+  .hero-facts { flex-direction: column; }
 }
 
 /* ---- Research & teaching page ---- */
@@ -989,16 +988,17 @@ a, button, summary, label { touch-action: manipulation; -webkit-tap-highlight-co
 
 .prose a.btn-plain { text-decoration: none; color: var(--ink); }
 
-/* ---- Homepage: What is Cathra ---- */
-.about { margin: 0 0 32px; padding: 28px 24px; border: 1px solid var(--line); border-radius: 20px; }
-.about h2 { font-size: 22px; letter-spacing: -0.01em; margin: 0 0 8px; }
-.about-lead { font-size: 16px; color: #333; margin: 0 0 22px; max-width: 760px; }
-.about-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
-.about h3 { font-size: 15px; margin: 0 0 6px; }
-.about-grid p { font-size: 14px; color: var(--ink-soft); margin: 0; line-height: 1.55; }
+/* ---- Homepage: What is Cathra (collapsed by default) ---- */
+.about { margin: 0 0 32px; padding: 0 24px; border: 1px solid var(--line); border-radius: 20px; }
+.about summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; min-height: 56px; }
+.about summary::-webkit-details-marker { display: none; }
+.about summary::after { content: "+"; font-size: 20px; color: var(--ink-soft); }
+.about[open] summary::after { content: "−"; }
+.about h2 { font-size: 16px; font-weight: 600; margin: 0; }
+.about-lead { font-size: 14.5px; color: #333; margin: 0 0 16px; max-width: 760px; }
+.about-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; padding-bottom: 22px; }
+.about h3 { font-size: 14px; margin: 0 0 4px; }
+.about-grid p { font-size: 13.5px; color: var(--ink-soft); margin: 0; line-height: 1.5; }
 .about-grid a { color: var(--ink); text-underline-offset: 2px; white-space: nowrap; }
 @media (max-width: 900px) { .about-grid { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 540px) {
-  .about { padding: 22px 18px; }
-  .about-grid { grid-template-columns: 1fr; gap: 16px; }
-}
+@media (max-width: 540px) { .about { padding: 0 18px; } .about-grid { grid-template-columns: 1fr; gap: 14px; } }

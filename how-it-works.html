@@ -193,6 +193,7 @@
         You give Cathra an existing ovarian ultrasound image. It compares the image to two visual
         patterns it learned during training, <strong>normal ovarian appearance</strong> and
         <strong>abnormal ovarian appearance</strong>, and returns a similarity score for each.
+       Neither result confirms or rules out cancer or any other condition.
       </p>
       </section>
 
@@ -201,7 +202,8 @@
       <p>
         The current model (v2) was trained on 1,734 labeled ovarian ultrasound images, 867 in each
         category, and tested on a separate set of 1,449 images it never saw during training.
-        Exact duplicates were removed, and no test image is a copy of a training image.
+        Exact duplicate files were removed. Some test images are near-copies of training images,
+        such as frames from the same scan, which can make test results look better than they are.
       </p>
       <ul>
         <li><strong>Normal:</strong> ovaries with a typical appearance.</li>
@@ -210,9 +212,6 @@
           dataset, most abnormal images show a polycystic ovarian appearance.
         </li>
       </ul>
-      <p>
-        Neither result confirms or rules out cancer or any other condition.
-      </p>
       <div class="credit" id="dataset">
         <p class="credit-label">Dataset credit</p>
         <p>
@@ -233,8 +232,8 @@
       <h2>Test results</h2>
       <p>
         I tested both versions of the model on the same 1,449 PCOSGen test images (411 normal,
-        1,038 abnormal), none of which were used in training. Each image was scored exactly the
-        way the website scores it.
+        1,038 abnormal), none of which were used in training. Each image was scored by the same
+        model the website uses, counting the higher of its two scores as the answer.
       </p>
       <div class="table-wrap">
         <table class="results-table">

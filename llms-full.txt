@@ -17,10 +17,9 @@ Choose an existing ultrasound image. Cathra scores how closely it matches a norm
 
 [How it works →](https://www.cathra.dev/how-it-works)
 
-- Trained and tested on thousands of ultrasound images
 - Runs on your device
-- Nothing is uploaded or stored
-- Similarity scores, not a diagnosis
+- Nothing is uploaded
+- Not a diagnosis
 
 ### Why I built Cathra
 
@@ -28,7 +27,7 @@ Cancer has affected me personally. When I looked for tools like this, I found th
 
 Teddy Aaron, founder · [About Teddy →](https://www.cathra.dev/founder)
 
-### What is Cathra?
+**### What is Cathra?**
 
 Cathra is a free research and education tool that uses machine learning to compare an ovarian ultrasound image to two learned patterns: normal ovarian appearance and abnormal ovarian appearance. It runs entirely in your web browser.
 
@@ -62,17 +61,15 @@ What Cathra was trained on, what its scores mean, and where it falls short.
 
 ### What it’s for
 
-You give Cathra an existing ovarian ultrasound image. It compares the image to two visual patterns it learned during training, **normal ovarian appearance** and **abnormal ovarian appearance**, and returns a similarity score for each.
+You give Cathra an existing ovarian ultrasound image. It compares the image to two visual patterns it learned during training, **normal ovarian appearance** and **abnormal ovarian appearance**, and returns a similarity score for each. Neither result confirms or rules out cancer or any other condition.
 
 ### Training data
 
-The current model (v2) was trained on 1,734 labeled ovarian ultrasound images, 867 in each category, and tested on a separate set of 1,449 images it never saw during training. Exact duplicates were removed, and no test image is a copy of a training image.
+The current model (v2) was trained on 1,734 labeled ovarian ultrasound images, 867 in each category, and tested on a separate set of 1,449 images it never saw during training. Exact duplicate files were removed. Some test images are near-copies of training images, such as frames from the same scan, which can make test results look better than they are.
 
 - **Normal:** ovaries with a typical appearance.
 
 - **Abnormal:** ovaries that differ from a typical appearance. In this dataset, most abnormal images show a polycystic ovarian appearance.
-
-Neither result confirms or rules out cancer or any other condition.
 
 Dataset credit
 
@@ -80,7 +77,7 @@ Training images come from the **PCOSGen** dataset (train and test sets), created
 
 ### Test results
 
-I tested both versions of the model on the same 1,449 PCOSGen test images (411 normal, 1,038 abnormal), none of which were used in training. Each image was scored exactly the way the website scores it.
+I tested both versions of the model on the same 1,449 PCOSGen test images (411 normal, 1,038 abnormal), none of which were used in training. Each image was scored by the same model the website uses, counting the higher of its two scores as the answer.
 
 | | v1 (July 2026) | v2 (November 2026) |
 |---|---|---|

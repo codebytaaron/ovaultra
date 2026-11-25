@@ -161,10 +161,9 @@
           </div>
 
           <ul class="hero-facts">
-            <li>Trained and tested on thousands of ultrasound images</li>
             <li>Runs on your device</li>
-            <li>Nothing is uploaded or stored</li>
-            <li>Similarity scores, not a diagnosis</li>
+            <li>Nothing is uploaded</li>
+            <li>Not a diagnosis</li>
           </ul>
         </div>
 
@@ -201,8 +200,8 @@
       </section>
 
       <!-- What is Cathra (plain-language summary for readers and search engines) -->
-      <section class="about" aria-labelledby="about-title">
-        <h2 id="about-title">What is Cathra?</h2>
+      <details class="about">
+        <summary><h2 id="about-title">What is Cathra?</h2></summary>
         <p class="about-lead">
           Cathra is a free research and education tool that uses machine learning to compare an
           ovarian ultrasound image to two learned patterns: normal ovarian appearance and abnormal
@@ -236,7 +235,7 @@
               <a href="/research">Cathra research</a></p>
           </div>
         </div>
-      </section>
+      </details>
     </section>
 
     <!-- ============ TOOL ============ -->
@@ -251,7 +250,7 @@
 
       <!-- Upload -->
       <div id="view-upload" class="view">
-        <h2 class="view-title">Upload an ultrasound image</h2>
+        <h2 class="view-title">Choose an ultrasound image</h2>
         <p class="view-sub">Choose an existing ovarian ultrasound picture. It stays on your device and is compared to the normal and abnormal patterns.</p>
         <label id="dropzone" class="dropzone" for="file-input" tabindex="0" role="button"
                aria-label="Choose an ultrasound image to analyze">
@@ -263,7 +262,7 @@
           <span class="dz-sub">JPG or PNG</span>
           <span class="dz-browse">Browse files</span>
         </label>
-        <p class="upload-note">Only upload ovarian ultrasound images. Other photos or scans won’t give meaningful results.</p>
+        <p class="upload-note">Use ovarian ultrasound images only. Other photos or scans won’t give meaningful results.</p>
         <p id="file-error" class="file-error" role="alert" hidden></p>
         <ul class="tips" aria-label="Tips for best results">
           <li>Use a single ovarian ultrasound view, not a collage or a screenshot of a web page.</li>
@@ -330,7 +329,7 @@
         </div>
 
         <p class="score-explainer">
-          These are the model's visual similarity scores — how closely the image resembles each
+          These are the model’s visual similarity scores: how closely the image resembles each
           learned pattern. They are not the probability that a person has any medical condition.
         </p>
 
@@ -339,7 +338,7 @@
         <div class="btn-row">
           <button id="btn-again" class="btn btn-dark" type="button">Try another image</button>
           <button id="btn-print" class="btn btn-plain" type="button">Save as PDF</button>
-          <a class="btn btn-plain" href="/how-it-works" target="_blank" rel="noopener">How to read this result</a>
+          <a class="btn btn-plain" href="/how-it-works#confidence" target="_blank" rel="noopener">How to read this result</a>
         </div>
       </div>
     </section>
