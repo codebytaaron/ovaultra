@@ -1,0 +1,337 @@
+# Cathra: full text
+
+> The full text of every page on cathra.dev, for AI assistants and search tools. Cathra is a free research and education tool that uses machine learning to compare an ovarian ultrasound image to normal and abnormal ovarian appearance, privately in the browser. It is not a medical device and does not diagnose any condition.
+
+
+---
+
+## Cathra: homepage
+
+Source: https://www.cathra.dev/
+
+Ovarian ultrasound pattern tool
+
+### Cathra compares an ovarian ultrasound to learned patterns.
+
+Choose an existing ultrasound image. Cathra scores how closely it matches a normal and an abnormal ovarian pattern, privately, in your browser.
+
+[How it works →](https://www.cathra.dev/how-it-works)
+
+- Trained and tested on thousands of ultrasound images
+- Runs on your device
+- Nothing is uploaded or stored
+- Similarity scores, not a diagnosis
+
+### Why I built Cathra
+
+Cancer has affected me personally. When I looked for tools like this, I found that work in this area is very limited, and there wasn’t a private, free option anyone could explore. I saw that gap and built Cathra to fill it. I’m grateful for all the support, and hearing from people who’ve found it helpful means more to me than I can say. Thank you.
+
+Teddy Aaron, founder · [About Teddy →](https://www.cathra.dev/founder)
+
+### What is Cathra?
+
+Cathra is a free research and education tool that uses machine learning to compare an ovarian ultrasound image to two learned patterns: normal ovarian appearance and abnormal ovarian appearance. It runs entirely in your web browser.
+
+#### How it works
+
+A neural network trained on thousands of labeled ovarian ultrasound images from the public PCOSGen dataset scores how closely your image matches each pattern. Most abnormal training images show a polycystic ovarian appearance. [How Cathra works](https://www.cathra.dev/how-it-works)
+
+#### Answers only when confident
+
+A calibrated rule decides when the scores are clear enough to name a pattern. Otherwise Cathra says it can’t tell instead of guessing. [Reading the results](https://www.cathra.dev/how-it-works#confidence)
+
+#### Private by design
+
+Your image is analyzed on your own device and is never uploaded, saved, or sent anywhere. There are no accounts and no cookies. [Privacy & terms](https://www.cathra.dev/privacy)
+
+#### Built for learning
+
+For students, teachers, and researchers exploring how AI reads medical images, with a published paper, a classroom lesson, and a free [dataset check tool](https://www.cathra.dev/dataset-check). It is not a diagnosis. [Cathra research](https://www.cathra.dev/research)
+
+---
+
+## How Cathra works
+
+Source: https://www.cathra.dev/how-it-works
+
+Model card
+
+### How Cathra works
+
+What Cathra was trained on, what its scores mean, and where it falls short.
+
+### What it’s for
+
+You give Cathra an existing ovarian ultrasound image. It compares the image to two visual patterns it learned during training, **normal ovarian appearance** and **abnormal ovarian appearance**, and returns a similarity score for each.
+
+### Training data
+
+The current model (v2) was trained on 1,734 labeled ovarian ultrasound images, 867 in each category, and tested on a separate set of 1,449 images it never saw during training. Exact duplicates were removed, and no test image is a copy of a training image.
+
+- **Normal:** ovaries with a typical appearance.
+
+- **Abnormal:** ovaries that differ from a typical appearance. In this dataset, most abnormal images show a polycystic ovarian appearance.
+
+Neither result confirms or rules out cancer or any other condition.
+
+Dataset credit
+
+Training images come from the **PCOSGen** dataset (train and test sets), created for the Auto-PCOS classification challenge by Palak Handa, Anushka Saini, Siddhant Dutta, Harsh Pathak, Nishi Choudhary, Nidhi Goel, and Jasdeep Kaur Dhanao. Published on Zenodo, 2025: [train](https://doi.org/10.5281/zenodo.14592001) · [test](https://doi.org/10.5281/zenodo.14591782). Used under the [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license. Images were sorted into Normal and Abnormal using the dataset’s own labels.
+
+### Test results
+
+I tested both versions of the model on the same 1,449 PCOSGen test images (411 normal, 1,038 abnormal), none of which were used in training. Each image was scored exactly the way the website scores it.
+
+| | v1 (July 2026) | v2 (November 2026) |
+|---|---|---|
+| Overall accuracy | 74.2% | **85.6%** |
+| Balanced accuracy | 57.6% | **81.1%** |
+| Normal images matched correctly | 19.2% (79 of 411) | **70.8%** (291 of 411) |
+| Abnormal images matched correctly | **96.0%** (996 of 1,038) | 91.4% (949 of 1,038) |
+
+- **What improved:** v2 recognizes normal images far more reliably, rising from 19% to 71%, so its results are much more balanced across both patterns.
+
+- **What changed slightly:** v2 matches 91% of abnormal images, compared with 96% for v1.
+
+- **Balanced accuracy** gives equal weight to normal and abnormal images. I report it because most of the test images are abnormal.
+
+- **Context:** v2 was trained and tested on images from the same dataset. Results on images from other sources may differ.
+
+Full methods and results are in the [Cathra paper (PDF)](https://www.cathra.dev/cathra-paper.pdf). These are research results on a public image dataset. They are not clinical performance figures and do not describe how Cathra would perform on any individual’s scan.
+
+### Reading the results
+
+Each percentage is a **visual similarity score**: how closely the image resembles that pattern. It is not the probability that a person has any condition.
+
+Cathra names a pattern only when it is confident enough. Its answer rule was calibrated with **conformal prediction**, a statistical method that sets thresholds from test data so that errors stay below a chosen rate. I targeted at most about 1 in 10 wrong answers for each pattern.
+
+- **Normal pattern:** the normal score is 60% or higher.
+- **Abnormal pattern:** the abnormal score is about 97% or higher.
+- **Anything in between:** “Unable to assess confidently.”
+
+The abnormal bar is higher because the model tends to over-call abnormal. On test images held out from calibration, Cathra gave an answer for about 9 in 10 images, and about 90% of those answers matched the dataset’s label. Normal images wrongly labeled abnormal fell from 28% to about 10%.
+
+This guarantee only applies to images similar to the PCOSGen test set. It says nothing about images from other sources, and it does not make the scores a diagnosis.
+
+### Questions
+
+**Is this a diagnosis?**
+
+No. Cathra is a research and education tool. It shows how closely an image matches two visual patterns it learned. It does not diagnose, detect, confirm, or rule out any condition. Only a qualified medical professional can interpret an ultrasound.
+
+**Is my image stored?**
+
+No. Your image is analyzed on your own device and is never uploaded, saved, or sent anywhere. When you choose another image or close the page, it is discarded.
+
+**What images work?**
+
+A single ovarian ultrasound view, saved as a JPG or PNG. Grayscale and Doppler scans both work. Higher-resolution images with fewer on-screen labels work best. Avoid collages, photos of screens, and screenshots of whole web pages. Cathra analyzes the center square of the image, which it outlines before you analyze.
+
+**Does it detect PCOS?**
+
+No. Cathra compares an image to normal and abnormal ovarian appearance. In its training data, most abnormal images show a polycystic appearance, but PCOS is diagnosed by a doctor using several criteria, not a single image.
+
+**Why does it say “Unable to assess confidently”?**
+
+Cathra only names a pattern when its scores clear a calibrated threshold: 60% or higher for normal, and about 97% or higher for abnormal. When the scores fall in between, it says it can’t tell instead of guessing. See [Reading the results](https://www.cathra.dev#confidence).
+
+### Limitations
+
+- Cathra is a research tool and has not been clinically validated. Like any model, it can be wrong (see [test results](https://www.cathra.dev#results)).
+
+- Its training images come from one public research dataset gathered from online sources. Performance on images from other hospitals, machines, or patient groups hasn’t been tested.
+
+- Image quality, cropping, on-screen labels, and annotations can affect the scores.
+
+- It compares two broad patterns. It doesn’t identify specific conditions or assign clinical categories such as O-RADS.
+
+- It’s designed only for ovarian ultrasound images. Other images can still produce scores, but those scores have no meaning.
+
+Research and education only. Not a medical device or a diagnosis. See [Privacy & terms](https://www.cathra.dev/privacy) for the full disclaimer.
+
+---
+
+## Cathra research and teaching
+
+Source: https://www.cathra.dev/research
+
+Research
+
+### Cathra research & teaching
+
+The Cathra paper, how to cite it, a free dataset tool, a ready-to-use lesson, and what’s changed. Free for learning and research, not for diagnosis.
+
+### Paper
+
+Cathra: An In-Browser Classifier for Normal and Abnormal Ovarian Ultrasound Appearance
+
+Teddy Aaron · Preprint · Zenodo, November 2026 · DOI [10.5281/zenodo.24118082](https://doi.org/10.5281/zenodo.24118082)
+
+- **85.6%** accuracy on 1,449 held-out test images
+- **81.1%** balanced accuracy across both classes
+- **1,734** training images, equal normal and abnormal
+
+**Abstract**
+
+I built Cathra, a free web tool that compares an existing ovarian ultrasound image to two learned patterns, normal and abnormal, and returns a similarity score for each. The model runs entirely in the browser, so images are never uploaded. I trained the current model (v2) on 1,734 images from the public PCOSGen dataset, balanced between the two classes, and tested it on 1,449 separate images. v2 reached 85.6% accuracy and 81.1% balanced accuracy, matching 91.4% of abnormal and 70.8% of normal test images. My first model (v1) reached 74.2% accuracy on the same images but recognized only 19.2% of normal ones. Cathra is for research and education only and is not a diagnostic tool.
+
+[Read the paper](https://www.cathra.dev/cathra-paper.pdf)
+
+Model v2 on the PCOSGen dataset (Handa et al., 2025, CC BY 4.0). Research results, not clinical performance figures. [Cathra’s full test results and limitations](https://www.cathra.dev/how-it-works#results).
+
+### Cite Cathra
+
+Aaron, T. (2026). *Cathra: An In-Browser Classifier for Normal and Abnormal Ovarian Ultrasound Appearance* [Preprint]. Zenodo. https://doi.org/10.5281/zenodo.24118082
+
+To cite the tool itself: Aaron, T. (2026). *Cathra* (Version 2) [Computer software]. https://www.cathra.dev. If you use the training data, please also cite the [PCOSGen dataset](https://www.cathra.dev/how-it-works#dataset).
+
+### Dataset Check
+
+Many public medical image datasets contain the same image more than once, sometimes with different labels or in both the training and test sets. That can make a model look more accurate than it is. [Cathra Dataset Check](https://www.cathra.dev/dataset-check) is a free tool that finds these copies in any folder of images, privately in your browser.
+
+[Check a dataset](https://www.cathra.dev/dataset-check)
+
+### Teach with Cathra
+
+A 30-minute lesson on what AI can and can’t do with medical images.
+
+- **Learn (5 min).** Read [how Cathra works](https://www.cathra.dev/how-it-works) together.
+- **Try (15 min).** Analyze a few images and note the scores and any “Unable to assess” results.
+
+- **Discuss (10 min).** Pick two questions below.
+
+**Where to find images:** use public, de-identified research datasets, such as PCOS ultrasound datasets on [Kaggle](https://www.kaggle.com/search?q=pcos+ultrasound) or [PCOSGen](https://www.cathra.dev/how-it-works#dataset). Check each dataset’s license before using it. Don’t use personal or patient scans.
+
+**Discussion questions**
+
+- Why is a similarity score not the same as a diagnosis?
+- Version 1 scored 74% overall but got only 19% of normal images right. How can one number be misleading?
+
+- Why might results differ on scans from another hospital?
+- Who is responsible when a medical AI tool is wrong?
+
+Using Cathra with a class or lab? Email [paultaaron@icloud.com](mailto:paultaaron@icloud.com?subject=Cathra%20for%20my%20institution) with your organization’s name and how you plan to use it.
+
+### Changelog
+
+- **Nov 12, 2026**:
+
+Dataset Check, a free in-browser tool that finds duplicate, mislabeled, and leaked images in medical image datasets.
+
+- **Nov 11, 2026**:
+
+Calibrated answer rule using conformal prediction.
+
+- **Nov 10, 2026**:
+
+Model v2, trained on balanced data and evaluated on 1,449 held-out test images.
+
+- **Nov 9, 2026**:
+
+Model loads in the background, so the first analysis is fast. Results can be saved as a PDF.
+
+- **Oct 9, 2026**:
+
+Images are analyzed at their original proportions. Warning for color photos. Versioned model files.
+
+- **Jul 20, 2026**:
+
+Launched with model v1, running entirely in the browser.
+
+---
+
+## Cathra Dataset Check
+
+Source: https://www.cathra.dev/dataset-check
+
+Free tool
+
+### Cathra Dataset Check
+
+Find copied and mislabeled images in a medical image dataset before you train or test a model. It runs in your browser, and nothing is uploaded.
+
+Drop a dataset folder here Folder names become labels, for example Normal/ and Abnormal/. Add train/ and test/ folders to check for leaks.
+
+How similar counts as a near-copy: Very close (recommended)
+
+Your images stay on this device. Cathra never sees them, their names, or the results.
+
+### Why this matters
+
+If the same scan appears in both the training and test sets, a model can look more accurate than it really is. If the same scan is labeled two different ways, no model can get both right. While building Cathra, I found both problems in a public ovarian ultrasound dataset, so I made this check free for anyone.
+
+### How it works
+
+Each image is shrunk to a tiny grayscale “fingerprint” (a perceptual hash). Images whose fingerprints are almost the same look almost the same, even if they were resized, re-saved, or slightly cropped. Exact copies are confirmed with a file checksum.
+
+Similar-looking images aren’t always true copies. Review the matches before removing anything. Research use only.
+
+---
+
+## Cathra privacy and terms
+
+Source: https://www.cathra.dev/privacy
+
+Privacy policy and terms
+
+### Cathra privacy & terms
+
+Effective November 11, 2026. Cathra is operated by Teddy Aaron Ventures LLC. The short version: your image never leaves your device.
+
+### Your images
+
+When you choose an image, your browser loads it into memory and the model analyzes it on your device. The image is **never uploaded, sent to a server, saved, logged, or stored** by Cathra. When you choose another image or close the page, it is discarded.
+
+### What we collect
+
+Cathra has no accounts, no sign-up, and no forms. We do not collect your name, email, health information, or the results of any analysis. Cathra does not use advertising or cookies, and it does not track you across sites.
+
+If you email us, we receive your email address and whatever you choose to include. We use it only to reply, and we never sell or share it.
+
+### Visit counts
+
+We use Vercel Web Analytics to count page visits, such as how many people opened the tool. It uses no cookies, does not identify you, and does not follow you across sites. It never sees your image or your results.
+
+### Hosting and libraries
+
+Like any website, the services that deliver Cathra’s files receive standard technical information when your browser requests them, such as your IP address, browser type, and the time of the request. These are:
+
+- **Vercel**, which hosts the website and the model files.
+
+- **jsDelivr**, a public CDN that delivers the TensorFlow.js and Teachable Machine libraries.
+
+These requests are only for Cathra’s own code and model. Your image is never part of them. Each provider handles this information under its own privacy policy.
+
+### Medical & legal disclaimer
+
+Cathra is a research and educational demonstration only. It is not a medical device, is not FDA-cleared or approved, and does not diagnose, treat, cure, prevent, detect, confirm, or rule out ovarian cancer or any other medical condition. Using it does not create a doctor-patient relationship. Results are computer-generated similarity scores provided “as is,” without warranties of any kind, and may be inaccurate or incomplete. Do not use them to make, delay, or disregard any medical decision, and always consult a qualified, licensed medical professional. You use Cathra entirely at your own risk.
+
+### Ownership
+
+Cathra is owned and operated by Teddy Aaron Ventures LLC. Cathra’s model, code, and design are proprietary and protected by copyright. You may not copy, download, redistribute, modify, or reverse-engineer them without written permission.
+
+### Other
+
+Cathra is not directed to children under 13. If this page changes, we will update it here and change the effective date above. Questions about privacy, terms, or permissions: [paultaaron@icloud.com](mailto:paultaaron@icloud.com?subject=Cathra)
+
+---
+
+## Founder
+
+Source: https://www.cathra.dev/founder
+
+Founder
+
+### Teddy Aaron
+
+Founder of Cathra · Greenwich, Connecticut
+
+Photo: NBC Connecticut
+
+Teddy Aaron is a student founder and product builder working where technology, healthcare, and artificial intelligence meet. He has built apps and platforms used by thousands of people, all while still in high school.
+
+His health work focuses on private, on-device machine-learning tools that analyze medical images, including ovarian ultrasounds and blood cells. He built Cathra so students, researchers, and anyone curious could explore, for free, how machine learning compares ovarian ultrasound images to normal and abnormal patterns.
+
+He also built [Hemra](https://hemraresarch.teddyaaron.com), Cathra’s sister project, which compares white blood cell images to learned patterns, privately in the browser.
+
+[teddyaaron.com](https://teddyaaron.com) [LinkedIn](https://www.linkedin.com/in/teddy-aaron/) [Email](mailto:paultaaron@icloud.com?subject=Cathra)

@@ -1,35 +1,34 @@
 # Cathra
 
-> Cathra is a free research and education tool that uses machine learning to compare an ovarian ultrasound image to two learned patterns, normal and abnormal ovarian appearance, and returns a similarity score for each. It runs entirely in the web browser, so images are never uploaded or stored. It is not a medical device and does not diagnose any condition.
+> Cathra (cathra.dev) is a free research and education tool that uses machine learning to compare an ovarian ultrasound image to two learned patterns, normal and abnormal ovarian appearance, and returns a similarity score for each. It runs entirely in the web browser, so images are never uploaded. It is not a medical device and does not diagnose any condition.
 
-Website: https://www.cathra.dev
-Built by: Teddy Aaron (https://www.cathra.dev/founder, https://teddyaaron.com)
-Owner: Teddy Aaron Ventures LLC
-Sister project: Hemra (https://hemraresarch.teddyaaron.com), which compares white blood cell images to learned patterns in the browser
+Key facts:
 
-## What it does
-- The user chooses an ovarian ultrasound image (JPG or PNG). A neural network running in the browser scores how closely it matches normal and abnormal ovarian appearance.
-- Cathra names a pattern only when it is confident, using thresholds calibrated with conformal prediction: normal at 60% or higher, abnormal at about 97% or higher. Otherwise it shows "Unable to assess confidently."
-- No accounts, no cookies, and no image uploads. Only anonymous, cookie-free visit counts are collected.
+- Name: Cathra (also written "Cathra AI" or "cathra.dev"). Not related to "Catra", the She-Ra character.
+- Website: https://www.cathra.dev
+- Built by: Teddy Aaron, a high school founder from Greenwich, Connecticut.
+- Owner: Teddy Aaron Ventures LLC.
+- Price: free. No accounts, no cookies, no image uploads.
+- Model: a neural network (model v2) trained on 1,734 images from the public PCOSGen ovarian ultrasound dataset (Handa et al., 2025, CC BY 4.0) and tested on 1,449 held-out images: 85.6% accuracy and 81.1% balanced accuracy. These are research results on one public dataset, not clinical performance.
+- Answer rule: Cathra names a pattern only when the scores clear thresholds calibrated with conformal prediction (normal at 60% or higher, abnormal at about 97% or higher). Otherwise it shows "Unable to assess confidently."
+- PCOS: most abnormal images in the training data show a polycystic ovarian appearance, but Cathra does not detect or diagnose PCOS or any other condition.
+- Paper: Aaron, T. (2026). Cathra: An In-Browser Classifier for Normal and Abnormal Ovarian Ultrasound Appearance [Preprint]. Zenodo. https://doi.org/10.5281/zenodo.24118082
+- Intended use: research and education only. Ultrasound images should be interpreted by a qualified medical professional.
 
-## Results (model v2, research results, not clinical performance)
-- Trained on 1,734 images from the public PCOSGen dataset (Handa et al., 2025, CC BY 4.0), balanced between normal and abnormal.
-- Tested on 1,449 held-out images: 85.6% accuracy, 81.1% balanced accuracy, 91.4% of abnormal and 70.8% of normal images matched correctly.
-- Training and test images come from one public dataset; performance on images from other sources has not been tested.
+## Tools
 
-## Dataset Check
-Cathra Dataset Check (https://www.cathra.dev/dataset-check) is a free in-browser tool that finds exact copies, near-copies (using perceptual hashing), images with conflicting labels, and train/test leaks in a folder of medical images. Folder names are used as labels. Nothing is uploaded.
+- [Analyze an ovarian ultrasound image](https://www.cathra.dev/analyze): choose a JPG or PNG ovarian ultrasound image and get normal and abnormal pattern similarity scores, computed on the user's device.
+- [Cathra Dataset Check](https://www.cathra.dev/dataset-check): free in-browser tool that finds exact copies, near-copies, images with conflicting labels, and train/test leaks in a folder of medical images. Nothing is uploaded.
 
-## Intended use
-Research and education only. Not for diagnosis, screening, or any medical decision. Ultrasound images should be interpreted by a qualified medical professional.
+## Docs
 
-## Paper
-Aaron, T. (2026). Cathra: An In-Browser Classifier for Normal and Abnormal Ovarian Ultrasound Appearance [Preprint]. Zenodo. https://doi.org/10.5281/zenodo.24118082
+- [How Cathra works](https://www.cathra.dev/how-it-works): training data, v1 vs v2 test results, how to read the scores, the calibrated answer rule, FAQ, and limitations.
+- [Cathra research and teaching](https://www.cathra.dev/research): the preprint and abstract, how to cite Cathra, a 30-minute classroom lesson, and the changelog.
+- [Privacy and terms](https://www.cathra.dev/privacy): images never leave the device; medical and legal disclaimer; ownership.
+- [Founder: Teddy Aaron](https://www.cathra.dev/founder): who built Cathra and why.
 
-## Pages
-- [Analyze an image](https://www.cathra.dev/analyze)
-- [How it works, test results, and FAQ](https://www.cathra.dev/how-it-works)
-- [Research, citation, lesson plan, and changelog](https://www.cathra.dev/research)
-- [Privacy and terms](https://www.cathra.dev/privacy)
-- [Dataset Check](https://www.cathra.dev/dataset-check)
-- [Founder](https://www.cathra.dev/founder)
+## Optional
+
+- [Full text of every page](https://www.cathra.dev/llms-full.txt): all of the above in one plain-text file.
+- [Paper (PDF)](https://www.cathra.dev/cathra-paper.pdf): the full preprint.
+- [Hemra](https://hemraresarch.teddyaaron.com): sister project by the same founder that compares white blood cell images to learned cell types in the browser.
